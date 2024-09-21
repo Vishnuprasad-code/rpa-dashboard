@@ -3,6 +3,9 @@ import Grid from '@mui/material/Grid2';
 import { blue } from '@mui/material/colors';
 
 import HomeSideBar from './components/HomeSideBar.tsx'
+import {USAMap} from './components/MapComponent/MapChart.tsx'
+
+import {MyResponsiveBar} from "./components/Charts/BarChart.tsx"
 
 
 function App() {
@@ -73,7 +76,7 @@ function HomeMain() {
         border: "1px solid red",
         "& > .MuiGrid2-direction-xs-row": {
           border: "1px solid blue",
-          height: "2rem"
+          height: "30vh"
         }
       }}
     >
@@ -81,10 +84,10 @@ function HomeMain() {
         Item1
       </Grid>
       <Grid size={{lg: 6, sm:12, xs: 12}}>
-        Item2
+        <USAMap/>
       </Grid>
       <Grid size={{lg:8, sm:12, xs: 12}}>
-        Item3
+        <MyResponsiveBar/>
       </Grid>
       <Grid size={{lg: 4}}>
         Item4
