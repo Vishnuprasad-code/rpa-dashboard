@@ -7,6 +7,8 @@ import {USAMap} from './components/MapComponent/MapChart.tsx'
 
 import {MyResponsiveBar} from "./components/Charts/BarChart.tsx"
 
+import AnimatedMuiTable from "./components/Tables/Table.tsx"
+
 
 function App() {
   return (
@@ -29,7 +31,7 @@ function App() {
         size="grow"
         direction="column"
         sx={{
-          bgcolor: "cyan",
+          bgcolor: "whitesmoke",
          }}
       >
         <HomeNavBar/>
@@ -67,8 +69,8 @@ function HomeMain() {
     <Grid
       container
       justifyContent="flex-start"
-      margin={1}
-      spacing={2}
+      margin={4}
+      spacing={4}
       alignItems="center"
       sx={{
         border: "1px solid red",
@@ -82,7 +84,7 @@ function HomeMain() {
         height="30vh"
         order={{xl: 1, lg: 1, md: 2, sm: 2, xs: 2}}
         size={{lg: 6, sm: 12, xs: 12}}>
-        Item1
+        <AnimatedMuiTable/>
       </Grid>
       <Grid
         height="30vh"
@@ -91,19 +93,19 @@ function HomeMain() {
         <USAMap/>
       </Grid>
       <Grid
-        height="40vh"
+        height="30vh"
         order={{xl: 3, lg: 3, md: 1, sm: 1, xs: 1}}
         size={{lg:8, sm:12, xs: 12}}>
         <MyResponsiveBar/>
       </Grid>
       <Grid
-        height="40vh"
+        height="30vh"
         order={{xl: 4, lg: 4, md: 4, sm: 4, xs: 4}}
         size={{lg: 4}}>
         Item4
       </Grid>
       <Grid
-        height="19vh"
+        height="18vh"
         size={{lg: 4}}
         order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
       >

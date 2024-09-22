@@ -115,7 +115,7 @@ function SideMenu(){
                                         borderBottomLeftRadius: "50px",
                                         overflow: "visible",
                                         ...((route === selectedTab) && {
-                                            bgcolor: "cyan",
+                                            bgcolor: "whitesmoke",
                                             "&::before": {
                                                 content: '""',
                                                 display: "block",
@@ -126,7 +126,7 @@ function SideMenu(){
                                                 right: "0",
                                                 top: "-20px",
                                                 borderBottomRightRadius: "100%",
-                                                boxShadow: "5px 5px 0 5px cyan",
+                                                boxShadow: "5px 5px 0 5px whitesmoke",
                                             },
                                             "&::after": {
                                                 content: '""',
@@ -138,7 +138,7 @@ function SideMenu(){
                                                 right: "0",
                                                 bottom: "-20px",
                                                 borderTopRightRadius: "100%",
-                                                boxShadow: "5px -5px 0 5px cyan",
+                                                boxShadow: "5px -5px 0 5px whitesmoke",
                                             }
                                         })
                                     }}
