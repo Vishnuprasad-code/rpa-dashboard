@@ -12,13 +12,13 @@ function App() {
   return (
     <Grid
       container
+      sx={{height: "100vh"}}
     >
       <Grid
         size={{xl: 2, lg: 2, md: 1, sm: 1, xs: 1}}
         sx={
          {
           bgcolor: "transparent",
-          height: "100vh",
           minWidth: "90px"
          }
         }
@@ -29,9 +29,7 @@ function App() {
         size="grow"
         direction="column"
         sx={{
-          height: "100vh",
           bgcolor: "cyan",
-          // flexGrow: 1
          }}
       >
         <HomeNavBar/>
@@ -57,9 +55,9 @@ function HomeNavBar(){
     }
   }}
 >
-  <Grid>
-    Nav1
-  </Grid>
+    <Grid>
+      Nav1
+    </Grid>
   </Grid>
   );
 }
@@ -76,23 +74,39 @@ function HomeMain() {
         border: "1px solid red",
         "& > .MuiGrid2-direction-xs-row": {
           border: "1px solid blue",
-          height: "30vh"
+          // minHeight: "15vh"
         }
       }}
     >
-      <Grid size={{lg: 6, sm: 12, xs: 12}}>
+      <Grid
+        height="30vh"
+        order={{xl: 1, lg: 1, md: 2, sm: 2, xs: 2}}
+        size={{lg: 6, sm: 12, xs: 12}}>
         Item1
       </Grid>
-      <Grid size={{lg: 6, sm:12, xs: 12}}>
+      <Grid
+        height="30vh"
+        order={{xl: 2, lg: 2, md: 3, sm: 3, xs: 3}}
+        size={{lg: 6, sm:12, xs: 12}}>
         <USAMap/>
       </Grid>
-      <Grid size={{lg:8, sm:12, xs: 12}}>
+      <Grid
+        height="40vh"
+        order={{xl: 3, lg: 3, md: 1, sm: 1, xs: 1}}
+        size={{lg:8, sm:12, xs: 12}}>
         <MyResponsiveBar/>
       </Grid>
-      <Grid size={{lg: 4}}>
+      <Grid
+        height="40vh"
+        order={{xl: 4, lg: 4, md: 4, sm: 4, xs: 4}}
+        size={{lg: 4}}>
         Item4
       </Grid>
-      <Grid size={{lg: 4}}>
+      <Grid
+        height="19vh"
+        size={{lg: 4}}
+        order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
+      >
         Item5
       </Grid>
     </Grid>

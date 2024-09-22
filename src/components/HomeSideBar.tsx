@@ -48,12 +48,12 @@ const routes = [
 export default function HomeSideBar(){
     return (
     <Stack
-    sx={{
-        height: "100%",
-    }}
-    spacing={1}
-    alignItems={'center'}
-    justifyContent={'space-between'}
+        sx={{
+            height: "100%",
+        }}
+        spacing={1}
+        alignItems={'center'}
+        justifyContent={'space-between'}
     >   
         <ProfileBox/>
         <Offset/>
@@ -212,7 +212,7 @@ function CompanyBox(){
                 src={shLogo}
                 style={{ cursor: "pointer", borderRadius: "50%" }}
             />
-            <Typography>{belowLG ? "SH": "Scrapehero"}</Typography>
+            <Typography>{belowLG ? "SH": "ScrapeHero"}</Typography>
         </Stack>
         {belowLG && <Stack>➕</Stack>}
         <Stack
@@ -227,7 +227,7 @@ function CompanyBox(){
                 src={zbLogo}
                 style={{ cursor: "pointer", borderRadius: "50%" }}
             />
-            <Typography>{belowLG ? "ZB": "Zenbusiness"}</Typography>
+            <Typography>{belowLG ? "ZB": "ZenBusiness"}</Typography>
 
         </Stack>
     </Stack>
