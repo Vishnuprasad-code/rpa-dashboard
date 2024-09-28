@@ -36,7 +36,7 @@ export function MyResponsiveBar(){
         padding={0.3}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
-        colors={["green", "black"]}
+        colors={["cyan", "black"]}
         defs={[
         {
             id: "dots",

@@ -91,7 +91,8 @@ function SideMenu(){
                 >
                     {routes.map(
                         ({route, icon}) => <Tab
-                                    label={<Box sx={{
+                                    label={
+                                        <Box sx={{
                                         display:{
                                             'xl': 'block',
                                             'lg':'block',
@@ -99,7 +100,10 @@ function SideMenu(){
                                             'sm': 'none',
                                             'xs': 'none'
                                         }
-                                    }}>{route}</Box>}
+                                        }}
+                                        >{route}
+                                        </Box>
+                                    }
                                     icon={icon}
                                     iconPosition='start'
                                     key={route}
@@ -126,7 +130,7 @@ function SideMenu(){
                                                 right: "0",
                                                 top: "-20px",
                                                 borderBottomRightRadius: "100%",
-                                                boxShadow: "5px 5px 0 5px whitesmoke",
+                                                boxShadow: `5px 5px 0 5px whitesmoke`,
                                             },
                                             "&::after": {
                                                 content: '""',

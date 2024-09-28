@@ -3,14 +3,36 @@ import Grid from '@mui/material/Grid2';
 import { blue } from '@mui/material/colors';
 
 import HomeSideBar from './components/HomeSideBar.tsx'
+
 import {USAMap} from './components/MapComponent/MapChart.tsx'
 
 import {MyResponsiveBar} from "./components/Charts/BarChart.tsx"
 
+import {MyResponsivePie} from "./components/Charts/PieChartCircle.tsx"
+
 import AnimatedMuiTable from "./components/Tables/Table.tsx"
 
 
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
+
+
 function App() {
+  const [theme, colorMode] = useMode();
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Dashboard/>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  )
+};
+
+
+function Dashboard(){
   return (
     <Grid
       container
@@ -30,9 +52,9 @@ function App() {
       <Grid
         size="grow"
         direction="column"
-        sx={{
-          bgcolor: "whitesmoke",
-         }}
+        sx={
+            (theme) => ({bgcolor : theme.palette.secondary.main })
+          }
       >
         <HomeNavBar/>
         <HomeMain/>
@@ -84,13 +106,13 @@ function HomeMain() {
         height="30vh"
         order={{xl: 1, lg: 1, md: 2, sm: 2, xs: 2}}
         size={{lg: 6, sm: 12, xs: 12}}>
-        <AnimatedMuiTable/>
+        <USAMap/>
       </Grid>
       <Grid
         height="30vh"
         order={{xl: 2, lg: 2, md: 3, sm: 3, xs: 3}}
         size={{lg: 6, sm:12, xs: 12}}>
-        <USAMap/>
+        <AnimatedMuiTable/>
       </Grid>
       <Grid
         height="30vh"
@@ -102,14 +124,14 @@ function HomeMain() {
         height="30vh"
         order={{xl: 4, lg: 4, md: 4, sm: 4, xs: 4}}
         size={{lg: 4}}>
-        Item4
+        <MyResponsivePie/>
       </Grid>
       <Grid
         height="18vh"
         size={{lg: 4}}
         order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
       >
-        Item5
+        <MyResponsivePie/>
       </Grid>
     </Grid>
     )
