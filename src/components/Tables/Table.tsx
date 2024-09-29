@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import { columns, Data, rows } from "./Columns";
 
+import {GlossyBox} from "../StyledComponents/styledBox.tsx"
+
+
 const AnimatedMuiTable = () => {
   const scrollRef = useRef(null);
   const currentPosRef = useRef(0); // Store the current scroll position
@@ -47,6 +50,7 @@ const AnimatedMuiTable = () => {
   const allRows = [...rows]; // Duplicate rows for smooth loop
 
   return (
+    <GlossyBox>
     <TableContainer
       component={Paper}
       sx={{
@@ -101,6 +105,7 @@ const AnimatedMuiTable = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </GlossyBox>
   );
 };
 

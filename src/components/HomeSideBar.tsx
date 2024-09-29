@@ -48,9 +48,13 @@ const routes = [
 export default function HomeSideBar(){
     return (
     <Stack
-        sx={{
-            height: "100%",
-        }}
+        sx={
+            (theme) => ({
+                height: "100vh",
+                mt: "5px",
+                bgcolor: theme.palette.primary.dark,
+            })
+        }
         spacing={1}
         alignItems={'center'}
         justifyContent={'space-between'}
@@ -66,7 +70,7 @@ export default function HomeSideBar(){
 
 
 function SideMenu(){
-
+    const theme = useTheme();
     const [selectedTab, setSelectedTab] = useState<string>("Home")
     return (
         <AppBar
@@ -119,7 +123,7 @@ function SideMenu(){
                                         borderBottomLeftRadius: "50px",
                                         overflow: "visible",
                                         ...((route === selectedTab) && {
-                                            bgcolor: "whitesmoke",
+                                            bgcolor: theme.palette.background.default,
                                             "&::before": {
                                                 content: '""',
                                                 display: "block",
@@ -130,7 +134,7 @@ function SideMenu(){
                                                 right: "0",
                                                 top: "-20px",
                                                 borderBottomRightRadius: "100%",
-                                                boxShadow: `5px 5px 0 5px whitesmoke`,
+                                                boxShadow: `5px 5px 0 5px ${theme.palette.background.default}`,
                                             },
                                             "&::after": {
                                                 content: '""',
@@ -142,7 +146,7 @@ function SideMenu(){
                                                 right: "0",
                                                 bottom: "-20px",
                                                 borderTopRightRadius: "100%",
-                                                boxShadow: "5px -5px 0 5px whitesmoke",
+                                                boxShadow: `5px -5px 0 5px ${theme.palette.background.default}`,
                                             }
                                         })
                                     }}
@@ -158,23 +162,34 @@ function ProfileBox(){
     return (
         <Box
         sx={{
-            alignSelf: "flex-start",
-            pt: "0.5rem",
-            pb: "2rem",
+            border: "1px solid cyan",
+            borderRadius: "1px",
+            width: '80%',
         }}
         >
             <Typography
-                ml="1rem"
-                variant="h5"
+                variant="h2"
                 sx={{
+                    "m": "auto",
                     "font-family": '"Protest Guerrilla", sans-serif',
                     "font-weight": "400",
                     "font-style": "normal",
+                    "textAlign": "center",
+                    "textOrientation": {lg: 'sideways', md: 'upright', sm: "upright", xs: "upright"},
+                    "writingMode": {lg: 'horizontal-tb', md: 'vertical-rl', sm: "vertical-rl", xs: "vertical-rl"},
+                    "letter-spacing": {lg: "2px", md: '"2px"', sm: "-10px", xs: "-10px"}
                 }}
             >
-                ZB - Dash
+                <span
+                    style={{"color":"green"}}
+                >
+                    ZB
+                </span>
+                -
+                <span style={{"color":"blue"}}>
+                    DASH</span>
             </Typography>
-            </Box>
+        </Box>
     );
 
 }

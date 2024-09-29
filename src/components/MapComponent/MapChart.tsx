@@ -21,16 +21,23 @@ export function USAMap(){
   const [hoverdState, setHoveredState] = useState<string>("");
   return (
     <Stack
-    sx={{
-      height: "100%",
-      width: "100%",
-    }}>
+    sx={
+      (theme) => ({
+        height: "100%",
+        width: "100%",
+        bgcolor: theme.palette.primary.dark,
+        borderRadius: '1rem'
+      })
+    }>
       <TransformWrapper>
         <TransformComponent wrapperClass="zoom-component" contentClass="zoom-component">
           <MapChart hoverdState={setHoveredState}/>\
         </TransformComponent>
       </TransformWrapper>
-      <Box>
+      <Box sx={{
+        height: "2rem",
+        padding: "10px"
+      }}>
         {hoverdState}
       </Box>
     </Stack>
@@ -55,10 +62,9 @@ const MapChart = ({hoverdState}) => {
                 key={geo.rsmKey}
                 geography={geo}
                 onMouseEnter={() => hoverdState(geo.properties.name)}
-                // onMouseLeave={() => hoverdState("")}
                 style={{
                   default: {
-                    fill: geo.properties.name === "Texas" ? "green" : "#D6D6DA",
+                    fill: geo.properties.name === "Texas" ? "green" : "grey",
                     outline: "none",
                   },
                   hover: {
@@ -72,7 +78,7 @@ const MapChart = ({hoverdState}) => {
                 }}
               />
             ))}
-            <Geography geography={borders} fill="none" stroke="#FFF" />
+            <Geography geography={borders} fill="none" stroke="#transparent" />
           </>
         )}
       </Geographies>
