@@ -5,6 +5,7 @@ import data from "./PieChartCircleMockData.js";
 import Typography from '@mui/material/Typography';
 
 import Box from '@mui/material/Box';
+import { useTheme} from '@mui/material/styles';
 import {GlossyBox} from "../StyledComponents/styledBox.tsx"
 
 // make sure parent container have a defined height when using
@@ -12,22 +13,57 @@ import {GlossyBox} from "../StyledComponents/styledBox.tsx"
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-export function MyResponsivePie() {
-  const CenteredText = ({ centerX, centerY }) => (
-    <text
+
+const CustomTooltip = ({ name, value, color }) => {
+  const theme = useTheme();
+  console.log(theme.palette.text.primary)
+  return <div
+      style={{
+          padding: '6px 12px',
+          background: theme.palette.background.default,
+          borderRadius: '3px',
+          color: theme.palette.text.primary,
+          fontSize: '14px',  // Customize font size
+          fontFamily: 'Arial, sans-serif',  // Customize font family
+          fontWeight: 'bold',  // Customize font weight
+      }}
+    >
+        <div style={{
+          marginRight: "5px",
+          display: "inline-block",
+          background: color,
+          width: "10px",
+          height: "10px",
+          border: `1px solid ${theme.palette.text.primary}`,  
+        }}></div>{name}: {value}
+    </div>
+};
+
+
+
+
+const CenteredText = ({ centerX, centerY }) => {
+    const theme = useTheme();
+    return (<text
       x={centerX}
       y={centerY}
       textAnchor="middle"
       dominantBaseline="central"
       style={{
+        fill: theme.palette.text.primary,
         fontSize: "1.75em",
         fontWeight: "bold",
       }}
     >
       {"100%"}
     </text>
-  );
+);
 
+}
+
+
+
+export function MyResponsivePie() {
   return (
     <GlossyBox
     sx={
@@ -90,6 +126,13 @@ export function MyResponsivePie() {
             ],
           },
         ]}
+        tooltip={({ datum }) => (
+          <CustomTooltip
+              name={datum.id}
+              value={datum.value}
+              color={datum.color}
+          />
+      )}
       />
     </GlossyBox>
   );

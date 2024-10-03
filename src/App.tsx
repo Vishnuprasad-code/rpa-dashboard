@@ -43,7 +43,7 @@ function Dashboard(){
         sx={
          {
           bgcolor: "transparent",
-          minWidth: "50px"
+          minWidth: "70px"
          }
         }
       >

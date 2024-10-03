@@ -10,7 +10,7 @@ import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 
 
-import { useTheme, styled } from '@mui/material/styles';
+import { useTheme} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import shLogo from '../assets/sh-logo-800.png';
@@ -18,29 +18,42 @@ import zbLogo from '../assets/circle-logo-teal.svg';
 import companyLogo from '../assets/company.webp';
 
 import rpaIcon from '../assets/rpa-icon.png';
-import homeIcon from '../assets/home-icon.png';
+import homeIcon from '../assets/home-icon.svg';
 import apiIcon from '../assets/api-icon.png';
 import docsIcon from '../assets/docs-icon.png';
 
 
-const Offset = styled("div")(({theme}) => theme.mixins.toolbar);
 const routes = [
     {   
         "route": "Home",
-        "icon": <Avatar sx={{border: "8px solid black", padding: "5px"}} src={homeIcon} alt="h" />
+        "icon": <Avatar sx={
+            {
+                bgcolor: "pink",
+            }
+        } src={homeIcon} alt="h" />
     },
     {
         "route": "RPAs",
-        "icon": <Avatar sx={{border: "8px solid black", padding: "5px"}} src={rpaIcon} alt="h" />
+        "icon": <Avatar sx={{
+            // border: "8px solid black", 
+            // padding: "5px"
+        }} src={rpaIcon} alt="h" />
     }
     ,
     {
         "route": "APIs",
-        "icon": <Avatar sx={{border: "8px solid black", padding: "5px"}} src={apiIcon} alt="h" />
+        "icon": <Avatar sx={
+            {
+                // border: "8px solid black",
+                //  padding: "5px"
+                }} src={apiIcon} alt="h" />
     },
     {
         "route": "Docs",
-        "icon": <Avatar sx={{border: "8px solid black", padding: "5px"}} src={docsIcon} alt="h" />
+        "icon": <Avatar sx={{
+            // border: "8px solid black",
+            //  padding: "5px"
+            }} src={docsIcon} alt="h" />
     }
 ]
 
@@ -51,8 +64,9 @@ export default function HomeSideBar(){
         sx={
             (theme) => ({
                 height: "100vh",
-                mt: "5px",
+                pt: "5px",
                 bgcolor: theme.palette.primary.dark,
+                overflow: 'hidden'
             })
         }
         spacing={1}
@@ -60,9 +74,7 @@ export default function HomeSideBar(){
         justifyContent={'space-between'}
     >   
         <ProfileBox/>
-        <Offset/>
         <SideMenu/>
-        <Offset/>
         <CompanyBox/>
     </Stack>
     );
@@ -83,69 +95,60 @@ function SideMenu(){
             <Toolbar
             disableGutters
             sx={{
-                paddingLeft: "0.5rem",
+                p: 0,
             }}
             >
                 <Tabs
                 variant="fullWidth"
+                value={selectedTab}
                 sx={{
-                    flexGrow: 1,
+                    width: "100%",
                 }}
                 orientation="vertical"
                 >
                     {routes.map(
                         ({route, icon}) => <Tab
-                                    label={
-                                        <Box sx={{
-                                        display:{
-                                            'xl': 'block',
-                                            'lg':'block',
-                                            'md': 'none',
-                                            'sm': 'none',
-                                            'xs': 'none'
-                                        }
-                                        }}
-                                        >{route}
-                                        </Box>
-                                    }
+                                    label={route}
                                     icon={icon}
                                     iconPosition='start'
                                     key={route}
                                     disableRipple
                                     onClick={() => setSelectedTab(route)}
                                     sx={{
-                                        flexGrow: 1,
-                                        height: "15px",
-                                        padding: "0 1rem 0 0.5rem",
-                                        columnGap: "1rem",
+                                        minWidth: "100%",
                                         justifyContent: "flex-start",
-                                        borderTopLeftRadius: "50px",
-                                        borderBottomLeftRadius: "50px",
+                                        columnGap: 2,
+                                        pl: 2,
                                         overflow: "visible",
+                                        position: 'relative',
+                                        borderBottomLeftRadius: "50px",
+                                        borderTopLeftRadius: "50px",
                                         ...((route === selectedTab) && {
                                             bgcolor: theme.palette.background.default,
                                             "&::before": {
                                                 content: '""',
                                                 display: "block",
                                                 position: "absolute",
+                                                // bgcolor: "red",
                                                 bgcolor: "transparent",
                                                 height: "20px",
                                                 width: "20px",
                                                 right: "0",
                                                 top: "-20px",
-                                                borderBottomRightRadius: "100%",
+                                                borderBottomRightRadius: "20px",
                                                 boxShadow: `5px 5px 0 5px ${theme.palette.background.default}`,
                                             },
                                             "&::after": {
                                                 content: '""',
                                                 display: "block",
                                                 position: "absolute",
+                                                // bgcolor: "red",
                                                 bgcolor: "transparent",
                                                 height: "20px",
                                                 width: "20px",
                                                 right: "0",
                                                 bottom: "-20px",
-                                                borderTopRightRadius: "100%",
+                                                borderTopRightRadius: "20px",
                                                 boxShadow: `5px -5px 0 5px ${theme.palette.background.default}`,
                                             }
                                         })
@@ -162,15 +165,16 @@ function ProfileBox(){
     return (
         <Box
         sx={{
-            border: "1px solid cyan",
+            // border: "1px solid cyan",
             borderRadius: "1px",
-            width: '80%',
+            width: '100%',
         }}
         >
             <Typography
                 variant="h2"
                 sx={{
                     "m": "auto",
+                    "pb": "10px",
                     "font-family": '"Protest Guerrilla", sans-serif',
                     "font-weight": "400",
                     "font-style": "normal",

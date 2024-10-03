@@ -10,6 +10,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import Stack from "@mui/system/Stack";
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 
 
 import "./MapChart.scss"
@@ -47,7 +48,7 @@ export function USAMap(){
 }
 
 const MapChart = ({hoverdState}) => {
-
+  const theme = useTheme();
   return (
     <ComposableMap
     style={{
@@ -78,7 +79,7 @@ const MapChart = ({hoverdState}) => {
                 }}
               />
             ))}
-            <Geography geography={borders} fill="none" stroke="#transparent" />
+            <Geography geography={borders} fill="none" stroke={theme.palette.primary.contrastText} />
           </>
         )}
       </Geographies>

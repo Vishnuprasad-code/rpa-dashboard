@@ -4,7 +4,12 @@ import { ResponsiveBar } from "@nivo/bar";
 import data from "./BarChartMockData.js";
 
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import {GlossyBox} from "../StyledComponents/styledBox.tsx"
+import {StyledToolTip} from "../StyledComponents/styledToolTip.tsx"
+
+import Typography from '@mui/material/Typography';
+
 
 
 // make sure parent container have a defined height when using
@@ -13,24 +18,67 @@ import {GlossyBox} from "../StyledComponents/styledBox.tsx"
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
+const totalsRedender = ({ bars }) => {
+    const theme = useTheme();
+    const filtereBars = bars.slice(Math.ceil(bars.length / 2));
+    return filtereBars.map((bar) => {
+        console.log(bar)
+        return (
+        <text
+            key={bar.key}
+            x={bar.x + bar.width / 2}
+            y={bar.y - 13}
+            textAnchor="middle"
+            style={{
+                fill: theme.palette.text.primary,
+                fontSize: 10,
+                fontWeight: 'bold',
+            }}
+        >
+            {bar.data.data["sos_filing_successful"] ?? 0} / {(bar.data.data["sos_filing_successful"] ?? 0) + (bar.data.data["failed_filing"] ?? 0)}
+        </text>
+    )})
+};
+
+
+const CustomTooltip = ({data}) => {
+    return (
+        <StyledToolTip>
+            <Typography sx={{
+                textDecoration: "underline",
+                textUnderlineOffset: "10px",
+                marginBottom: "10px"
+            }}>{data["rpa"]}</Typography>
+            <div>sos_filing_successful: {data["sos_filing_successful"] ?? 0}</div>
+            <div>failed_filing: {data["failed_filing"] ?? 0}</div>
+        </StyledToolTip>
+    );
+}
 
 export function MyResponsiveBar(){
+    const theme = useTheme();
     return (
         <GlossyBox
       >
       <ResponsiveBar
         data={data}
-        keys={["hot dog", "burger"]}
+        keys={["sos_filing_successful", "failed_filing"]}
         indexBy="rpa"
-        margin={{ top: 50, right: 0, bottom: 20, left: 0 }}
+        margin={{ top: 50, right: 5, bottom: 20, left: 5 }}
         padding={0.5}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
         colors={["#3ca7dc", "black"]}
         theme={{
-            "text": {
-                "fontSize": 12,
-                "fill": "white",
+            grid: {
+                line: {
+                  stroke: theme.palette.primary.light, // Set your desired gridline color here
+                  strokeWidth: 1, // Optional: adjust the width of the gridlines
+                },
+              },
+            text: {
+                fontSize: 12,
+                fill: theme.palette.text.primary,
             }
         }}
         defs={[
@@ -53,9 +101,8 @@ export function MyResponsiveBar(){
             spacing: 10,
         },
         ]}
-        enableTotals={true}
         enableGridY={true}
-        gridYValues={[0]}
+        gridYValues={3}
         enableLabel={false}
         fill={[]}
         borderRadius={4}
@@ -75,36 +122,14 @@ export function MyResponsiveBar(){
         labelSkipWidth={12}
         labelSkipHeight={12}
         legends={[]}
-        tooltip={({ data }) => {
-            return (
-                <div style={{ backgroundColor: "red" }}>burger: {data["burger"]}</div>
-            );
-        }}
+        tooltip={CustomTooltip}
         layers={[
             'grid',
             'axes',
             'bars',
             'markers',
             'legends',
-            ({ bars, xScale, yScale }) => {
-                const filtereBars = bars.slice(Math.ceil(bars.length / 2));
-                return filtereBars.map((bar) => {
-                    console.log(bar)
-                    return (<text
-                        key={bar.key}
-                        x={bar.x + bar.width / 2}
-                        y={bar.y - 15}
-                        textAnchor="middle"
-                        style={{
-                            fill: 'black',
-                            fontSize: 14,
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        {bar.data.data["hot dog"] ?? 0} / {(bar.data.data["burger"] ?? 0) + (bar.data.data["hot dog"] ?? 0)}
-                    </text>
-                )})
-            },
+            totalsRedender,
         ]}
         role="application"
         ariaLabel="Nivo bar chart demo"

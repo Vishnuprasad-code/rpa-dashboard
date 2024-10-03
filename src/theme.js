@@ -132,9 +132,11 @@ export const themeSettings = (mode) => {
         ? {
             // palette values for dark mode
             primary: {
-              dark : colors.primary[900],
+              // dark : colors.primary[900],
+              // dark: "#022440",
+              dark: "#1e2938",
               main: colors.primary[500],
-              light: colors.primary[100]
+              light: "rgba(35,42,88,200)",
             },
             secondary: {
               main: colors.greenAccent[500],
@@ -145,7 +147,7 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: colors.primary[500],
+              default: colors.primary[600],
             },
           }
         : {
