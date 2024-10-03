@@ -93,18 +93,18 @@ function SideMenu(){
             }}
             >
             <Toolbar
-            disableGutters
-            sx={{
-                p: 0,
-            }}
+                disableGutters
+                sx={{
+                    p: 0,
+                }}
             >
                 <Tabs
-                variant="fullWidth"
-                value={selectedTab}
-                sx={{
-                    width: "100%",
-                }}
-                orientation="vertical"
+                    variant="fullWidth"
+                    value={selectedTab}
+                    sx={{
+                        width: "100%",
+                    }}
+                    orientation="vertical"
                 >
                     {routes.map(
                         ({route, icon}) => <Tab
@@ -112,6 +112,7 @@ function SideMenu(){
                                     icon={icon}
                                     iconPosition='start'
                                     key={route}
+                                    value={route}
                                     disableRipple
                                     onClick={() => setSelectedTab(route)}
                                     sx={{
