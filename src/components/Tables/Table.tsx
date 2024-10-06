@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,35 +8,37 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import { columns, Data, rows } from "./Columns";
+import { columns } from "./Columns";
 
-import {GlossyBox} from "../StyledComponents/styledBox.tsx"
+import {FailedFilingType} from "../../Types/types.ts"
 
 
-const AnimatedMuiTable = () => {
-  const scrollRef = useRef(null);
+export const AnimatedMuiTable = ({dataRows, isPaused}: {
+  dataRows: FailedFilingType[],
+  isPaused: boolean
+}) => {
+  const scrollRef = useRef<HTMLTableSectionElement>(null);
   const currentPosRef = useRef(0); // Store the current scroll position
-  const [isPaused, setIsPaused] = useState(false); // State to track if animation is paused
+  const [isHovered, setIsHovered] = useState(false); // State to track if animation is paused
 
-  console.log(rows.length, currentPosRef.current);
   // Scroll logic with requestAnimationFrame
   useEffect(() => {
-    const totalHeight = scrollRef.current.offsetHeight;
-    let animationFrame;
+    const totalHeight = scrollRef.current?.offsetHeight ?? 0;
+    let animationFrame: number;
 
     const scrollSpeed = 0.25; // Adjust this value to change the speed of the scroll
 
     const scroll = () => {
-      if (!isPaused && rows.length > 3) {
+      if (!isPaused && !isHovered && dataRows.length > 3) {
         // Only scroll if not paused
         if (currentPosRef.current <= -totalHeight) {
           currentPosRef.current = 0; // Reset scroll position when reaching the end
         }
         currentPosRef.current -= scrollSpeed; // Move upwards by scrollSpeed
-        scrollRef.current.style.transform = `translateY(${currentPosRef.current}px)`;
+        scrollRef.current!.style.transform = `translateY(${currentPosRef.current}px)`;
       } else {
         currentPosRef.current = 0;
-        scrollRef.current.style.transform = `translateY(${0}px)`;
+        scrollRef.current!.style.transform = `translateY(${0}px)`;
       }
       animationFrame = requestAnimationFrame(scroll);
     };
@@ -44,13 +46,12 @@ const AnimatedMuiTable = () => {
     animationFrame = requestAnimationFrame(scroll);
 
     return () => cancelAnimationFrame(animationFrame); // Clean up animation on component unmount
-  }, [isPaused, rows.length]); // Depend on isPaused to pause/resume animation and rows.length
+  }, [isPaused, isHovered, dataRows.length]); // Depend on isPaused to pause/resume animation and rows.length
 
   // Duplicate rows to create an illusion of continuous scrolling
-  const allRows = [...rows]; // Duplicate rows for smooth loop
+  // const allRows = [...FailedFilingType]; // Duplicate rows for smooth loop
 
   return (
-    <GlossyBox>
     <TableContainer
       component={Paper}
       sx={{
@@ -59,15 +60,21 @@ const AnimatedMuiTable = () => {
         overflow: "hidden",
       }}
       onMouseEnter={(e) => {
-        console.log(e.currentTarget);
+        if (isPaused) {
+          e.currentTarget.style.overflow = "auto";
+          return
+        }
         e.currentTarget.scrollTop = 0;
         e.currentTarget.style.overflow = "auto";
-        setIsPaused(true);
+        setIsHovered(true);
       }} // Pause on hover
       onMouseLeave={(e) => {
+        if (isPaused) {
+          return
+        }
         e.currentTarget.scrollTop = 0;
         e.currentTarget.style.overflow = "hidden";
-        setIsPaused(false);
+        setIsHovered(false);
       }} // Resume when hover ends
     >
       <Table stickyHeader>
@@ -88,8 +95,8 @@ const AnimatedMuiTable = () => {
 
         {/* Table Body */}
         <TableBody ref={scrollRef}>
-          {allRows.map((row, index) => (
-            <TableRow key={row.uuid} hover role="checkbox" tabIndex={-1}>
+          {dataRows.map((row) => (
+            <TableRow key={`${row.process_id}-${row.start_time}`} hover role="checkbox" tabIndex={-1}>
               {columns.map((column) => {
                 const value = row[column.id];
                 return (
@@ -105,8 +112,5 @@ const AnimatedMuiTable = () => {
         </TableBody>
       </Table>
     </TableContainer>
-    </GlossyBox>
   );
 };
-
-export default AnimatedMuiTable;

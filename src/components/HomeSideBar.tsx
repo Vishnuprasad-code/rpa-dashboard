@@ -23,9 +23,13 @@ import apiIcon from '../assets/api-icon.png';
 import docsIcon from '../assets/docs-icon.png';
 
 
+import { Link } from 'react-router-dom';
+
+
 const routes = [
     {   
         "route": "Home",
+        "path": "/",
         "icon": <Avatar sx={
             {
                 bgcolor: "pink",
@@ -34,6 +38,7 @@ const routes = [
     },
     {
         "route": "RPAs",
+        "path": "/rpas",
         "icon": <Avatar sx={{
             // border: "8px solid black", 
             // padding: "5px"
@@ -42,6 +47,7 @@ const routes = [
     ,
     {
         "route": "APIs",
+        "path": "/apis",
         "icon": <Avatar sx={
             {
                 // border: "8px solid black",
@@ -50,6 +56,7 @@ const routes = [
     },
     {
         "route": "Docs",
+        "path": "/docs",
         "icon": <Avatar sx={{
             // border: "8px solid black",
             //  padding: "5px"
@@ -83,6 +90,7 @@ export default function HomeSideBar(){
 
 function SideMenu(){
     const theme = useTheme();
+  
     const [selectedTab, setSelectedTab] = useState<string>("Home")
     return (
         <AppBar
@@ -107,14 +115,18 @@ function SideMenu(){
                     orientation="vertical"
                 >
                     {routes.map(
-                        ({route, icon}) => <Tab
+                        ({route, path, icon}) => <Tab
+                                    component={Link}
+                                    to={path}
                                     label={route}
                                     icon={icon}
                                     iconPosition='start'
                                     key={route}
                                     value={route}
                                     disableRipple
-                                    onClick={() => setSelectedTab(route)}
+                                    onClick={() => {
+                                        setSelectedTab(route);
+                                    }}
                                     sx={{
                                         minWidth: "100%",
                                         justifyContent: "flex-start",

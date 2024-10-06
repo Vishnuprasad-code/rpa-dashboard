@@ -1,5 +1,5 @@
 interface Column {
-    id: "uuid" | "rpa" | "status";
+    id: "process_id" | "rpa" | "filing_status";
     label: string;
     minWidth?: number;
     align?: "right";
@@ -8,7 +8,7 @@ interface Column {
   
   export const columns: readonly Column[] = [
     {
-      id: "uuid",
+      id: "process_id",
       label: "UUID",
       minWidth: 10,
     },
@@ -19,7 +19,7 @@ interface Column {
       align: "right",
     },
     {
-      id: "status",
+      id: "filing_status",
       label: "STATUS",
       minWidth: 10,
       align: "right",
@@ -37,10 +37,3 @@ interface Column {
     { uuid: "7", rpa: "ca-llc", status: "incorrect_data_format" },
     { uuid: "8", rpa: "ca-llc", status: "incorrect_data_format" },
   ]
-  
-  export interface Data {
-    name: string;
-    rpa: string;
-    status: string;
-  }
-  

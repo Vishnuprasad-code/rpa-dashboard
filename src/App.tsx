@@ -1,21 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid2';
-import { blue } from '@mui/material/colors';
+
 
 import HomeSideBar from './components/HomeSideBar.tsx'
 
 import {USAMap} from './components/MapComponent/MapChart.tsx'
 
-import {MyResponsiveBar} from "./components/Charts/BarChart.tsx"
+import AllRpaBar from "./Scenes/BarChart.tsx"
+import Table from "./Scenes/Table.tsx"
 
-import {MyResponsivePie} from "./components/Charts/PieChartCircle.tsx"
-
-import AnimatedMuiTable from "./components/Tables/Table.tsx"
-
+import RPAOverviewPie from "./Scenes/RPAOverviewPie.tsx"
 
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+
+import { MainStatsContext } from './Contexts/mainStatsContext.tsx';
+import {fetchLatestMainStatsData} from './Http/http.ts'
+import {mainStatsDataType} from './Types/types.ts'
+
+
+function HelloWorld(){
+  return <div>Hello World</div>
+}
 
 
 function App() {
@@ -25,7 +33,9 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Dashboard/>
+        <Router>
+          <Dashboard/>
+        </Router>
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
@@ -59,8 +69,11 @@ function Dashboard(){
               }
           }
       >
-        <HomeNavBar/>
-        <HomeMain/>
+          <HomeNavBar/>
+          <Routes>
+            <Route index path="/" element={<HomeMain/>} />
+            <Route path="/rpas" element={<HelloWorld />} />
+          </Routes>
       </Grid>
     </Grid>
   )
@@ -90,7 +103,42 @@ function HomeNavBar(){
 }
 
 function HomeMain() {
+
+  const [mainStatsData, setMainStatsData] = useState<mainStatsDataType>(
+    {
+      "totalCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "failedFilings": [],
+      "graphData": []
+    }
+  )
+
+  const fetchData = async () => {
+    try {
+      const latestMainStatsData = await fetchLatestMainStatsData();
+      setMainStatsData(latestMainStatsData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // Initial fetch
+    fetchData();
+
+    // // Set up interval to fetch data every 30 seconds
+    // const intervalId = setInterval(() => {
+    //   fetchData();
+    // }, 30000); // 30 seconds
+
+    // // Cleanup interval on component unmount
+    // return () => clearInterval(intervalId);
+  }, []); // Empty dependency array ensures this runs only once
+
+
   return (
+    <MainStatsContext.Provider value={{ mainStatsData: mainStatsData,  setMainStatsData: setMainStatsData}}>
     <Grid
       container
       justifyContent="flex-start"
@@ -115,28 +163,29 @@ function HomeMain() {
         height="15rem"
         order={{xl: 2, lg: 2, md: 3, sm: 3, xs: 3}}
         size={{lg: 6, sm:12, xs: 12}}>
-        <AnimatedMuiTable/>
+        <Table/>
       </Grid>
       <Grid
         height="18rem"
         order={{xl: 3, lg: 3, md: 1, sm: 1, xs: 1}}
         size={{lg:8, sm:12, xs: 12}}>
-        <MyResponsiveBar/>
+        <AllRpaBar/>
       </Grid>
       <Grid
         height="18rem"
         order={{xl: 4, lg: 4, md: 4, sm: 4, xs: 4}}
         size={{lg: 4}}>
-        <MyResponsivePie/>
+        <RPAOverviewPie/>
       </Grid>
       <Grid
         height="15rem"
         size={{lg: 4}}
         order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
       >
-        <MyResponsivePie/>
+        <RPAOverviewPie/>
       </Grid>
     </Grid>
+    </MainStatsContext.Provider>
     )
 }
 

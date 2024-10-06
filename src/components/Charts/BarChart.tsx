@@ -1,14 +1,17 @@
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/bar
 import { ResponsiveBar } from "@nivo/bar";
-import data from "./BarChartMockData.js";
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import {GlossyBox} from "../StyledComponents/styledBox.tsx"
+
 import {StyledToolTip} from "../StyledComponents/styledToolTip.tsx"
 
 import Typography from '@mui/material/Typography';
+
+import { BarDatum, ComputedBarDatum } from '@nivo/bar/dist/types/types';
+import { Theme } from '@mui/material/styles/createTheme';
+
+// import { mainStatsDataType, GraphDataType } from "../../Types/types.ts";
 
 
 
@@ -18,16 +21,17 @@ import Typography from '@mui/material/Typography';
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
-const totalsRedender = ({ bars }) => {
-    const theme = useTheme();
+const totalsRedender = (bars: readonly ComputedBarDatum<BarDatum>[], theme: Theme) => {
     const filtereBars = bars.slice(Math.ceil(bars.length / 2));
-    return filtereBars.map((bar) => {
-        console.log(bar)
+    return filtereBars.map((bar, barIndex) => {
+        const otherBar = bars[barIndex]
+        const successCount = bar.data.data["success"] ?? 0
+        const failedCount = bar.data.data["failed"] ?? 0
         return (
         <text
             key={bar.key}
             x={bar.x + bar.width / 2}
-            y={bar.y - 13}
+            y={Math.min(bar.y, otherBar.y) - 10}
             textAnchor="middle"
             style={{
                 fill: theme.palette.text.primary,
@@ -35,13 +39,13 @@ const totalsRedender = ({ bars }) => {
                 fontWeight: 'bold',
             }}
         >
-            {bar.data.data["sos_filing_successful"] ?? 0} / {(bar.data.data["sos_filing_successful"] ?? 0) + (bar.data.data["failed_filing"] ?? 0)}
+            {`${successCount} / ${Number(successCount) + Number(failedCount)}`}
         </text>
     )})
 };
 
 
-const CustomTooltip = ({data}) => {
+const CustomTooltip = ({data}: {data: BarDatum}) => {
     return (
         <StyledToolTip>
             <Typography sx={{
@@ -49,20 +53,19 @@ const CustomTooltip = ({data}) => {
                 textUnderlineOffset: "10px",
                 marginBottom: "10px"
             }}>{data["rpa"]}</Typography>
-            <div>sos_filing_successful: {data["sos_filing_successful"] ?? 0}</div>
-            <div>failed_filing: {data["failed_filing"] ?? 0}</div>
+            <div>success: {data["success"] ?? 0}</div>
+            <div>failed: {data["failed"] ?? 0}</div>
         </StyledToolTip>
     );
 }
 
-export function MyResponsiveBar(){
+export function ResponsiveStackBar({data}){
     const theme = useTheme();
+    
     return (
-        <GlossyBox
-      >
       <ResponsiveBar
         data={data}
-        keys={["sos_filing_successful", "failed_filing"]}
+        keys={["success", "failed"]}
         indexBy="rpa"
         margin={{ top: 50, right: 5, bottom: 20, left: 5 }}
         padding={0.5}
@@ -129,7 +132,7 @@ export function MyResponsiveBar(){
             'bars',
             'markers',
             'legends',
-            totalsRedender,
+            ({bars}) => totalsRedender(bars, theme),
         ]}
         role="application"
         ariaLabel="Nivo bar chart demo"
@@ -137,6 +140,5 @@ export function MyResponsiveBar(){
         e.id + ": " + e.formattedValue + " in country: " + e.indexValue
         }
         />
-    </GlossyBox>
     );
 }
