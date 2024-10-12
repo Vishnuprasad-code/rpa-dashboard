@@ -11,15 +11,31 @@ import Table from "./Scenes/Table.tsx"
 
 import RPAOverviewPie from "./Scenes/RPAOverviewPie.tsx"
 
-import { ColorModeContext, useMode } from "./theme";
+import { ColorModeContext, useMode } from "./theme.js";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+// import { BrowserRouter as Router, Routes, Route, useLoaderData} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, useLoaderData, Outlet } from 'react-router-dom';
+
 
 import { MainStatsContext } from './Contexts/mainStatsContext.tsx';
 import {fetchLatestMainStatsData} from './Http/http.ts'
 import {mainStatsDataType} from './Types/types.ts'
 
+
+import RpaListings from "./Pages/RpaListings.tsx"
+
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Dashboard/>,
+    children: [
+      { index: true, element: <HomeMain />},
+      { path: 'rpas', element: <RpaListings />},
+    ],
+  },
+]);
 
 function HelloWorld(){
   return <div>Hello World</div>
@@ -33,9 +49,8 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Router>
-          <Dashboard/>
-        </Router>
+          {/* <Dashboard/> */}
+          <RouterProvider router={router} />
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
@@ -69,11 +84,8 @@ function Dashboard(){
               }
           }
       >
-          <HomeNavBar/>
-          <Routes>
-            <Route index path="/" element={<HomeMain/>} />
-            <Route path="/rpas" element={<HelloWorld />} />
-          </Routes>
+        <HomeNavBar/>
+        <Outlet />
       </Grid>
     </Grid>
   )
@@ -103,8 +115,10 @@ function HomeNavBar(){
 }
 
 function HomeMain() {
-
+  // const iniatialStatsData = useLoaderData() as mainStatsDataType;
   const [mainStatsData, setMainStatsData] = useState<mainStatsDataType>(
+    // useLoaderData() as mainStatsDataType
+    // iniatialStatsData
     {
       "totalCount": 0,
       "successCount": 0,
@@ -127,13 +141,14 @@ function HomeMain() {
     // Initial fetch
     fetchData();
 
-    // // Set up interval to fetch data every 30 seconds
-    // const intervalId = setInterval(() => {
-    //   fetchData();
-    // }, 30000); // 30 seconds
+    // Set up interval to fetch data every 30 seconds
+    const intervalId = setInterval(() => {
+      console.log("Sending request......")
+      fetchData();
+    }, 45000); // 30 seconds
 
-    // // Cleanup interval on component unmount
-    // return () => clearInterval(intervalId);
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures this runs only once
 
 
