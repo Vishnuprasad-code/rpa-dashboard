@@ -13,9 +13,10 @@ import { columns } from "./Columns";
 import {FailedFilingType} from "../../Types/types.ts"
 
 
-export const AnimatedMuiTable = ({dataRows, isPaused}: {
+export const AnimatedMuiTable = ({dataRows, isPaused, isFullTable}: {
   dataRows: FailedFilingType[],
-  isPaused: boolean
+  isPaused: boolean,
+  isFullTable: boolean,
 }) => {
   const scrollRef = useRef<HTMLTableSectionElement>(null);
   const currentPosRef = useRef(0); // Store the current scroll position
@@ -50,7 +51,10 @@ export const AnimatedMuiTable = ({dataRows, isPaused}: {
 
   // Duplicate rows to create an illusion of continuous scrolling
   // const allRows = [...FailedFilingType]; // Duplicate rows for smooth loop
-
+  let reqColumns = [...columns]
+  if (!isFullTable){
+    reqColumns = columns.filter(item => item.id === "process_id" || item.id === "rpa" || item.id === "filing_status")
+  }
   return (
     <TableContainer
       component={Paper}
@@ -81,7 +85,7 @@ export const AnimatedMuiTable = ({dataRows, isPaused}: {
         {/* Table Header */}
         <TableHead className="fixed-header">
           <TableRow tabIndex={-1}>
-            {columns.map((column) => (
+            {reqColumns.map((column) => (
               <TableCell
                 key={column.id}
                 align={column.align}
@@ -97,13 +101,17 @@ export const AnimatedMuiTable = ({dataRows, isPaused}: {
         <TableBody ref={scrollRef}>
           {dataRows.map((row) => (
             <TableRow key={`${row.process_id}-${row.start_time}`} hover role="checkbox" tabIndex={-1}>
-              {columns.map((column) => {
-                const value = row[column.id];
+              {reqColumns.map((column) => {
+                let value;
+                if (column.id in row){
+                  value = String(row[column.id])
+                }
+                else if(column.id === 'copy_payload'){
+                  value = <span onClick={() => console.log("h")}>C</span>
+                }
                 return (
                   <TableCell key={column.id} align={column.align}>
-                    {column.format && typeof value === "number"
-                      ? column.format(value)
-                      : value}
+                    {value}
                   </TableCell>
                 );
               })}

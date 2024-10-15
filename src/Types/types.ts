@@ -10,6 +10,7 @@ export interface FailedFilingType {
     filing_type: string;
     success_on_retry: boolean;
     success_or_failed: 'success' | 'failed'; // Assuming these are the only possible values
+    copy_payload?: null
   }
   
 export interface GraphDataType {
@@ -24,4 +25,11 @@ export interface mainStatsDataType {
   failedCount: number;
   failedFilings: FailedFilingType[];
   graphData: GraphDataType[];
+}
+
+
+export interface QueueCountType {
+  state: string,
+  count: number,
+  filingType: string
 }
