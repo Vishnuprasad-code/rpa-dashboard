@@ -46,13 +46,13 @@ export function CustomResponsivePie({data, CenteredText}) {
       innerRadius={0.6}
       padAngle={0.7}
       cornerRadius={1}
-      fit={false}
+      fit={true}
       activeOuterRadiusOffset={2}
       colors={["#33f08a", "black"]}
       layers={["arcs", "arcLabels", "legends", CenteredText]}
       borderWidth={2}
       borderColor="transparent"
-      enableArcLinkLabels={false}
+      enableArcLinkLabels={true}
       arcLinkLabelsSkipAngle={10}
       arcLinkLabelsTextColor="#333333"
       arcLinkLabelsOffset={-3}

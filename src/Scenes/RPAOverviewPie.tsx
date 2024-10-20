@@ -26,7 +26,9 @@ export default function RPAOverviewPie(){
         },
       ];
 
-    const CenteredText = ({ centerX, centerY }) => {
+    const CenteredText = (
+      {innerRadius, centerX, centerY}
+    ) => {
         const theme = useTheme();
         return (<text
           x={centerX}
@@ -35,7 +37,7 @@ export default function RPAOverviewPie(){
           dominantBaseline="central"
           style={{
             fill: theme.palette.text.primary,
-            fontSize: "1.75em",
+            fontSize: `${innerRadius - 15}px`,
             fontWeight: "bold",
           }}
         >

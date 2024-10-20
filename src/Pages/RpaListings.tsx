@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
@@ -111,8 +112,25 @@ export default function RpasOverview(){
 
     return (
       <MainStatsContext.Provider value={{ mainStatsData: mainStatsData,  setMainStatsData: setMainStatsData}}>
+    <Stack
+        sx={
+            (theme) => ({
+                // bgcolor: theme.palette.primary.dark,
+                overflow: 'hidden'
+            })
+        }
+        spacing={1}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+    >  
       <QueueBar/>
-      <Divider variant='middle' sx={{m: 2, border: (theme) => `1px solid ${theme.palette.divider}`,}}></Divider>
+      <Divider
+      variant='middle'
+      flexItem
+      sx={{
+        m: 2,
+        border: (theme) => `1px solid ${theme.palette.divider}`,}}>
+        </Divider>
       <TimePeriodBar
         startDateTime={startDateTime}
         setStartDateTime={setStartDateTime}
@@ -130,6 +148,7 @@ export default function RpasOverview(){
         <AllRpaBar/>
         </Box>
         <Table isPaused={true} isFullTable={true}/>
+        </Stack>
       </MainStatsContext.Provider>
     )
   }
@@ -240,7 +259,10 @@ function TimePeriodBar(
     return  (
       <Box
       display={"flex"}
-      sx={{flexDirection: { xl: "row", lg: "row", md: "column", sm: "column", xs: "column"} }}
+      sx={{
+        flexDirection: { xl: "row", lg: "row", md: "column", sm: "column", xs: "column"},
+        width: "100%",
+      }}
       justifyContent="space-between"
       alignItems="center"
       >
