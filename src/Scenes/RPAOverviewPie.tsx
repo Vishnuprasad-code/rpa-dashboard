@@ -1,6 +1,4 @@
 import Typography from '@mui/material/Typography';
-import { useTheme} from '@mui/material/styles';
-
 
 import {GlossyBox} from "../components/StyledComponents/styledBox.tsx"
 
@@ -25,27 +23,8 @@ export default function RPAOverviewPie(){
           value: failedCount,
         },
       ];
-
-    const CenteredText = (
-      {innerRadius, centerX, centerY}
-    ) => {
-        const theme = useTheme();
-        return (<text
-          x={centerX}
-          y={centerY}
-          textAnchor="middle"
-          dominantBaseline="central"
-          style={{
-            fill: theme.palette.text.primary,
-            fontSize: `${innerRadius - 15}px`,
-            fontWeight: "bold",
-          }}
-        >
-          {`${(successCount * 100 / totalCount).toFixed(0) || 0}`}%
-        </text>
-    );
     
-    }
+    const centeredText = `${(successCount * 100 / totalCount).toFixed(0) || 0}%`
     return <GlossyBox
         sx={
         {
@@ -56,9 +35,9 @@ export default function RPAOverviewPie(){
             }
         }
         }>
-      <Typography component="h5" align="center">
+      <Typography variant="h5" m={"auto"} align="center">
         Success-Failure Overview
       </Typography>
-      <CustomResponsivePie data={pieChartData} CenteredText={CenteredText}/>
+      <CustomResponsivePie data={pieChartData} centeredText={centeredText}/>
     </GlossyBox>
 };

@@ -9,7 +9,7 @@ export const GlossyBox = styled(Box)(({ theme }) => ({
     // backgroundColor: theme.palette.neutral.dark,
     // backgroundColor: "#2f3869",
     // backgroundColor: "#1e2938",
-    backgroundColor:  theme.palette.primary.dark,
+    // backgroundColor:  theme.palette.primary.dark,
     // borderRadius: theme.shape.borderRadius,
     display: 'flex',
     justifyContent: 'center',
@@ -23,4 +23,19 @@ export const GlossyBox = styled(Box)(({ theme }) => ({
     }
   }
 
+));  
+
+
+export const AltBox = styled(Box)(({ theme }) => ({
+  backgroundColor:  theme.palette.primary.dark,
+  // borderRadius: theme.shape.borderRadius,
+  color: theme.palette.text.primary,
+  padding: "10px",
+  fontSize: '1.2rem',
+  fontWeight: 'bold',
+  textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+  "&:hover": {
+    boxShadow: "0 0.5px 5px 1px #005295",
+  }
+}
 ));  

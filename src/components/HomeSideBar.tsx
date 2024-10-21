@@ -76,7 +76,7 @@ export default function HomeSideBar(){
                 overflow: 'hidden'
             })
         }
-        mx={1}
+        // mx={1}
         spacing={1}
         alignItems={'center'}
         justifyContent={'space-between'}

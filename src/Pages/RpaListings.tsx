@@ -119,6 +119,7 @@ export default function RpasOverview(){
                 overflow: 'hidden'
             })
         }
+        mx={1}
         spacing={1}
         alignItems={'center'}
         justifyContent={'space-between'}
@@ -214,7 +215,8 @@ function QueueBar(){
 
 function TimePeriodBar(
   {
-    startDateTime, endDateTime, setStartDateTime, setEndDateTime,
+    startDateTime, endDateTime,
+    setStartDateTime, setEndDateTime,
     dateButtonText, setDateButtonText
   }){
 

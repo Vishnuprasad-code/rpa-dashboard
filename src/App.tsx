@@ -10,6 +10,9 @@ import AllRpaBar from "./Scenes/BarChart.tsx"
 import Table from "./Scenes/Table.tsx"
 
 import RPAOverviewPie from "./Scenes/RPAOverviewPie.tsx"
+import APIOverviewPie from "./Scenes/APIOverviewPie.tsx"
+import BrowserlessOverview from "./Scenes/BrowserlessOverview.tsx"
+import CaptchaBalance from "./Scenes/CaptchaBalance.tsx"
 
 import { ColorModeContext, useMode } from "./theme.js";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -170,7 +173,7 @@ function HomeMain() {
     >
       <Grid
         height="15rem"
-        order={{xl: 1, lg: 1, md: 2, sm: 2, xs: 2}}
+        order={{xl: 1, lg: 1, md: 4, sm: 4, xs: 4}}
         size={{lg: 6, sm: 12, xs: 12}}>
         <USAMap/>
       </Grid>
@@ -188,16 +191,30 @@ function HomeMain() {
       </Grid>
       <Grid
         height="18rem"
-        order={{xl: 4, lg: 4, md: 4, sm: 4, xs: 4}}
-        size={{lg: 4}}>
+        order={{xl: 4, lg: 4, md: 2, sm: 2, xs: 2}}
+        size={{lg: 4, sm:12, xs: 12}}>
         <RPAOverviewPie/>
       </Grid>
       <Grid
-        height="15rem"
-        size={{lg: 4}}
+        height="10rem"
+        size={{lg: 4, sm:12, xs: 12}}
         order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
       >
-        <RPAOverviewPie/>
+        <CaptchaBalance/>
+      </Grid>
+      <Grid
+        height="10rem"
+        size={{lg: 4, sm:12, xs: 12}}
+        order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
+      >
+        <APIOverviewPie/>
+      </Grid>
+      <Grid
+        height="10rem"
+        size={{lg: 4, sm:12, xs: 12}}
+        order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
+      >
+        <BrowserlessOverview/>
       </Grid>
     </Grid>
     </MainStatsContext.Provider>

@@ -35,29 +35,49 @@ const CustomTooltip = ({ name, value, color }) => {
     </div>
 };
 
+const CenteredText = (
+  innerRadius, centerX, centerY, centeredText
+) => {
+    const theme = useTheme();
+    return (<text
+      x={centerX}
+      y={centerY}
+      textAnchor="middle"
+      dominantBaseline="central"
+      style={{
+        fill: theme.palette.text.primary,
+        fontSize: `${innerRadius * 0.6}px`,
+        fontWeight: "bold",
+      }}
+    >
+      {centeredText}
+    </text>
+);
 
+}
 
-export function CustomResponsivePie({data, CenteredText}) {
+export function CustomResponsivePie({data, centeredText, bottomMargin=60}) {
   return (
     <ResponsivePie
       data={data}
-      theme={{ legends: { text: { fontSize: 10 } } }}
-      margin={{ top: 10, right: 0, bottom: 60, left: 0 }}
+      theme={{ legends: { text: { fontSize: 12 } } }}
+      margin={{ top: 5, right: 0, bottom: bottomMargin, left: 0 }}
       innerRadius={0.6}
       padAngle={0.7}
       cornerRadius={1}
-      fit={true}
+      fit={false}
       activeOuterRadiusOffset={2}
       colors={["#33f08a", "black"]}
-      layers={["arcs", "arcLabels", "legends", CenteredText]}
+      layers={[
+        "arcs", 
+        "arcLabels", 
+        "legends",
+        ({innerRadius, centerX, centerY}) => CenteredText(innerRadius, centerX, centerY, centeredText)
+      ]}
       borderWidth={2}
       borderColor="transparent"
-      enableArcLinkLabels={true}
-      arcLinkLabelsSkipAngle={10}
-      arcLinkLabelsTextColor="#333333"
-      arcLinkLabelsOffset={-3}
-      arcLinkLabelsThickness={2}
-      arcLinkLabelsColor={{ from: "color", modifiers: [] }}
+      enableArcLinkLabels={false}
+      enableArcLabels={false}
       arcLabelsSkipAngle={13}
       arcLabelsTextColor="white"
       defs={[]}
@@ -67,23 +87,23 @@ export function CustomResponsivePie({data, CenteredText}) {
           anchor: "bottom",
           direction: "row",
           justify: false,
-          translateX: 10,
-          translateY: 40,
-          itemsSpacing: 60,
-          itemWidth: 100,
-          itemHeight: 30,
+          translateX: 1,
+          translateY: 50,
+          itemsSpacing: 30,
+          itemWidth: 50,
+          itemHeight: 50,
           itemTextColor: "#999",
           itemDirection: "left-to-right",
           itemOpacity: 1,
-          symbolSize: 20,
+          symbolSize: 10,
           symbolShape: "square",
           effects: [
-            {
-              on: "hover",
-              style: {
-                itemTextColor: "#000",
-              },
-            },
+            // {
+            //   on: "hover",
+            //   style: {
+            //     itemTextColor: "#000",
+            //   },
+            // },
           ],
         },
       ]}
