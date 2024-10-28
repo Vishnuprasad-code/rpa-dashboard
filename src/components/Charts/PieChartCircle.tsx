@@ -56,12 +56,12 @@ const CenteredText = (
 
 }
 
-export function CustomResponsivePie({data, centeredText, bottomMargin=60}) {
+export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMargin=60}) {
   return (
     <ResponsivePie
       data={data}
       theme={{ legends: { text: { fontSize: 12 } } }}
-      margin={{ top: 5, right: 0, bottom: bottomMargin, left: 0 }}
+      margin={{ top: topMargin, right: 0, bottom: bottomMargin, left: 0 }}
       innerRadius={0.6}
       padAngle={0.7}
       cornerRadius={1}

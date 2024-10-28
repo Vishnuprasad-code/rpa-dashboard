@@ -33,3 +33,19 @@ export interface QueueCountType {
   count: number,
   filingType: string
 }
+
+
+export interface rpaListingType {
+  [k: string]: string | number
+}
+
+
+export interface rpaListingstype {
+  [k: string]: rpaListingType
+}
+
+export interface DashboardContextType {
+  selectedTab: string,
+  setSelectedTab: (selectedTab: string) => void;
+  rpaListings: rpaListingstype
+}

@@ -51,6 +51,7 @@ export default function CaptchaBalance(){
         <Divider orientation="vertical" variant='middle' sx={{ height: "80%", mr: "-2px",border: (theme) => `0.5px solid ${theme.palette.divider}`,}}></Divider>
         <Box>
             <Typography variant='h1'>{data.balance} $</Typography>
+            <Typography variant='h6'>Remaining</Typography>
         </Box>
       </Box>
 

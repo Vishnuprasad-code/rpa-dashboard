@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 
-import {GlossyBox} from "../components/StyledComponents/styledBox.tsx"
+import {AltBox} from "../components/StyledComponents/styledBox.tsx"
 
 import {CustomResponsivePie} from "../components/Charts/PieChartCircle.tsx"
 
@@ -25,19 +25,20 @@ export default function RPAOverviewPie(){
       ];
     
     const centeredText = `${(successCount * 100 / totalCount).toFixed(0) || 0}%`
-    return <GlossyBox
-        sx={
-        {
+    return <AltBox
+          sx={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
             flexDirection: 'column',
             paddingTop: 2,
             "& > div": {
             flexBasis: 'auto'
-            }
-        }
+          }}
         }>
       <Typography variant="h5" m={"auto"} align="center">
         Success-Failure Overview
       </Typography>
       <CustomResponsivePie data={pieChartData} centeredText={centeredText}/>
-    </GlossyBox>
+    </AltBox>
 };

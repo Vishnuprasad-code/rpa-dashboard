@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid2';
 
 
 import HomeSideBar from './components/HomeSideBar.tsx'
+import NavBar from './components/Navbar/NavbarComponent.tsx'
 
 import {USAMap} from './components/MapComponent/MapChart.tsx'
 
@@ -14,7 +15,7 @@ import APIOverviewPie from "./Scenes/APIOverviewPie.tsx"
 import BrowserlessOverview from "./Scenes/BrowserlessOverview.tsx"
 import CaptchaBalance from "./Scenes/CaptchaBalance.tsx"
 
-import { ColorModeContext, useMode } from "./theme.js";
+import { ColorModeContext, useMode } from "./theme.ts";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 // import { BrowserRouter as Router, Routes, Route, useLoaderData} from 'react-router-dom';
@@ -22,11 +23,13 @@ import { RouterProvider, createBrowserRouter, useLoaderData, Outlet } from 'reac
 
 
 import { MainStatsContext } from './Contexts/mainStatsContext.tsx';
-import {fetchLatestMainStatsData} from './Http/http.ts'
-import {mainStatsDataType} from './Types/types.ts'
+import {DashboardContext} from './Contexts/DashboardContext.tsx';
+
+import {fetchLatestMainStatsData, fetchRPAListingsData} from './Http/http.ts'
+import {mainStatsDataType, rpaListingstype} from './Types/types.ts'
 
 
-import RpaListings from "./Pages/RpaListings.tsx"
+import RpasOverview from "./Pages/RpasOverview.tsx"
 
 
 const router = createBrowserRouter([
@@ -35,10 +38,13 @@ const router = createBrowserRouter([
     element: <Dashboard/>,
     children: [
       { index: true, element: <HomeMain />},
-      { path: 'rpas', element: <RpaListings />},
+      { path: 'rpas/:rpaId', element: <RpasOverview />},
+      { path: 'apis', element: <HelloWorld />},
+      { path: 'docs', element: <HelloWorld />},
     ],
   },
 ]);
+
 
 function HelloWorld(){
   return <div>Hello World</div>
@@ -52,7 +58,6 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-          {/* <Dashboard/> */}
           <RouterProvider router={router} />
       </ThemeProvider>
     </ColorModeContext.Provider>
@@ -61,7 +66,30 @@ function App() {
 
 
 function Dashboard(){
+  const [selectedTab, setSelectedTab] = useState<string>("Home")
+  const [rpaListings, setRPAListings] = useState<rpaListingstype>({})
+
+  const fetchData = async () => {
+    try {
+      const rpaListingsData = await fetchRPAListingsData();
+      setRPAListings(rpaListingsData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    // Initial fetch
+    fetchData();
+  }, []); // Empty dependency array ensures this runs only once
+
   return (
+    <DashboardContext.Provider value={{ 
+      selectedTab: selectedTab, 
+      setSelectedTab: setSelectedTab,
+      rpaListings: rpaListings
+      }}>
+
     <Grid
       container
       sx={{height: "100vh"}}
@@ -91,6 +119,7 @@ function Dashboard(){
         <Outlet />
       </Grid>
     </Grid>
+    </DashboardContext.Provider>
   )
 };
 
@@ -98,20 +127,20 @@ function Dashboard(){
 function HomeNavBar(){
   return (
   <Grid
-  container
-  justifyContent="center"
-  spacing={2}
-  alignItems="center"
+    container
+    justifyContent="center"
+    spacing={2}
+    alignItems="center"
   sx={{
     // border: "1px solid green",
     "& > .MuiGrid2-direction-xs-row": {
-      // border: "1px solid blue",
+      // border: "1px solid green",
       height: "2rem"
     }
   }}
 >
-    <Grid>
-      Nav1
+    <Grid size={{lg: 12, sm: 12, xs: 12}}>
+      <NavBar />
     </Grid>
   </Grid>
   );
@@ -160,7 +189,8 @@ function HomeMain() {
     <Grid
       container
       justifyContent="flex-start"
-      margin="1rem"
+      mx="1rem"
+      mt="10px"
       spacing="1rem"
       alignItems="center"
       sx={{

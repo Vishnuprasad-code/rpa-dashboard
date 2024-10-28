@@ -56,7 +56,7 @@ export default function APIOverviewPie(){
                     height: "100%",
                 }}
             >
-              <CustomResponsivePie data={pieChartData} centeredText={centeredText} bottomMargin={30}/>
+              <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={30}/>
             </Box>
             <Box 
                 display={"flex"}

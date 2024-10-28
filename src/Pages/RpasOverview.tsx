@@ -1,21 +1,21 @@
+import {useContext, useEffect, useState} from 'react';
+
+
 import { Box } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import Grid from '@mui/material/Grid2';
-
-import { data } from "./TpaListingsMockData";
-
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import {GlossyBox} from '../components/StyledComponents/styledBox.tsx'
 
 
-import { useState, useEffect } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -35,6 +35,7 @@ import {formatDateFromEpoch} from "../Utils/utils.ts"
 
 
 import { MainStatsContext } from '../Contexts/mainStatsContext.tsx';
+import { DashboardContext } from "../Contexts/DashboardContext.tsx"
 import {fetchLatestMainStatsData, fetchQueueCount} from '../Http/http.ts'
 import {mainStatsDataType, QueueCountType} from '../Types/types.ts'
 
@@ -80,6 +81,9 @@ const MUIDateTimeRangePicker = ({handleStartDateTimeChange, handleEndDateTimeCha
 };
 
 export default function RpasOverview(){
+  const params = useParams();
+  const {setSelectedTab}= useContext(DashboardContext);
+  setSelectedTab("RPAs");
   const timeZone = 'America/Los_Angeles';
   const losAngelesTime = dayjs().tz(timeZone).startOf('day');
   const epochStartTime = losAngelesTime.unix();
@@ -100,7 +104,7 @@ export default function RpasOverview(){
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const latestMainStatsData = await fetchLatestMainStatsData(startDateTime, endDateTime);
+          const latestMainStatsData = await fetchLatestMainStatsData(params.rpaId, startDateTime, endDateTime);
           setMainStatsData(latestMainStatsData);
         } catch (error) {
           console.log(error);
@@ -116,13 +120,21 @@ export default function RpasOverview(){
         sx={
             (theme) => ({
                 // bgcolor: theme.palette.primary.dark,
-                overflow: 'hidden'
+                // overflow: 'hidden',
+                // minHeight: "80vh",
+            "& .MuiAccordion-root":{
+              width: "100%",
+              backgroundColor: "transparent"
+            },
+            "& .MuiAccordionDetails-root":{
+              padding: "0",
+            }
             })
         }
-        mx={1}
+        m="20px 10px"
         spacing={1}
         alignItems={'center'}
-        justifyContent={'space-between'}
+        justifyContent={'flex-start'}
     >  
       <QueueBar/>
       <Divider
@@ -140,15 +152,37 @@ export default function RpasOverview(){
         dateButtonText={dateButtonText}
         setDateButtonText={setDateButtonText}
         />
-        <Box
-        sx={{
-          height: "20rem",
-          width: "100%",
-        }}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
         >
-        <AllRpaBar/>
-        </Box>
+          <Typography textAlign={"center"}>GRAPH</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Box
+          sx={{
+            height: "20rem",
+            width: "100%",
+          }}
+      >
+      <AllRpaBar/>
+      </Box>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography textAlign={"center"}>TABLE</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
         <Table isPaused={true} isFullTable={true}/>
+        </AccordionDetails>
+      </Accordion>
         </Stack>
       </MainStatsContext.Provider>
     )
@@ -323,47 +357,4 @@ function TimePeriodBar(
         </Box>
       </Box>
     );
-}
-
-
-function RpaListings(){
-  return  <Grid
-  container
-  justifyContent="flex-start"
-  margin="1rem"
-  spacing="1rem"
-  alignItems="center"
->
-{Object.keys(data).map((state) => (
-  <Grid 
-      size={{xl: 4, lg: 4, md: 6, sm: 6, xs: 6}}
-      height="15rem"
-      sx={{
-          padding: 2,
-          border: "1px solid yellow"
-      }}
-      key={state}
-  >
-    <Typography>{state}</Typography>
-    <List
-    sx={{
-      // padding: 0,
-      // margin: 0,
-    }}>
-    {data[state].map(item => (
-      <ListItem
-          component={Link}
-          to=""
-          sx={{
-              padding: 0,
-              margin: 1,
-          }}
-          >
-          {item.label}
-      </ListItem>
-      ))}
-    </List>
-  </Grid>
-))}
-</Grid>
 }

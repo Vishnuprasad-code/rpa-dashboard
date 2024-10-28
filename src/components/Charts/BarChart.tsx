@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { BarDatum, ComputedBarDatum } from '@nivo/bar/dist/types/types';
 import { Theme } from '@mui/material/styles/createTheme';
 
-// import { mainStatsDataType, GraphDataType } from "../../Types/types.ts";
+import CustomZoomPinchComponent from "../ZoomComponent/CustomZoomComponent"
 
 
 
@@ -63,11 +63,12 @@ export function ResponsiveStackBar({data}){
     const theme = useTheme();
     
     return (
+    <CustomZoomPinchComponent initialPositionY={50}>
       <ResponsiveBar
         data={data}
         keys={["success", "failed"]}
         indexBy="rpa"
-        margin={{ top: 50, right: 5, bottom: 20, left: 5 }}
+        margin={{ top: 25, right: 5, bottom: 50, left: 5 }}
         padding={0.5}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
@@ -105,7 +106,7 @@ export function ResponsiveStackBar({data}){
         },
         ]}
         enableGridY={true}
-        gridYValues={3}
+        gridYValues={4}
         enableLabel={false}
         fill={[]}
         borderRadius={4}
@@ -113,13 +114,13 @@ export function ResponsiveStackBar({data}){
         axisTop={null}
         axisRight={null}
         axisBottom={
-            //     {
-            // tickSize: 5,
-            // tickPadding: 5,
-            // tickRotation: -35,
-            // truncateTickAt: 9,
-            // }
-            null
+                {
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: -35,
+            truncateTickAt: 9,
+            }
+            // null
         }
         axisLeft={null}
         labelSkipWidth={12}
@@ -140,5 +141,6 @@ export function ResponsiveStackBar({data}){
         e.id + ": " + e.formattedValue + " in country: " + e.indexValue
         }
         />
+        </CustomZoomPinchComponent>
     );
 }

@@ -5,15 +5,13 @@ import {
   Geography,
 } from "react-simple-maps";
 
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import CustomZoomPinchComponent from "../ZoomComponent/CustomZoomComponent"
 
 
 import Stack from "@mui/system/Stack";
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
-
-import "./MapChart.scss"
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -26,18 +24,20 @@ export function USAMap(){
       (theme) => ({
         height: "100%",
         width: "100%",
-        bgcolor: theme.palette.primary.dark,
-        borderRadius: '1rem'
+        // bgcolor: theme.palette.primary.dark,
+        borderRadius: '1rem',
+        position: "relative",
       })
     }>
-      <TransformWrapper>
-        <TransformComponent wrapperClass="zoom-component" contentClass="zoom-component">
-          <MapChart hoverdState={setHoveredState}/>\
-        </TransformComponent>
-      </TransformWrapper>
+      <CustomZoomPinchComponent>
+        <MapChart hoverdState={setHoveredState}/>\
+      </CustomZoomPinchComponent>
       <Box sx={{
+        position: "absolute",
+        bottom: 0,
         height: "2rem",
-        padding: "10px"
+        padding: "10px",
+        backgroundColor: "transparent"
       }}>
         {hoverdState}
       </Box>

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext} from 'react';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
-import Paper from '@mui/material/Paper';
+import { DashboardContext } from "../Contexts/DashboardContext.tsx"
 
 import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -38,7 +38,7 @@ const routes = [
     },
     {
         "route": "RPAs",
-        "path": "/rpas",
+        "path": "/rpas/all",
         "icon": <Avatar sx={{
             // border: "8px solid black", 
             // padding: "5px"
@@ -92,7 +92,8 @@ export default function HomeSideBar(){
 function SideMenu(){
     const theme = useTheme();
   
-    const [selectedTab, setSelectedTab] = useState<string>("Home")
+    const {selectedTab, setSelectedTab}= useContext(DashboardContext);
+
     return (
         <AppBar
             position='relative'

@@ -1,4 +1,4 @@
-export const data = {
+export const RPAListingsMockData = {
     "CA": [
       {
         "label": "CA-llc-soi",
