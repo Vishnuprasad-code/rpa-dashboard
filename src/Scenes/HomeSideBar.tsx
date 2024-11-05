@@ -1,4 +1,4 @@
-import { useState, useContext} from 'react';
+import { useContext } from 'react';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -17,10 +17,10 @@ import shLogo from '../assets/sh-logo-800.png';
 import zbLogo from '../assets/circle-logo-teal.svg';
 import companyLogo from '../assets/company.webp';
 
-import rpaIcon from '../assets/rpa-icon.png';
-import homeIcon from '../assets/home-icon.svg';
-import apiIcon from '../assets/api-icon.png';
-import docsIcon from '../assets/docs-icon.png';
+import RpaIcon from '../assets/rpa-icon.png';
+import HomeIcon from '@mui/icons-material/Home';
+import ApiIcon from '@mui/icons-material/Api';
+import ArticleIcon from '@mui/icons-material/Article';
 
 
 import { Link } from 'react-router-dom';
@@ -34,15 +34,22 @@ const routes = [
             {
                 bgcolor: "pink",
             }
-        } src={homeIcon} alt="h" />
+        }>
+            <HomeIcon fontSize="large" />
+        </Avatar>
     },
     {
         "route": "RPAs",
         "path": "/rpas/all",
-        "icon": <Avatar sx={{
-            // border: "8px solid black", 
-            // padding: "5px"
-        }} src={rpaIcon} alt="h" />
+        "icon": <Avatar sx={
+            {
+                bgcolor: "pink",
+                "& > img": {
+                    height: "35px",
+                    width: "35px"
+                }
+            }
+        } src={RpaIcon} alt="h" />
     }
     ,
     {
@@ -50,18 +57,23 @@ const routes = [
         "path": "/apis",
         "icon": <Avatar sx={
             {
-                // border: "8px solid black",
-                //  padding: "5px"
-                }} src={apiIcon} alt="h" />
+                bgcolor: "pink",
+            }
+        }>
+            <ApiIcon fontSize="large" />
+        </Avatar>
     },
     {
         "route": "Docs",
         "path": "/docs",
-        "icon": <Avatar sx={{
-            // border: "8px solid black",
-            //  padding: "5px"
-            }} src={docsIcon} alt="h" />
-    }
+        "icon": <Avatar sx={
+            {
+                bgcolor: "pink",
+            }
+        }>
+            <ArticleIcon fontSize="large" />
+        </Avatar>
+    },
 ]
 
 
@@ -130,6 +142,9 @@ function SideMenu(){
                                         setSelectedTab(route);
                                     }}
                                     sx={{
+                                        "&.Mui-selected": {
+                                            color: theme.palette.text.primary,
+                                        },
                                         minWidth: "100%",
                                         justifyContent: "flex-start",
                                         columnGap: 2,

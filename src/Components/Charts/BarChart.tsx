@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { BarDatum, ComputedBarDatum } from '@nivo/bar/dist/types/types';
 import { Theme } from '@mui/material/styles/createTheme';
 
-import CustomZoomPinchComponent from "../ZoomComponent/CustomZoomComponent"
+import CustomZoomPinchComponent from "../ZoomComponent/CustomZoomComponent.tsx"
 
 
 
@@ -20,6 +20,7 @@ import CustomZoomPinchComponent from "../ZoomComponent/CustomZoomComponent"
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
+
 
 const totalsRedender = (bars: readonly ComputedBarDatum<BarDatum>[], theme: Theme) => {
     const filtereBars = bars.slice(Math.ceil(bars.length / 2));
@@ -35,7 +36,7 @@ const totalsRedender = (bars: readonly ComputedBarDatum<BarDatum>[], theme: Them
             textAnchor="middle"
             style={{
                 fill: theme.palette.text.primary,
-                fontSize: 10,
+                fontSize: bar.width * 0.35,
                 fontWeight: 'bold',
             }}
         >
@@ -59,7 +60,15 @@ const CustomTooltip = ({data}: {data: BarDatum}) => {
     );
 }
 
-export function ResponsiveStackBar({data}){
+export function ResponsiveStackBar(
+    {
+        data,
+        clicHandler=null
+
+    }: {
+        data: any,
+        clicHandler: ((state: string) => void) | null
+    }){
     const theme = useTheme();
     
     return (
@@ -72,7 +81,7 @@ export function ResponsiveStackBar({data}){
         padding={0.5}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
-        colors={["#3ca7dc", "black"]}
+        colors={["#3ca7dc", "red"]}
         theme={{
             grid: {
                 line: {
@@ -109,7 +118,7 @@ export function ResponsiveStackBar({data}){
         gridYValues={4}
         enableLabel={false}
         fill={[]}
-        borderRadius={4}
+        borderRadius={2}
         borderColor="white"
         axisTop={null}
         axisRight={null}
@@ -135,8 +144,9 @@ export function ResponsiveStackBar({data}){
             'legends',
             ({bars}) => totalsRedender(bars, theme),
         ]}
+        onClick={({data}) => clicHandler && clicHandler(String(data.state))}
         role="application"
-        ariaLabel="Nivo bar chart demo"
+        ariaLabel="Nivo bar chart"
         barAriaLabel={(e) =>
         e.id + ": " + e.formattedValue + " in country: " + e.indexValue
         }

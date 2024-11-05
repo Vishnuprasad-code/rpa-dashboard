@@ -9,7 +9,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ListIcon from '@mui/icons-material/List';
 
-import {RpaListings} from '../RPAListings/RPAListingsComponent.tsx'
+import {RpaListings} from '../Masonry/RPAListings.tsx'
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx"
 import { ColorModeContext } from "../../theme.ts";
 
@@ -32,14 +32,16 @@ export default function NavBar(){
     return <Box
         sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
-            margin: "auto",
+            mx: "auto",
+            mt: "2px",
             width: "90%",
+            columnGap: 4,
         }}
     >  
         <SearchBar handleSearch={handleSearch}/>
-        <Box
+        {/* <Box
             sx={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -47,7 +49,7 @@ export default function NavBar(){
                 columnGap: 2,
                 // border: "1px solid red"
             }}
-        >
+        > */}
         <LightModeIcon/>
         <DarkModeIcon onClick={colorMode.toggleColorMode}/>
         <NotificationImportantIcon/>
@@ -71,7 +73,7 @@ export default function NavBar(){
           <RpaListings data={rpaListings}/>
         </Box>
       </Modal>
-      </Box>
+      {/* </Box> */}
 
     </Box>
 }

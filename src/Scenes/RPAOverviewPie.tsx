@@ -1,15 +1,19 @@
 import Typography from '@mui/material/Typography';
 
-import {AltBox} from "../components/StyledComponents/styledBox.tsx"
+import {AltBox} from "../Components/StyledComponents/styledBox.tsx"
 
-import {CustomResponsivePie} from "../components/Charts/PieChartCircle.tsx"
+import {CustomResponsivePie} from "../Components/Charts/PieChartCircle.tsx"
 
 import { useContext } from 'react';
 
 import { MainStatsContext } from '../Contexts/mainStatsContext.tsx';
+import CustomSkeleton from '../Components/LoadingAnimation/Skeleton.tsx';
 
 export default function RPAOverviewPie(){
     const {mainStatsData} = useContext(MainStatsContext);
+
+    if (!mainStatsData) return <CustomSkeleton/>
+
     const { totalCount, successCount, failedCount } = mainStatsData;
     const pieChartData = [
         {

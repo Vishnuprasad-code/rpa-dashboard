@@ -1047,76 +1047,96 @@ export const mockStatsData = {
     "graphData": [
         {
             "success": 60,
+            "state": "California",
             "failed": 7,
             "rpa": "ca-llc-soi"
         },
         {
             "success": 5,
+            "state": "Colorado",
             "failed": 4,
             "rpa": "co-llc"
         },
         {
             "success": 38,
+            "state": "Florida",
+
             "failed": 1,
             "rpa": "fl-llc"
         },
         {
             "success": 84,
+            "state": "Texas",
             "failed": 2,
             "rpa": "tx-llc"
         },
         {
             "success": 14,
+            "state": "New Jersey",
             "failed": 7,
             "rpa": "nj-llc"
         },
         {
             "success": 15,
+            "state": "Illinois",
             "failed": 2,
             "rpa": "il-llc"
         },
         {
             "success": 10,
+            "state": "Georgia",
             "failed": 9,
             "rpa": "ga-llc"
         },
         {
             "success": 69,
+            "state": "California",
             "failed": 3,
             "rpa": "ca-llc"
         },
         {
             "success": 7,
+            "state": "New York",
             "failed": 0,
             "rpa": "ny-llc"
         },
         {
             "success": 17,
+            "state": "Michigan",
             "failed": 0,
             "rpa": "mi-llc"
         },
         {
             "success": 11,
+            "state": "North Carolina",
+
             "failed": 6,
             "rpa": "nc-llc"
         },
         {
             "success": 57,
+            "state": "California",
+
             "failed": 9,
             "rpa": "ca-evidence-retrieval"
         },
         {
             "success": 86,
+            "state": "Florida",
             "failed": 12,
             "rpa": "fl-evidence-retrieval"
         },
         {
             "success": 2,
+            "state": "Pennsylvania",
+
             "failed": 15,
             "rpa": "pa-llc"
         },
         {
             "success": 3,
+            "state": "Texas",
+
             "failed": 3,
             "rpa": "tx-annual"
         }

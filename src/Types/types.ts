@@ -9,7 +9,7 @@ export interface FailedFilingType {
     state: string;
     filing_type: string;
     success_on_retry: boolean;
-    success_or_failed: 'success' | 'failed'; // Assuming these are the only possible values
+    success_or_failed: string; // Assuming these are the only possible values
     copy_payload?: null
   }
   
@@ -17,9 +17,10 @@ export interface GraphDataType {
 success: number;
 failed: number;
 rpa: string;
+state: string;
 }
 
-export interface mainStatsDataType {
+export interface MainStatsDataType {
   totalCount: number;
   successCount: number;
   failedCount: number;
@@ -35,17 +36,17 @@ export interface QueueCountType {
 }
 
 
-export interface rpaListingType {
+export interface RpaListingType {
   [k: string]: string | number
 }
 
 
-export interface rpaListingstype {
-  [k: string]: rpaListingType
+export interface RpaListingsType {
+  [k: string]: RpaListingType
 }
 
 export interface DashboardContextType {
   selectedTab: string,
   setSelectedTab: (selectedTab: string) => void;
-  rpaListings: rpaListingstype
+  rpaListings: RpaListingsType
 }

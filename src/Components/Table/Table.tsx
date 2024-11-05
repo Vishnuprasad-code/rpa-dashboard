@@ -8,7 +8,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import { columns } from "./Columns";
+import { columns } from "./Columns.ts";
 
 import {FailedFilingType} from "../../Types/types.ts"
 
@@ -27,7 +27,7 @@ export const AnimatedMuiTable = ({dataRows, isPaused, isFullTable}: {
     const totalHeight = scrollRef.current?.offsetHeight ?? 0;
     let animationFrame: number;
 
-    const scrollSpeed = 0.25; // Adjust this value to change the speed of the scroll
+    const scrollSpeed = 0.33; // Adjust this value to change the speed of the scroll
 
     const scroll = () => {
       if (!isPaused && !isHovered && dataRows.length > 3) {

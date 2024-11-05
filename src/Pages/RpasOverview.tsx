@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useParams } from 'react-router-dom';
 
-import {GlossyBox} from '../components/StyledComponents/styledBox.tsx'
+import {GlossyBox} from '../Components/StyledComponents/styledBox.tsx'
 
 
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
@@ -37,7 +37,8 @@ import {formatDateFromEpoch} from "../Utils/utils.ts"
 import { MainStatsContext } from '../Contexts/mainStatsContext.tsx';
 import { DashboardContext } from "../Contexts/DashboardContext.tsx"
 import {fetchLatestMainStatsData, fetchQueueCount} from '../Http/http.ts'
-import {mainStatsDataType, QueueCountType} from '../Types/types.ts'
+import {MainStatsDataType, QueueCountType} from '../Types/types.ts'
+import CustomSkeleton from '../Components/LoadingAnimation/Skeleton.tsx';
 
 
 dayjs.extend(utc);
@@ -84,21 +85,24 @@ export default function RpasOverview(){
   const params = useParams();
   const {setSelectedTab}= useContext(DashboardContext);
   setSelectedTab("RPAs");
+
   const timeZone = 'America/Los_Angeles';
   const losAngelesTime = dayjs().tz(timeZone).startOf('day');
   const epochStartTime = losAngelesTime.unix();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [startDateTime, setStartDateTime] = useState<number>(epochStartTime);
   const [endDateTime, setEndDateTime] = useState<number>(epochStartTime + 86400);
   const [dateButtonText, setDateButtonText] = useState<string>("Today")
-  const [mainStatsData, setMainStatsData] = useState<mainStatsDataType>(
-    {
-      "totalCount": 0,
-      "successCount": 0,
-      "failedCount": 0,
-      "failedFilings": [],
-      "graphData": []
-    }
+  const [mainStatsData, setMainStatsData] = useState<MainStatsDataType | null>(
+    null
+    // {
+    //   "totalCount": 0,
+    //   "successCount": 0,
+    //   "failedCount": 0,
+    //   "failedFilings": [],
+    //   "graphData": []
+    // }
   )
     
     useEffect(() => {
@@ -110,8 +114,9 @@ export default function RpasOverview(){
           console.log(error);
         }
       };
+      setIsLoading(true);
       fetchData();
-  
+      setIsLoading(false);
     }, [startDateTime, endDateTime]); // Empty dependency array ensures this runs only once  
 
     return (
@@ -167,7 +172,7 @@ export default function RpasOverview(){
             width: "100%",
           }}
       >
-      <AllRpaBar/>
+        {(mainStatsData && !isLoading)? <AllRpaBar/> : <Box sx={{width: "100%", height: "60px"}}><CustomSkeleton/></Box>}
       </Box>
         </AccordionDetails>
       </Accordion>
@@ -180,7 +185,7 @@ export default function RpasOverview(){
           <Typography textAlign={"center"}>TABLE</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <Table isPaused={true} isFullTable={true}/>
+        {mainStatsData? <Table isPaused={true} isFullTable={true}/> : <Box sx={{width: "100%", height: "60px"}}><CustomSkeleton/></Box>}
         </AccordionDetails>
       </Accordion>
         </Stack>

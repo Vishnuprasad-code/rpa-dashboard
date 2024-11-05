@@ -1,35 +1,19 @@
 import { useState, useEffect } from 'react'
-import Grid from '@mui/material/Grid2';
-
-
-import HomeSideBar from './components/HomeSideBar.tsx'
-import NavBar from './components/Navbar/NavbarComponent.tsx'
-
-import {USAMap} from './components/MapComponent/MapChart.tsx'
-
-import AllRpaBar from "./Scenes/BarChart.tsx"
-import Table from "./Scenes/Table.tsx"
-
-import RPAOverviewPie from "./Scenes/RPAOverviewPie.tsx"
-import APIOverviewPie from "./Scenes/APIOverviewPie.tsx"
-import BrowserlessOverview from "./Scenes/BrowserlessOverview.tsx"
-import CaptchaBalance from "./Scenes/CaptchaBalance.tsx"
-
 import { ColorModeContext, useMode } from "./theme.ts";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-// import { BrowserRouter as Router, Routes, Route, useLoaderData} from 'react-router-dom';
-import { RouterProvider, createBrowserRouter, useLoaderData, Outlet } from 'react-router-dom';
+import Grid from '@mui/material/Grid2';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
-
-import { MainStatsContext } from './Contexts/mainStatsContext.tsx';
-import {DashboardContext} from './Contexts/DashboardContext.tsx';
-
-import {fetchLatestMainStatsData, fetchRPAListingsData} from './Http/http.ts'
-import {mainStatsDataType, rpaListingstype} from './Types/types.ts'
-
-
+import { DashboardContext } from './Contexts/DashboardContext.tsx';
 import RpasOverview from "./Pages/RpasOverview.tsx"
+import HomeMain from './Pages/HomeMain.tsx';
+
+import HomeSideBar from './Scenes/HomeSideBar.tsx'
+import HomeNavBar from './Scenes/HomeNavBar.tsx';
+
+import { fetchRPAListingsData } from './Http/http.ts';
+import { RpaListingsType } from './Types/types.ts';
 
 
 const router = createBrowserRouter([
@@ -67,7 +51,7 @@ function App() {
 
 function Dashboard(){
   const [selectedTab, setSelectedTab] = useState<string>("Home")
-  const [rpaListings, setRPAListings] = useState<rpaListingstype>({})
+  const [rpaListings, setRPAListings] = useState<RpaListingsType>({})
 
   const fetchData = async () => {
     try {
@@ -79,7 +63,6 @@ function Dashboard(){
   };
 
   useEffect(() => {
-    // Initial fetch
     fetchData();
   }, []); // Empty dependency array ensures this runs only once
 
@@ -95,7 +78,7 @@ function Dashboard(){
       sx={{height: "100vh"}}
     >
       <Grid
-        size={{xl: 2, lg: 2, md: 0.75, sm: 0.75, xs: 0.75}}
+        size={{xl: 1.75, lg: 1.75, md: 0.75, sm: 0.75, xs: 0.75}}
         sx={
          {
           bgcolor: "transparent",
@@ -122,134 +105,6 @@ function Dashboard(){
     </DashboardContext.Provider>
   )
 };
-
-
-function HomeNavBar(){
-  return (
-  <Grid
-    container
-    justifyContent="center"
-    spacing={2}
-    alignItems="center"
-  sx={{
-    // border: "1px solid green",
-    "& > .MuiGrid2-direction-xs-row": {
-      // border: "1px solid green",
-      height: "2rem"
-    }
-  }}
->
-    <Grid size={{lg: 12, sm: 12, xs: 12}}>
-      <NavBar />
-    </Grid>
-  </Grid>
-  );
-}
-
-function HomeMain() {
-  // const iniatialStatsData = useLoaderData() as mainStatsDataType;
-  const [mainStatsData, setMainStatsData] = useState<mainStatsDataType>(
-    // useLoaderData() as mainStatsDataType
-    // iniatialStatsData
-    {
-      "totalCount": 0,
-      "successCount": 0,
-      "failedCount": 0,
-      "failedFilings": [],
-      "graphData": []
-    }
-  )
-
-  const fetchData = async () => {
-    try {
-      const latestMainStatsData = await fetchLatestMainStatsData();
-      setMainStatsData(latestMainStatsData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    // Initial fetch
-    fetchData();
-
-    // Set up interval to fetch data every 30 seconds
-    const intervalId = setInterval(() => {
-      console.log("Sending request......")
-      fetchData();
-    }, 45000); // 30 seconds
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []); // Empty dependency array ensures this runs only once
-
-
-  return (
-    <MainStatsContext.Provider value={{ mainStatsData: mainStatsData,  setMainStatsData: setMainStatsData}}>
-    <Grid
-      container
-      justifyContent="flex-start"
-      mx="1rem"
-      mt="10px"
-      spacing="1rem"
-      alignItems="center"
-      sx={{
-        // border: "1px solid red",
-        "& > .MuiGrid2-direction-xs-row": {
-          // border: "1px solid blue",
-          // minHeight: "15vh"
-        }
-      }}
-    >
-      <Grid
-        height="15rem"
-        order={{xl: 1, lg: 1, md: 4, sm: 4, xs: 4}}
-        size={{lg: 6, sm: 12, xs: 12}}>
-        <USAMap/>
-      </Grid>
-      <Grid
-        height="15rem"
-        order={{xl: 2, lg: 2, md: 3, sm: 3, xs: 3}}
-        size={{lg: 6, sm:12, xs: 12}}>
-        <Table/>
-      </Grid>
-      <Grid
-        height="18rem"
-        order={{xl: 3, lg: 3, md: 1, sm: 1, xs: 1}}
-        size={{lg:8, sm:12, xs: 12}}>
-        <AllRpaBar/>
-      </Grid>
-      <Grid
-        height="18rem"
-        order={{xl: 4, lg: 4, md: 2, sm: 2, xs: 2}}
-        size={{lg: 4, sm:12, xs: 12}}>
-        <RPAOverviewPie/>
-      </Grid>
-      <Grid
-        height="10rem"
-        size={{lg: 4, sm:12, xs: 12}}
-        order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
-      >
-        <CaptchaBalance/>
-      </Grid>
-      <Grid
-        height="10rem"
-        size={{lg: 4, sm:12, xs: 12}}
-        order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
-      >
-        <APIOverviewPie/>
-      </Grid>
-      <Grid
-        height="10rem"
-        size={{lg: 4, sm:12, xs: 12}}
-        order={{xl: 5, lg: 5, md: 5, sm: 5, xs: 5}}
-      >
-        <BrowserlessOverview/>
-      </Grid>
-    </Grid>
-    </MainStatsContext.Provider>
-    )
-}
 
 
 export default App

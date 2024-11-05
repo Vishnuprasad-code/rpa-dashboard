@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack';
 
-import {AltBox} from "../components/StyledComponents/styledBox.tsx"
+import {AltBox} from "../Components/StyledComponents/styledBox.tsx"
 
 
 import chromeIcon from '../assets/chrome.png';

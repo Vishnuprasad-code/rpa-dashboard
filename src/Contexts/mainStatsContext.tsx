@@ -1,11 +1,13 @@
 import { createContext } from 'react';
 
-import {mainStatsDataType} from '../Types/types.ts'
+import {MainStatsDataType} from '../Types/types.ts'
 
 
 export interface MainStatsContextType {
-    'mainStatsData': mainStatsDataType,
-    'setMainStatsData': (statsData: mainStatsDataType) => void,
+    'mainStatsData': MainStatsDataType | null,
+    'setMainStatsData': (statsData: MainStatsDataType) => void,
+    'selectedState'?: string | null,
+    'setSelectedState'?: (selectedState: string| null) => void,
   }
 
 export const MainStatsContext = createContext<MainStatsContextType>({
@@ -17,4 +19,6 @@ export const MainStatsContext = createContext<MainStatsContextType>({
         "graphData": []
       },
     setMainStatsData: () => null,
+    selectedState: null,
+    setSelectedState: () => null,
   });
