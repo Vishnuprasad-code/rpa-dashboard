@@ -81,7 +81,7 @@ export function ResponsiveStackBar(
         padding={0.5}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
-        colors={["#3ca7dc", "red"]}
+        colors={["#3ca7dc", "#cc6b3c"]}
         theme={{
             grid: {
                 line: {

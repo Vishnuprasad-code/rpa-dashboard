@@ -3,6 +3,8 @@
 import { ResponsivePie } from "@nivo/pie";
 
 import { useTheme} from '@mui/material/styles';
+import { Typography } from "@mui/material";
+import {StyledToolTip} from "../StyledComponents/styledToolTip.tsx"
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -12,27 +14,29 @@ import { useTheme} from '@mui/material/styles';
 
 const CustomTooltip = ({ name, value, color }) => {
   const theme = useTheme();
-  console.log(theme.palette.text.primary)
-  return <div
-      style={{
-          padding: '6px 12px',
-          background: theme.palette.background.default,
-          borderRadius: '3px',
-          color: theme.palette.text.primary,
-          fontSize: '14px',  // Customize font size
-          fontFamily: 'Arial, sans-serif',  // Customize font family
-          fontWeight: 'bold',  // Customize font weight
-      }}
-    >
-        <div style={{
-          marginRight: "5px",
-          display: "inline-block",
-          background: color,
-          width: "10px",
-          height: "10px",
-          border: `1px solid ${theme.palette.text.primary}`,  
-        }}></div>{name}: {value}
-    </div>
+  return <StyledToolTip>
+        <Typography variant="h4">{name}: {value}</Typography>
+  </StyledToolTip>
+  // <div
+  //     style={{
+  //         padding: '6px 12px',
+  //         background: theme.palette.background.default,
+  //         borderRadius: '3px',
+  //         color: theme.palette.text.primary,
+  //         fontSize: '14px',  // Customize font size
+  //         fontFamily: 'Arial, sans-serif',  // Customize font family
+  //         fontWeight: 'bold',  // Customize font weight
+  //     }}
+  //   >
+  //       <div style={{
+  //         marginRight: "5px",
+  //         display: "inline-block",
+  //         background: color,
+  //         width: "10px",
+  //         height: "10px",
+  //         border: `1px solid ${theme.palette.text.primary}`,  
+  //       }}></div>
+  //   </div>
 };
 
 const CenteredText = (
@@ -57,6 +61,7 @@ const CenteredText = (
 }
 
 export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMargin=60}) {
+  const theme = useTheme();
   return (
     <ResponsivePie
       data={data}
@@ -67,7 +72,7 @@ export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMar
       cornerRadius={1}
       fit={false}
       activeOuterRadiusOffset={2}
-      colors={["#33f08a", "black"]}
+      colors={["#33f08a", "#cc6b3c"]}
       layers={[
         "arcs", 
         "arcLabels", 
@@ -92,7 +97,7 @@ export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMar
           itemsSpacing: 30,
           itemWidth: 50,
           itemHeight: 50,
-          itemTextColor: "#999",
+          itemTextColor: theme.palette.text.primary,
           itemDirection: "left-to-right",
           itemOpacity: 1,
           symbolSize: 10,

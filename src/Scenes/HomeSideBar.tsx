@@ -84,7 +84,8 @@ export default function HomeSideBar(){
             (theme) => ({
                 height: "100vh",
                 pt: "5px",
-                bgcolor: theme.palette.primary.dark,
+                background: `linear-gradient(to top, ${theme.palette.primary.dark}66, ${theme.palette.primary.dark})`,  /* ROYAL */
+                backdropFilter: 'saturate(100%) blur(4px)',  // Apply blur effect
                 overflow: 'hidden'
             })
         }
@@ -142,6 +143,11 @@ function SideMenu(){
                                         setSelectedTab(route);
                                     }}
                                     sx={{
+                                        "&.MuiTab-root": {
+                                            fontSize: 14,
+                                            fontWeight: "normal",
+                                            
+                                        },
                                         "&.Mui-selected": {
                                             color: theme.palette.text.primary,
                                         },
@@ -202,25 +208,40 @@ function ProfileBox(){
         >
             <Typography
                 variant="h2"
-                sx={{
-                    "m": "auto",
+                sx={(theme)=>({
+                    "mx": "auto",
+                    "mt": "10px",
                     "pb": "10px",
                     "font-family": '"Protest Guerrilla", sans-serif',
-                    "font-weight": "400",
+                    "font-weight": "900",
                     "font-style": "normal",
                     "textAlign": "center",
+                    "WebkitTextStroke": "0.5px",
+                    "WebkitTextStrokeColor": theme.palette.primary.dark,
+                    // "textShadow": "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
                     "textOrientation": {lg: 'sideways', md: 'upright', sm: "upright", xs: "upright"},
                     "writingMode": {lg: 'horizontal-tb', md: 'vertical-rl', sm: "vertical-rl", xs: "vertical-rl"},
                     "letter-spacing": {lg: "2px", md: '"2px"', sm: "-10px", xs: "-10px"}
-                }}
+                })}
             >
                 <span
-                    style={{"color":"green"}}
+                    style={{
+                        "color":"green",
+                        "WebkitTextFillColor": "green",
+                        // "WebkitTextStrokeColor": "white",
+
+                    }}
                 >
                     ZB
                 </span>
                 -
-                <span style={{"color":"blue"}}>
+                <span style={{
+                    "color":"blue",
+                    "WebkitTextFillColor": "blue",
+                    // "WebkitTextStrokeColor": "white",
+
+
+                }}>
                     DASH</span>
             </Typography>
         </Box>

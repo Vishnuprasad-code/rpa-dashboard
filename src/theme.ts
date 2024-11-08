@@ -138,7 +138,10 @@ export const themeSettings = (mode: any) => {
               light: "rgba(35,42,88,200)",
             },
             secondary: {
-              main: colors.greenAccent[500],
+              // main: colors.greenAccent[500],
+              // main: "#3c1053",
+              // main: "#302b63",
+              main: "#452c63"
             },
             neutral: {
               dark: colors.grey[700],
@@ -152,12 +155,14 @@ export const themeSettings = (mode: any) => {
         : {
             // palette values for light mode
             primary: {
-              dark : colors.primary[900],
+              // dark : colors.primary[900],
+              dark: "#9fa9e6",
               main: colors.primary[500],
               light: colors.primary[100]
             },
             secondary: {
-              main: colors.greenAccent[500],
+              // main: colors.greenAccent[500],
+              main: "#b8c4ff",
             },
             neutral: {
               dark: colors.grey[700],
@@ -165,7 +170,8 @@ export const themeSettings = (mode: any) => {
               light: colors.grey[100],
             },
             background: {
-              default: "#fcfcfc",
+              // default: "#fcfcfc",
+              default: "#DAE2F8",
             },
           }),
     },

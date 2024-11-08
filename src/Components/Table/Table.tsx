@@ -81,9 +81,18 @@ export const AnimatedMuiTable = ({dataRows, isPaused, isFullTable}: {
         setIsHovered(false);
       }} // Resume when hover ends
     >
-      <Table stickyHeader>
+      <Table 
+        stickyHeader
+        >
         {/* Table Header */}
-        <TableHead className="fixed-header">
+        <TableHead
+            sx={(theme) => ({
+              ".MuiTableCell-head ": {
+                // background: `linear-gradient(to top, ${theme.palette.primary.dark}, ${theme.palette.secondary.main})`,  /* ROYAL */
+                backgroundColor: theme.palette.primary.dark
+              }
+            })}
+          >
           <TableRow tabIndex={-1}>
             {reqColumns.map((column) => (
               <TableCell

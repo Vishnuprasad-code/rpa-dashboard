@@ -163,7 +163,7 @@ export default function RpasOverview(){
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography textAlign={"center"}>GRAPH</Typography>
+          <Typography variant='h5' margin="auto" textAlign={"center"}>GRAPH</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <Box
@@ -182,7 +182,7 @@ export default function RpasOverview(){
           aria-controls="panel2-content"
           id="panel2-header"
         >
-          <Typography textAlign={"center"}>TABLE</Typography>
+          <Typography variant='h5' margin="auto" textAlign={"center"}>TABLE</Typography>
         </AccordionSummary>
         <AccordionDetails>
         {mainStatsData? <Table isPaused={true} isFullTable={true}/> : <Box sx={{width: "100%", height: "60px"}}><CustomSkeleton/></Box>}
@@ -285,10 +285,10 @@ function TimePeriodBar(
       setEndDateTime(epochStartTime + 86400);
       setDateButtonText("2d");
     }
-    else if (buttonText == "7w") {
+    else if (buttonText == "7d") {
       setStartDateTime(epochStartTime - (6 * 86400));
       setEndDateTime(epochStartTime + 86400);
-      setDateButtonText("7w");
+      setDateButtonText("7d");
     }
     else {
       setStartDateTime(epochStartTime);
@@ -325,7 +325,7 @@ function TimePeriodBar(
                 maxHeight: "35px",
                 borderRadius: "10px",
                 textAlign: "center",
-                p: 0.5,
+                px: 1,
                 border: "1px solid transparent",
               },
               "&> div:hover": {
@@ -337,20 +337,38 @@ function TimePeriodBar(
             }}
         >
           <Box sx={{
-            ...(dateButtonText === "Today") && {backgroundColor: "blue",}
+            ...(dateButtonText === "Today") && {
+              backgroundColor: "blue",
+              color: "white",
+            }
           }} 
-          onClick={()=> handleSingleDateTimeChange("Today")}>Today</Box>
+          onClick={()=> handleSingleDateTimeChange("Today")}>
+            <Typography variant='h5' textAlign={"center"}>Today</Typography>
+            </Box>
           <Box sx={{
-            ...(dateButtonText === "2d") && {backgroundColor: "blue",}
+            ...(dateButtonText === "2d") && {
+              backgroundColor: "blue",
+              color: "white",
+            }
           }} 
 
-          onClick={()=> handleSingleDateTimeChange("2d")}>2d</Box>
+          onClick={()=> handleSingleDateTimeChange("2d")}>
+            <Typography variant='h5' textAlign={"center"}>2d</Typography>
+            </Box>
           <Box sx={{
-            ...(dateButtonText === "7w") && {backgroundColor: "blue",}
+            ...(dateButtonText === "7w") && {
+              backgroundColor: "blue",
+              color: "white",
+            }
           }} 
-          onClick={()=> handleSingleDateTimeChange("7w")}>7w</Box>
+          onClick={()=> handleSingleDateTimeChange("7d")}>
+            <Typography variant='h5' textAlign={"center"}>7d</Typography>
+            </Box>
           <Box sx={{
-            ...(dateButtonText === "dateRange") && {backgroundColor: "blue",}
+            ...(dateButtonText === "dateRange") && {
+              backgroundColor: "blue",
+              color: "white",
+            }
           }} 
           >
             <MUIDateTimeRangePicker
