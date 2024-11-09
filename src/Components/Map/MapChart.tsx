@@ -137,7 +137,7 @@ const MapChart = (
                 }}
               />
             ))}
-            <Geography geography={borders} fill="none" stroke={theme.palette.primary.contrastText} />
+            <Geography geography={borders} fill="none" stroke={theme.palette.text.primary} />
           </>
         )}
       </Geographies>
@@ -147,7 +147,7 @@ const MapChart = (
 
 
 function chooseStateColor(state: string, selectedState: string | null, statsData: StatsDataType){
-  if (state == selectedState) return "cyan"
+  if (state == selectedState) return "#3ca7dc"
   if (!statsData[state]) return "grey"
   if ((statsData[state] ?? 0) > 90) return "green"
   if ((statsData[state] ?? 0) > 70) return "orange"

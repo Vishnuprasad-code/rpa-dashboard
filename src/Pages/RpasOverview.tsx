@@ -356,7 +356,7 @@ function TimePeriodBar(
             <Typography variant='h5' textAlign={"center"}>2d</Typography>
             </Box>
           <Box sx={{
-            ...(dateButtonText === "7w") && {
+            ...(dateButtonText === "7d") && {
               backgroundColor: "blue",
               color: "white",
             }

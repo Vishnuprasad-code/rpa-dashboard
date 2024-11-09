@@ -11,10 +11,12 @@ import ListIcon from '@mui/icons-material/List';
 
 import {RpaListings} from '../Masonry/RPAListings.tsx'
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx"
-import { ColorModeContext } from "../../theme.ts";
+import { ColorModeContext, useMode } from "../../theme.ts";
+import { useTheme } from "@emotion/react";
 
 
 export default function NavBar(){
+    const theme = useTheme();
     const {rpaListings}= useContext(DashboardContext);
     const colorMode = useContext(ColorModeContext)
     const [searchInput, setSearchInput] = useState("");
@@ -50,8 +52,11 @@ export default function NavBar(){
                 // border: "1px solid red"
             }}
         > */}
-        <LightModeIcon/>
+        {
+        theme.palette.mode === "dark" ? 
+        <LightModeIcon onClick={colorMode.toggleColorMode}/>:
         <DarkModeIcon onClick={colorMode.toggleColorMode}/>
+        }
         <NotificationImportantIcon/>
         <ListIcon onClick={handleOpen}>modal</ListIcon>
       <Modal
@@ -68,6 +73,8 @@ export default function NavBar(){
             bgcolor: 'background.paper',
             border: '2px solid #000',
             boxShadow: 24,
+            // background: "rgba(20, 20, 20, 0.83)",
+            backdropFilter: "blur(10px)",
             p: 4,
         }}>
           <RpaListings data={rpaListings}/>

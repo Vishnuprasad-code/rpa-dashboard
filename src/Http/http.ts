@@ -97,3 +97,19 @@ export async function fetchRPAListingsData():Promise<any>{
   const resData = await response.json();
   return resData
 }
+
+
+export async function fetchPayloadText(processId: string):Promise<any>{
+  if (processId){
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return {payloadText: processId}
+  }  
+
+  const url = "http://0.0.0.0:8000/api/"
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Failed to fetch user places');
+  }
+  const resData = await response.json();
+  return resData
+}

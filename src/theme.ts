@@ -125,6 +125,25 @@ export const tokens = (mode: string) => ({
 export const themeSettings = (mode: any) => {
   const colors = tokens(mode);
   return {
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            '*::-webkit-scrollbar': {
+              width: '5px'
+            },
+            '*::-webkit-scrollbar-track': {
+              '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+            },
+            '*::-webkit-scrollbar-thumb': {
+              borderRadius: '10px',
+              backgroundColor: 'blue',
+              outline: '1px solid slategrey'
+            }
+          },
+        },
+      },
+    },
     palette: {
       mode: mode,
       ...(mode === "dark"
@@ -138,9 +157,7 @@ export const themeSettings = (mode: any) => {
               light: "rgba(35,42,88,200)",
             },
             secondary: {
-              // main: colors.greenAccent[500],
-              // main: "#3c1053",
-              // main: "#302b63",
+              dark: "#642B73",
               main: "#452c63"
             },
             neutral: {
@@ -161,7 +178,7 @@ export const themeSettings = (mode: any) => {
               light: colors.primary[100]
             },
             secondary: {
-              // main: colors.greenAccent[500],
+              dark: "#642B73",
               main: "#b8c4ff",
             },
             neutral: {

@@ -8,7 +8,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import { columns } from "./Columns.ts";
+import { columnsPartOne, columnsPartTwo, columnsExtra } from "./Columns.ts";
 
 import {FailedFilingType} from "../../Types/types.ts"
 
@@ -49,12 +49,11 @@ export const AnimatedMuiTable = ({dataRows, isPaused, isFullTable}: {
     return () => cancelAnimationFrame(animationFrame); // Clean up animation on component unmount
   }, [isPaused, isHovered, dataRows.length]); // Depend on isPaused to pause/resume animation and rows.length
 
-  // Duplicate rows to create an illusion of continuous scrolling
-  // const allRows = [...FailedFilingType]; // Duplicate rows for smooth loop
-  let reqColumns = [...columns]
-  if (!isFullTable){
-    reqColumns = columns.filter(item => item.id === "process_id" || item.id === "rpa" || item.id === "filing_status")
+  let reqColumns = [...columnsPartOne]
+  if (isFullTable){
+    reqColumns = [...reqColumns, ...columnsPartTwo, ...columnsExtra]
   }
+
   return (
     <TableContainer
       component={Paper}
@@ -83,14 +82,21 @@ export const AnimatedMuiTable = ({dataRows, isPaused, isFullTable}: {
     >
       <Table 
         stickyHeader
+        sx={{
+          "& th, & td": {
+            fontSize: "15px",
+          },
+          // "& th:hover":{
+            
+          // }
+        }}
         >
         {/* Table Header */}
         <TableHead
             sx={(theme) => ({
               ".MuiTableCell-head ": {
-                // background: `linear-gradient(to top, ${theme.palette.primary.dark}, ${theme.palette.secondary.main})`,  /* ROYAL */
                 backgroundColor: theme.palette.primary.dark
-              }
+              },
             })}
           >
           <TableRow tabIndex={-1}>
@@ -110,17 +116,29 @@ export const AnimatedMuiTable = ({dataRows, isPaused, isFullTable}: {
         <TableBody ref={scrollRef}>
           {dataRows.map((row) => (
             <TableRow key={`${row.process_id}-${row.start_time}`} hover role="checkbox" tabIndex={-1}>
-              {reqColumns.map((column) => {
-                let value;
-                if (column.id in row){
-                  value = String(row[column.id])
-                }
-                else if(column.id === 'copy_payload'){
-                  value = <span onClick={() => console.log("h")}>C</span>
-                }
+              {
+                columnsPartOne.map((column) => {
+                let value = String(row[column.id])
                 return (
                   <TableCell key={column.id} align={column.align}>
                     {value}
+                  </TableCell>
+                );
+              })}
+              {
+                isFullTable && columnsPartTwo.map((column) => {
+                let value = String(row[column.id])
+                return (
+                  <TableCell key={column.id} align={column.align}>
+                    {value}
+                  </TableCell>
+                );
+              })}
+              {
+                 isFullTable && columnsExtra.map((column) => {
+                return (
+                  <TableCell key={column.id} align={column.align}>
+                    {column.componentToRender && <column.componentToRender processId={row.process_id}/>}
                   </TableCell>
                 );
               })}

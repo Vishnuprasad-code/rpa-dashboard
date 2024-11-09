@@ -17,7 +17,7 @@ import shLogo from '../assets/sh-logo-800.png';
 import zbLogo from '../assets/circle-logo-teal.svg';
 import companyLogo from '../assets/company.webp';
 
-import RpaIcon from '../assets/rpa-icon.png';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import HomeIcon from '@mui/icons-material/Home';
 import ApiIcon from '@mui/icons-material/Api';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -32,7 +32,7 @@ const routes = [
         "path": "/",
         "icon": <Avatar sx={
             {
-                bgcolor: "pink",
+                // bgcolor: "pink",
             }
         }>
             <HomeIcon fontSize="large" />
@@ -41,16 +41,9 @@ const routes = [
     {
         "route": "RPAs",
         "path": "/rpas/all",
-        "icon": <Avatar sx={
-            {
-                bgcolor: "pink",
-                "& > img": {
-                    height: "35px",
-                    width: "35px"
-                }
-            }
-        } src={RpaIcon} alt="h" />
-    }
+        "icon": <Avatar>
+            <SmartToyIcon fontSize="large" />
+        </Avatar>    }
     ,
     {
         "route": "APIs",
@@ -126,6 +119,7 @@ function SideMenu(){
                     value={selectedTab}
                     sx={{
                         width: "100%",
+                        '& .MuiTabs-indicator': { display: 'none' }
                     }}
                     orientation="vertical"
                 >
@@ -143,9 +137,16 @@ function SideMenu(){
                                         setSelectedTab(route);
                                     }}
                                     sx={{
+                                        "& > .MuiTab-iconWrapper": {
+                                            backgroundColor: theme.palette.text.primary,
+                                            // border: "8px solid red"
+                                        },
+                                        "&.MuiTabs-indicator": {
+                                            height: 0
+                                        },
                                         "&.MuiTab-root": {
                                             fontSize: 14,
-                                            fontWeight: "normal",
+                                            fontWeight: "900",
                                             
                                         },
                                         "&.Mui-selected": {

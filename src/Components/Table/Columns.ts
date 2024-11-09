@@ -1,41 +1,51 @@
+import CustomCopyClipboard from "../CopyClipboard/CopyClipboard";
+
 interface Column {
     id: "process_id" | "rpa" | "filing_status" | "success_on_retry" | "copy_payload";
     label: string;
     minWidth?: number;
-    align?: "right";
+    align: "center" | "left" | "right" | "inherit" | "justify" | undefined;
     format?: (value: boolean | string) => string;
+    componentToRender?: (props: {processId: string}) => JSX.Element, 
   }
   
-  export const columns: readonly Column[] = [
+  export const columnsPartOne: readonly Column[] = [
     {
       id: "process_id",
       label: "UUID",
       minWidth: 10,
-      // align: "right",
+      align: "left",
     },
     {
       id: "rpa",
       label: "RPA",
       minWidth: 10,
-      align: "right",
+      align: "center",
     },
     {
       id: "filing_status",
       label: "STATUS",
       minWidth: 10,
-      align: "right",
+      align: "justify",
     },
+  ]
+
+  export const columnsPartTwo: readonly Column[] = [
     {
       id: "success_on_retry",
       label: "SUCCESS ON RETRY",
       minWidth: 10,
-      align: "right",
+      align: "center",
     },
+  ];
+
+  export const columnsExtra: readonly Column[] = [
     {
       id: "copy_payload",
-      label: "Copy Payload",
-      minWidth: 10,
-      align: "right",
+      label: "COPY PAYLOAD",
+      minWidth: 5,
+      align: "center",
+      componentToRender: CustomCopyClipboard
     },
   ];
   
