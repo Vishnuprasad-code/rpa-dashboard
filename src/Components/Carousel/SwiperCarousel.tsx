@@ -10,16 +10,18 @@ import "./SwiperCarousel.css";
 interface CustomSwiperCarouselPropsType {
   slides: JSX.Element[],
   slidesPerView: number | "auto" | undefined,
-  autoplayDelay: number | null
+  loop?: true | undefined,
+  autoplayDelay?: number | undefined
 }
 
 export default function CustomSwiperCarousel(
-    { 
-        slides,
-        slidesPerView="auto",
-        autoplayDelay=null
-     }: CustomSwiperCarouselPropsType
-  ){
+  {
+    slides,
+    slidesPerView = "auto",
+    loop = true,
+    autoplayDelay = undefined,
+  }: CustomSwiperCarouselPropsType
+) {
   return (
     <Swiper
       modules={[Navigation, Autoplay]}
@@ -34,17 +36,17 @@ export default function CustomSwiperCarousel(
         disableOnInteraction: false, // Continue autoplay after user interactions
         pauseOnMouseEnter: true,
       }
-    }
-      loop={Boolean(autoplayDelay)}
+      }
+      loop={loop}
     //   onSlideChange={(swiper) =>
     //     console.log("Slide index changed to: ", swiper.activeIndex)
     //   }
-      // onMouseEnter={handleMouseEnter} // Stop autoplay on hover
-      // onMouseLeave={handleMouseLeave} // Restart autoplay on mouse leave
+    // onMouseEnter={handleMouseEnter} // Stop autoplay on hover
+    // onMouseLeave={handleMouseLeave} // Restart autoplay on mouse leave
     >
       {slides.map((elem: any, idx: number) => (
         <SwiperSlide key={idx}>
-            {elem}
+          {elem}
         </SwiperSlide>
       ))}
       <ArrowBackIosIcon className="custom-prev" />

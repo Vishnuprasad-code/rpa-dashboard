@@ -6,119 +6,119 @@ import { createTheme, Theme } from "@mui/material/styles";
 export const tokens = (mode: string) => ({
   ...(mode === "dark"
     ? {
-        grey: {
-            100: "#e0e0e0",
-            200: "#c2c2c2",
-            300: "#a3a3a3",
-            400: "#858585",
-            500: "#666666",
-            600: "#525252",
-            700: "#3d3d3d",
-            800: "#292929",
-            900: "#141414"
-        },
-        primary: {
-            100: "#d0d1d5",
-            200: "#a1a4ab",
-            300: "#727681",
-            400: "#434957",
-            500: "#141b2d",
-            600: "#101624",
-            700: "#0c101b",
-            800: "#080b12",
-            900: "#040509"
-        },
-        blueAccent: {
-            100: "#d8edf8",
-            200: "#b1dcf1",
-            300: "#8acaea",
-            400: "#63b9e3",
-            500: "#3ca7dc",
-            600: "#3086b0",
-            700: "#246484",
-            800: "#184358",
-            900: "#0c212c"
-        },
-        greenAccent: {
-            100: "#d6fce8",
-            200: "#adf9d0",
-            300: "#85f6b9",
-            400: "#5cf3a1",
-            500: "#33f08a",
-            600: "#29c06e",
-            700: "#1f9053",
-            800: "#146037",
-            900: "#0a301c"
-        },
-        redAccent: {
-            100: "#f8dcdb",
-            200: "#f1b9b7",
-            300: "#e99592",
-            400: "#e2726e",
-            500: "#db4f4a",
-            600: "#af3f3b",
-            700: "#832f2c",
-            800: "#58201e",
-            900: "#2c100f"
-        },
-      }
-    :{
-        grey: {
-            100: "#141414",
-            200: "#292929",
-            300: "#3d3d3d",
-            400: "#525252",
-            500: "#666666",
-            600: "#858585",
-            700: "#a3a3a3",
-            800: "#c2c2c2",
-            900: "#e0e0e0",
-        },
-        primary: {
-            100: "#040509",
-            200: "#080b12",
-            300: "#0c101b",
-            400: "#1F2A40",
-            500: "#141b2d",
-            600: "#434957",
-            700: "#727681",
-            800: "#a1a4ab",
-            900: "#d0d1d5",
-        },
-        blueAccent: {
-            100: "#0c212c",
-            200: "#184358",
-            300: "#246484",
-            400: "#3086b0",
-            500: "#3ca7dc",
-            600: "#63b9e3",
-            700: "#8acaea",
-            800: "#b1dcf1",
-            900: "#d8edf8",
-        },
-        greenAccent: {
-            100: "#0a301c",
-            200: "#146037",
-            300: "#1f9053",
-            400: "#29c06e",
-            500: "#33f08a",
-            600: "#5cf3a1",
-            700: "#85f6b9",
-            800: "#adf9d0",
-            900: "#d6fce8",
-        },
-        redAccent: {
-            100: "#2c100f",
-            200: "#58201e",
-            300: "#832f2c",
-            400: "#af3f3b",
-            500: "#db4f4a",
-            600: "#e2726e",
-            700: "#e99592",
-            800: "#f1b9b7",
-            900: "#f8dcdb",
-        },
-      }),
+      grey: {
+        100: "#e0e0e0",
+        200: "#c2c2c2",
+        300: "#a3a3a3",
+        400: "#858585",
+        500: "#666666",
+        600: "#525252",
+        700: "#3d3d3d",
+        800: "#292929",
+        900: "#141414"
+      },
+      primary: {
+        100: "#d0d1d5",
+        200: "#a1a4ab",
+        300: "#727681",
+        400: "#434957",
+        500: "#141b2d",
+        600: "#101624",
+        700: "#0c101b",
+        800: "#080b12",
+        900: "#040509"
+      },
+      blueAccent: {
+        100: "#d8edf8",
+        200: "#b1dcf1",
+        300: "#8acaea",
+        400: "#63b9e3",
+        500: "#3ca7dc",
+        600: "#3086b0",
+        700: "#246484",
+        800: "#184358",
+        900: "#0c212c"
+      },
+      greenAccent: {
+        100: "#d6fce8",
+        200: "#adf9d0",
+        300: "#85f6b9",
+        400: "#5cf3a1",
+        500: "#33f08a",
+        600: "#29c06e",
+        700: "#1f9053",
+        800: "#146037",
+        900: "#0a301c"
+      },
+      redAccent: {
+        100: "#f8dcdb",
+        200: "#f1b9b7",
+        300: "#e99592",
+        400: "#e2726e",
+        500: "#db4f4a",
+        600: "#af3f3b",
+        700: "#832f2c",
+        800: "#58201e",
+        900: "#2c100f"
+      },
+    }
+    : {
+      grey: {
+        100: "#141414",
+        200: "#292929",
+        300: "#3d3d3d",
+        400: "#525252",
+        500: "#666666",
+        600: "#858585",
+        700: "#a3a3a3",
+        800: "#c2c2c2",
+        900: "#e0e0e0",
+      },
+      primary: {
+        100: "#040509",
+        200: "#080b12",
+        300: "#0c101b",
+        400: "#1F2A40",
+        500: "#141b2d",
+        600: "#434957",
+        700: "#727681",
+        800: "#a1a4ab",
+        900: "#d0d1d5",
+      },
+      blueAccent: {
+        100: "#0c212c",
+        200: "#184358",
+        300: "#246484",
+        400: "#3086b0",
+        500: "#3ca7dc",
+        600: "#63b9e3",
+        700: "#8acaea",
+        800: "#b1dcf1",
+        900: "#d8edf8",
+      },
+      greenAccent: {
+        100: "#0a301c",
+        200: "#146037",
+        300: "#1f9053",
+        400: "#29c06e",
+        500: "#33f08a",
+        600: "#5cf3a1",
+        700: "#85f6b9",
+        800: "#adf9d0",
+        900: "#d6fce8",
+      },
+      redAccent: {
+        100: "#2c100f",
+        200: "#58201e",
+        300: "#832f2c",
+        400: "#af3f3b",
+        500: "#db4f4a",
+        600: "#e2726e",
+        700: "#e99592",
+        800: "#f1b9b7",
+        900: "#f8dcdb",
+      },
+    }),
 });
 
 // mui theme settings
@@ -148,49 +148,66 @@ export const themeSettings = (mode: any) => {
       mode: mode,
       ...(mode === "dark"
         ? {
-            // palette values for dark mode
-            primary: {
-              // dark : colors.primary[900],
-              // dark: "#022440",
-              dark: "#1e2938",
-              main: colors.primary[500],
-              light: "rgba(35,42,88,200)",
-            },
-            secondary: {
-              dark: "#642B73",
-              main: "#452c63"
-            },
-            neutral: {
-              dark: colors.grey[700],
-              main: colors.primary[600],
-              light: colors.grey[100],
-            },
-            background: {
-              default: colors.primary[600],
-            },
-          }
+          // palette values for dark mode
+          primary: {
+            // dark : colors.primary[900],
+            // dark: "#022440",
+            dark: "#1e2938",
+            main: colors.primary[500],
+            light: "rgba(35,42,88,200)",
+          },
+          secondary: {
+            dark: "#642B73",
+            main: "#452c63"
+          },
+          neutral: {
+            dark: colors.grey[700],
+            main: colors.primary[600],
+            light: colors.grey[100],
+          },
+          company: {
+            sh_dark: "#43A3D1",
+            sh_main: "#41ACE2",
+            sh_light: "white",
+            zb_dark: "#1E1E1E",
+            zb_main: "#33F28B",
+            zb_light: "white",
+          },
+          background: {
+            default: colors.primary[600],
+          },
+        }
         : {
-            // palette values for light mode
-            primary: {
-              // dark : colors.primary[900],
-              dark: "#9fa9e6",
-              main: colors.primary[500],
-              light: colors.primary[100]
-            },
-            secondary: {
-              dark: "#642B73",
-              main: "#b8c4ff",
-            },
-            neutral: {
-              dark: colors.grey[700],
-              main: colors.grey[500],
-              light: colors.grey[100],
-            },
-            background: {
-              // default: "#fcfcfc",
-              default: "#DAE2F8",
-            },
-          }),
+          // palette values for light mode
+          primary: {
+            // dark : colors.primary[900],
+            // dark: "#9fa9e6",
+            dark: "#43A3D1",    // #43A3D1
+            main: colors.primary[500],
+            light: "#E3F4FB"
+          },
+          secondary: {
+            dark: "#642B73",
+            main: "#b8c4ff",
+          },
+          neutral: {
+            dark: colors.grey[700],
+            main: colors.grey[500],
+            light: colors.grey[100],
+          },
+          company: {
+            sh_light: "#43A3D1",
+            sh_main: "white",
+            sh_dark: "#41ACE2",
+            zb_light: "white",
+            zb_main: "#33F28B",
+            zb_dark: "#1E1E1E",
+          },
+          background: {
+            // default: "#fcfcfc",
+            default: "#c8e1ff",   // #DAE2F8
+          },
+        }),
     },
     typography: {
       fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
@@ -230,7 +247,7 @@ interface ColorModeContextType {
 
 // context for color mode
 export const ColorModeContext = createContext({
-  toggleColorMode: () => {},
+  toggleColorMode: () => { },
 });
 
 

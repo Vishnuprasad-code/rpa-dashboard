@@ -11,10 +11,11 @@ export const mockStatsData = {
             "start_time": 1729775414.965288,
             "end_time": 1729775673.247161,
             "total_execution_time": 258.2818729877472,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -24,10 +25,11 @@ export const mockStatsData = {
             "start_time": 1729776372.242779,
             "end_time": 1729776449.745674,
             "total_execution_time": 77.50289487838745,
-            "state": "CO",
+            "state": "Colorado",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CO"
         },
         {
             "env": "prod",
@@ -37,10 +39,11 @@ export const mockStatsData = {
             "start_time": 1729777207.038459,
             "end_time": 1729777306.82842,
             "total_execution_time": 99.78996086120605,
-            "state": "CO",
+            "state": "Colorado",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CO"
         },
         {
             "env": "prod",
@@ -50,10 +53,11 @@ export const mockStatsData = {
             "start_time": 1729777334.64789,
             "end_time": 1729777443.959748,
             "total_execution_time": 109.31185793876648,
-            "state": "CO",
+            "state": "Colorado",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CO"
         },
         {
             "env": "prod",
@@ -63,10 +67,11 @@ export const mockStatsData = {
             "start_time": 1729777657.725578,
             "end_time": 1729777730.843349,
             "total_execution_time": 73.11777091026306,
-            "state": "CO",
+            "state": "Colorado",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CO"
         },
         {
             "env": "prod",
@@ -76,10 +81,11 @@ export const mockStatsData = {
             "start_time": 1729777889.921064,
             "end_time": 1729778312.126731,
             "total_execution_time": 422.2056670188904,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -89,10 +95,11 @@ export const mockStatsData = {
             "start_time": 1729778089.269415,
             "end_time": 1729778089.400617,
             "total_execution_time": 0.13120198249816895,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -102,10 +109,11 @@ export const mockStatsData = {
             "start_time": 1729778107.149266,
             "end_time": 1729778176.750925,
             "total_execution_time": 69.60165905952454,
-            "state": "NC",
+            "state": "North Carolina",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NC"
         },
         {
             "env": "prod",
@@ -115,10 +123,11 @@ export const mockStatsData = {
             "start_time": 1729778117.365171,
             "end_time": 1729778329.045678,
             "total_execution_time": 211.68050694465637,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -128,10 +137,11 @@ export const mockStatsData = {
             "start_time": 1729778276.420128,
             "end_time": 1729778573.502695,
             "total_execution_time": 297.08256697654724,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -141,10 +151,11 @@ export const mockStatsData = {
             "start_time": 1729778340.643129,
             "end_time": 1729778425.538284,
             "total_execution_time": 84.89515495300293,
-            "state": "NC",
+            "state": "North Carolina",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NC"
         },
         {
             "env": "prod",
@@ -154,10 +165,11 @@ export const mockStatsData = {
             "start_time": 1729778349.468244,
             "end_time": 1729778420.399216,
             "total_execution_time": 70.93097186088562,
-            "state": "NC",
+            "state": "North Carolina",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NC"
         },
         {
             "env": "prod",
@@ -167,10 +179,11 @@ export const mockStatsData = {
             "start_time": 1729778412.734705,
             "end_time": 1729778528.153858,
             "total_execution_time": 115.4191529750824,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -180,10 +193,11 @@ export const mockStatsData = {
             "start_time": 1729778465.856493,
             "end_time": 1729778546.922578,
             "total_execution_time": 81.06608510017395,
-            "state": "NC",
+            "state": "North Carolina",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NC"
         },
         {
             "env": "prod",
@@ -193,10 +207,11 @@ export const mockStatsData = {
             "start_time": 1729778928.097074,
             "end_time": 1729779047.467997,
             "total_execution_time": 119.37092304229736,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -206,10 +221,11 @@ export const mockStatsData = {
             "start_time": 1729779048.020557,
             "end_time": 1729779162.91056,
             "total_execution_time": 114.89000296592712,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -219,10 +235,11 @@ export const mockStatsData = {
             "start_time": 1729779617.368923,
             "end_time": 1729780137.889581,
             "total_execution_time": 520.5206580162048,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -232,10 +249,11 @@ export const mockStatsData = {
             "start_time": 1729780286.738564,
             "end_time": 1729780365.016395,
             "total_execution_time": 78.27783107757568,
-            "state": "NC",
+            "state": "North Carolina",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "NC"
         },
         {
             "env": "prod",
@@ -245,10 +263,11 @@ export const mockStatsData = {
             "start_time": 1729780356.665917,
             "end_time": 1729780527.986733,
             "total_execution_time": 171.32081604003906,
-            "state": "TX",
+            "state": "Texas",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "TX"
         },
         {
             "env": "prod",
@@ -258,10 +277,11 @@ export const mockStatsData = {
             "start_time": 1729780600.343019,
             "end_time": 1729780899.527476,
             "total_execution_time": 299.1844570636749,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -271,10 +291,11 @@ export const mockStatsData = {
             "start_time": 1729780812.533468,
             "end_time": 1729780889.721757,
             "total_execution_time": 77.18828892707825,
-            "state": "NC",
+            "state": "North Carolina",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "NC"
         },
         {
             "env": "prod",
@@ -284,10 +305,11 @@ export const mockStatsData = {
             "start_time": 1729780906.893838,
             "end_time": 1729781179.177434,
             "total_execution_time": 272.28359603881836,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -297,10 +319,11 @@ export const mockStatsData = {
             "start_time": 1729781135.845207,
             "end_time": 1729781266.73168,
             "total_execution_time": 130.88647294044495,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -310,10 +333,11 @@ export const mockStatsData = {
             "start_time": 1729781267.455658,
             "end_time": 1729781507.996906,
             "total_execution_time": 240.54124808311462,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -323,10 +347,11 @@ export const mockStatsData = {
             "start_time": 1729781308.170668,
             "end_time": 1729781608.928223,
             "total_execution_time": 300.75755500793457,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -336,10 +361,11 @@ export const mockStatsData = {
             "start_time": 1729781342.417976,
             "end_time": 1729781676.873575,
             "total_execution_time": 334.45559906959534,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -349,10 +375,11 @@ export const mockStatsData = {
             "start_time": 1729781619.687175,
             "end_time": 1729781929.070534,
             "total_execution_time": 309.3833589553833,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -362,10 +389,11 @@ export const mockStatsData = {
             "start_time": 1729782708.912509,
             "end_time": 1729783011.627671,
             "total_execution_time": 302.7151620388031,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -375,10 +403,11 @@ export const mockStatsData = {
             "start_time": 1729783416.651533,
             "end_time": 1729783715.373246,
             "total_execution_time": 298.7217130661011,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -388,10 +417,11 @@ export const mockStatsData = {
             "start_time": 1729783978.505245,
             "end_time": 1729784298.650962,
             "total_execution_time": 320.14571714401245,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -401,10 +431,11 @@ export const mockStatsData = {
             "start_time": 1729783982.267445,
             "end_time": 1729783998.72796,
             "total_execution_time": 16.460515022277832,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -414,10 +445,11 @@ export const mockStatsData = {
             "start_time": 1729784630.261108,
             "end_time": 1729784743.200167,
             "total_execution_time": 112.93905901908875,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -427,10 +459,11 @@ export const mockStatsData = {
             "start_time": 1729784797.0579,
             "end_time": 1729785133.497968,
             "total_execution_time": 336.4400680065155,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -440,10 +473,11 @@ export const mockStatsData = {
             "start_time": 1729784814.872831,
             "end_time": 1729785118.912572,
             "total_execution_time": 304.03974080085754,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -453,10 +487,11 @@ export const mockStatsData = {
             "start_time": 1729784848.813492,
             "end_time": 1729784865.360218,
             "total_execution_time": 16.54672598838806,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -466,10 +501,11 @@ export const mockStatsData = {
             "start_time": 1729784985.739812,
             "end_time": 1729785094.359464,
             "total_execution_time": 108.61965203285217,
-            "state": "TX",
+            "state": "Texas",
             "filing_type": "annual",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "TX"
         },
         {
             "env": "prod",
@@ -479,10 +515,11 @@ export const mockStatsData = {
             "start_time": 1729785115.110355,
             "end_time": 1729785184.987807,
             "total_execution_time": 69.87745213508606,
-            "state": "TX",
+            "state": "Texas",
             "filing_type": "annual",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "TX"
         },
         {
             "env": "prod",
@@ -492,10 +529,11 @@ export const mockStatsData = {
             "start_time": 1729785205.675475,
             "end_time": 1729785301.830016,
             "total_execution_time": 96.154541015625,
-            "state": "TX",
+            "state": "Texas",
             "filing_type": "annual",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "TX"
         },
         {
             "env": "prod",
@@ -505,10 +543,11 @@ export const mockStatsData = {
             "start_time": 1729785524.016931,
             "end_time": 1729785834.571827,
             "total_execution_time": 310.55489587783813,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -518,10 +557,11 @@ export const mockStatsData = {
             "start_time": 1729785642.699845,
             "end_time": 1729785659.281375,
             "total_execution_time": 16.58152985572815,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -531,10 +571,11 @@ export const mockStatsData = {
             "start_time": 1729785653.052265,
             "end_time": 1729785798.752148,
             "total_execution_time": 145.69988298416138,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -544,10 +585,11 @@ export const mockStatsData = {
             "start_time": 1729786108.328647,
             "end_time": 1729786410.587502,
             "total_execution_time": 302.2588551044464,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -557,10 +599,11 @@ export const mockStatsData = {
             "start_time": 1729786927.300821,
             "end_time": 1729787226.223599,
             "total_execution_time": 298.92277789115906,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -570,10 +613,11 @@ export const mockStatsData = {
             "start_time": 1729787641.49482,
             "end_time": 1729787850.904408,
             "total_execution_time": 209.40958786010742,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -583,10 +627,11 @@ export const mockStatsData = {
             "start_time": 1729788215.704191,
             "end_time": 1729788395.051948,
             "total_execution_time": 179.34775710105896,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -596,10 +641,11 @@ export const mockStatsData = {
             "start_time": 1729788395.710928,
             "end_time": 1729788594.020809,
             "total_execution_time": 198.30988097190857,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -609,10 +655,11 @@ export const mockStatsData = {
             "start_time": 1729789029.515462,
             "end_time": 1729789237.094655,
             "total_execution_time": 207.57919311523438,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -622,10 +669,11 @@ export const mockStatsData = {
             "start_time": 1729789651.741132,
             "end_time": 1729789929.971701,
             "total_execution_time": 278.2305688858032,
-            "state": "PA",
+            "state": "Pennsylvania",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "PA"
         },
         {
             "env": "prod",
@@ -635,10 +683,11 @@ export const mockStatsData = {
             "start_time": 1729790167.963672,
             "end_time": 1729790277.433351,
             "total_execution_time": 109.46967911720276,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -648,10 +697,11 @@ export const mockStatsData = {
             "start_time": 1729791042.390475,
             "end_time": 1729791131.221926,
             "total_execution_time": 88.83145093917847,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -661,10 +711,11 @@ export const mockStatsData = {
             "start_time": 1729791329.673017,
             "end_time": 1729791514.335086,
             "total_execution_time": 184.66206908226013,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -674,10 +725,11 @@ export const mockStatsData = {
             "start_time": 1729794659.342451,
             "end_time": 1729794675.985415,
             "total_execution_time": 16.642963886260986,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -687,10 +739,11 @@ export const mockStatsData = {
             "start_time": 1729794709.539823,
             "end_time": 1729794725.914248,
             "total_execution_time": 16.374424934387207,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -700,10 +753,11 @@ export const mockStatsData = {
             "start_time": 1729794726.229981,
             "end_time": 1729794742.498473,
             "total_execution_time": 16.268491983413696,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -713,10 +767,11 @@ export const mockStatsData = {
             "start_time": 1729795205.165998,
             "end_time": 1729795298.904993,
             "total_execution_time": 93.73899507522583,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -726,10 +781,11 @@ export const mockStatsData = {
             "start_time": 1729795309.447627,
             "end_time": 1729795582.596107,
             "total_execution_time": 273.1484799385071,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -739,10 +795,11 @@ export const mockStatsData = {
             "start_time": 1729795424.338923,
             "end_time": 1729795728.830181,
             "total_execution_time": 304.4912579059601,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -752,10 +809,11 @@ export const mockStatsData = {
             "start_time": 1729795516.38338,
             "end_time": 1729795532.513074,
             "total_execution_time": 16.12969398498535,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -765,10 +823,11 @@ export const mockStatsData = {
             "start_time": 1729795532.868485,
             "end_time": 1729795548.976477,
             "total_execution_time": 16.107991933822632,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -778,10 +837,11 @@ export const mockStatsData = {
             "start_time": 1729795565.437804,
             "end_time": 1729795581.468718,
             "total_execution_time": 16.030914068222046,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -791,10 +851,11 @@ export const mockStatsData = {
             "start_time": 1729796418.35294,
             "end_time": 1729796434.838915,
             "total_execution_time": 16.48597502708435,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -804,10 +865,11 @@ export const mockStatsData = {
             "start_time": 1729796422.31425,
             "end_time": 1729796463.739653,
             "total_execution_time": 41.425403118133545,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -817,10 +879,11 @@ export const mockStatsData = {
             "start_time": 1729796435.176859,
             "end_time": 1729796451.428409,
             "total_execution_time": 16.25155019760132,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -830,10 +893,11 @@ export const mockStatsData = {
             "start_time": 1729796484.102024,
             "end_time": 1729796500.267281,
             "total_execution_time": 16.1652569770813,
-            "state": "FL",
+            "state": "Florida",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "FL"
         },
         {
             "env": "prod",
@@ -843,10 +907,11 @@ export const mockStatsData = {
             "start_time": 1729796508.126883,
             "end_time": 1729796601.279962,
             "total_execution_time": 93.15307903289795,
-            "state": "GA",
+            "state": "Georgia",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "GA"
         },
         {
             "env": "prod",
@@ -856,10 +921,11 @@ export const mockStatsData = {
             "start_time": 1729797318.716446,
             "end_time": 1729797348.341945,
             "total_execution_time": 29.62549901008606,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -869,10 +935,11 @@ export const mockStatsData = {
             "start_time": 1729798223.323369,
             "end_time": 1729798265.318588,
             "total_execution_time": 41.995218992233276,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -882,10 +949,11 @@ export const mockStatsData = {
             "start_time": 1729802393.655246,
             "end_time": 1729802480.669443,
             "total_execution_time": 87.01419687271118,
-            "state": "TX",
+            "state": "Texas",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "TX"
         },
         {
             "env": "prod",
@@ -895,10 +963,11 @@ export const mockStatsData = {
             "start_time": 1729802721.433445,
             "end_time": 1729802770.139401,
             "total_execution_time": 48.70595598220825,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -908,10 +977,11 @@ export const mockStatsData = {
             "start_time": 1729803052.736993,
             "end_time": 1729803210.117807,
             "total_execution_time": 157.3808138370514,
-            "state": "IL",
+            "state": "Illinois",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "IL"
         },
         {
             "env": "prod",
@@ -921,10 +991,11 @@ export const mockStatsData = {
             "start_time": 1729803220.708222,
             "end_time": 1729803373.909597,
             "total_execution_time": 153.2013750076294,
-            "state": "IL",
+            "state": "Illinois",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "IL"
         },
         {
             "env": "prod",
@@ -934,10 +1005,11 @@ export const mockStatsData = {
             "start_time": 1729803625.108035,
             "end_time": 1729803674.972411,
             "total_execution_time": 49.864375829696655,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -947,10 +1019,11 @@ export const mockStatsData = {
             "start_time": 1729804381.09871,
             "end_time": 1729804381.143889,
             "total_execution_time": 0.045178890228271484,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -960,10 +1033,11 @@ export const mockStatsData = {
             "start_time": 1729804522.914456,
             "end_time": 1729804572.531408,
             "total_execution_time": 49.61695218086243,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -973,10 +1047,11 @@ export const mockStatsData = {
             "start_time": 1729804646.775054,
             "end_time": 1729804646.91276,
             "total_execution_time": 0.13770604133605957,
-            "state": "NJ",
+            "state": "New Jersey",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "NJ"
         },
         {
             "env": "prod",
@@ -986,10 +1061,11 @@ export const mockStatsData = {
             "start_time": 1729806188.872762,
             "end_time": 1729806251.622636,
             "total_execution_time": 62.749874114990234,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -999,10 +1075,11 @@ export const mockStatsData = {
             "start_time": 1729806489.416766,
             "end_time": 1729806520.587463,
             "total_execution_time": 31.17069697380066,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -1012,10 +1089,11 @@ export const mockStatsData = {
             "start_time": 1729806951.353002,
             "end_time": 1729807056.468914,
             "total_execution_time": 105.1159119606018,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -1025,10 +1103,11 @@ export const mockStatsData = {
             "start_time": 1729807316.786328,
             "end_time": 1729807605.736755,
             "total_execution_time": 288.9504268169403,
-            "state": "CA",
+            "state": "California",
             "filing_type": "llc-soi",
             "success_or_failed": "failed",
-            "success_on_retry": false
+            "success_on_retry": false,
+            "state_code": "CA"
         },
         {
             "env": "prod",
@@ -1038,10 +1117,11 @@ export const mockStatsData = {
             "start_time": 1729812619.553747,
             "end_time": 1729812905.160931,
             "total_execution_time": 285.60718417167664,
-            "state": "CA",
+            "state": "California",
             "filing_type": "evidence-retrieval",
             "success_or_failed": "failed",
-            "success_on_retry": true
+            "success_on_retry": true,
+            "state_code": "CA"
         }
     ],
     "graphData": [

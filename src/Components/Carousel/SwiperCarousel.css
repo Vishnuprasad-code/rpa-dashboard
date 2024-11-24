@@ -1,12 +1,15 @@
 .custom-next,
 .custom-prev {
-  opacity: 0; /* Hide arrows by default */
-  transition: opacity 0.3s; /* Smooth transition */
+  opacity: 0;
+  /* Hide arrows by default */
+  transition: opacity 0.3s;
+  /* Smooth transition */
 }
 
 .swiper:hover .custom-next,
 .swiper:hover .custom-prev {
-  opacity: 1; /* Show arrows on hover */
+  opacity: 1;
+  /* Show arrows on hover */
 }
 
 .swiper {

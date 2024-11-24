@@ -19,18 +19,18 @@ import { RpaListingsType } from './Types/types.ts';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Dashboard/>,
+    element: <Dashboard />,
     children: [
-      { index: true, element: <HomeMain />},
-      { path: 'rpas/:rpaId', element: <RpasOverview />},
-      { path: 'apis', element: <HelloWorld />},
-      { path: 'docs', element: <HelloWorld />},
+      { index: true, element: <HomeMain /> },
+      { path: 'rpas/:rpaSlug', element: <RpasOverview /> },
+      { path: 'apis', element: <HelloWorld /> },
+      { path: 'docs', element: <HelloWorld /> },
     ],
   },
 ]);
 
 
-function HelloWorld(){
+function HelloWorld() {
   return <div>Hello World</div>
 }
 
@@ -42,14 +42,14 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-          <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
 };
 
 
-function Dashboard(){
+function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<string>("Home")
   const [rpaListings, setRPAListings] = useState<RpaListingsType>({})
 
@@ -67,41 +67,41 @@ function Dashboard(){
   }, []); // Empty dependency array ensures this runs only once
 
   return (
-    <DashboardContext.Provider value={{ 
-      selectedTab: selectedTab, 
+    <DashboardContext.Provider value={{
+      selectedTab: selectedTab,
       setSelectedTab: setSelectedTab,
       rpaListings: rpaListings
-      }}>
+    }}>
 
-    <Grid
-      container
-      sx={{height: "100vh"}}
-    >
       <Grid
-        size={{xl: 1.75, lg: 1.75, md: 0.75, sm: 0.75, xs: 0.75}}
-        sx={
-         {
-          bgcolor: "transparent",
-          minWidth: "70px"
-         }
-        }
+        container
+        sx={{ height: "100vh" }}
       >
-        <HomeSideBar/>
-      </Grid>
-      <Grid
-        size="grow"
-        direction="column"
-        height="100%"
-        sx={
+        <Grid
+          size={{ xl: 1.75, lg: 1.75, md: 0.75, sm: 0.75, xs: 0.75 }}
+          sx={
             {
-                overflowY: "scroll",
-              }
+              bgcolor: "transparent",
+              minWidth: "70px"
+            }
           }
-      >
-        <HomeNavBar/>
-        <Outlet />
+        >
+          <HomeSideBar />
+        </Grid>
+        <Grid
+          size="grow"
+          direction="column"
+          height="100%"
+          sx={
+            {
+              overflowY: "scroll",
+            }
+          }
+        >
+          <HomeNavBar />
+          <Outlet />
+        </Grid>
       </Grid>
-    </Grid>
     </DashboardContext.Provider>
   )
 };

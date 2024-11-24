@@ -1,119 +1,137 @@
-import Typography from '@mui/material/Typography';
-import {Divider} from '@mui/material';
-import { Box } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import Stack from '@mui/material/Stack';
+import { useEffect, useState } from 'react';
 
-import {AltBox} from "../Components/StyledComponents/styledBox.tsx"
+import Typography from '@mui/material/Typography';
+import { Divider } from '@mui/material';
+import { Box } from '@mui/material';
+import { AltBox } from "../Components/StyledComponents/styledBox.tsx"
 
 
 import chromeIcon from '../assets/chrome.png';
+import { fetchBrowserlessStats } from '../Http/http.ts';
+import CustomSkeleton from '../Components/LoadingAnimation/Skeleton.tsx';
+import CustomSwiperCarousel from '../Components/Carousel/SwiperCarousel.tsx';
 
 
-export default function BrowserlessOverview(){
-    const data = {
-        ip: "172.16.220.134:3000",
-        version: "chrome107",
-        region: "Failover",
-        max_time: "12",
-        min_time: "1",
-        avg_time: "6",
+export default function BrowserlessOverview() {
+    const [dataList, setDataList] = useState<any[] | null>(null)
+
+    const fetchData = async () => {
+        try {
+            const dataList = await fetchBrowserlessStats();
+            setDataList(dataList);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []); // Empty dependency array ensures this runs only once
+
+    if (dataList === null) {
+        return <CustomSkeleton />
     }
-    
-    return (
-    <Grid
-        container
+
+    const cardsToRender = dataList.map((data) => <BrowserlessOverviewCard data={data} />)
+    return <AltBox
         sx={{
+            width: "100%",
             height: "100%",
-          }}
+        }}
     >
-        <Grid
-          size={12}
-          sx={{
-            height: "10%",
-          }}
+        <CustomSwiperCarousel slides={cardsToRender} slidesPerView={1} autoplayDelay={10000} />
+
+    </AltBox >
+};
+
+
+interface BrowserlessOverviewCardPropsType {
+    ip: string,
+    version: string,
+    region: string,
+    maxTime: string,
+    minTime: string,
+    avgTime: string,
+}
+
+
+function BrowserlessOverviewCard(
+    { data }: { data: BrowserlessOverviewCardPropsType }
+) {
+    return <Box
+        sx={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            flexDirection: 'column',
+        }}
+    >
+        <Typography height={"20%"} variant="h4" m={"auto"} align="center">
+            BROWSERLESS STATS
+        </Typography>
+
+        <Box
+            sx={{
+                display: "flex",
+                width: "100%",
+                height: "100%",
+                flexDirection: 'column',
+            }}
         >
-            <Typography align='center'>BROWSERLESS</Typography>
-        </Grid>
-        <Grid
-          size={6}
-          sx={{
-            height: "90%",
-            // border: "1px solid red"
-          }}
-        >
-            <Stack
+            <Box
                 sx={{
-                    py: "25px",
+                    display: "flex",
+                    width: "100%",
                     height: "100%",
+                    flexDirection: 'row',
                     justifyContent: "space-between",
-                    "& > div": {
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: "100%",
-                    }
+                    alignItems: "center",
                 }}
             >
+                <Typography>IP: {data.ip}</Typography>
                 <Box
-                >
-                    {/* <Typography align='center'>Region:</Typography> */}
-                    <Typography align='center'>{data.region}</Typography>
+                    sx={{ display: "flex", }}>
+                    <img style={{ display: "inline-block", width: "20px", height: "20px" }} src={chromeIcon} alt="" />
+                    <Typography>: {data.version}</Typography>
                 </Box>
-                <Box
-                >
-                    <img style={{marginRight: "5px"}} src={chromeIcon} width="30px" height="30px" alt="" />
-                    <Typography align='center'>{data.version}</Typography>
-                </Box>
-                <Box
-                >
-                    {/* <Typography align='center'>IP:</Typography> */}
-                    <Typography align='center'>{data.ip}</Typography>
-                </Box>
-            </Stack>
-        </Grid>
-        <Divider orientation="vertical" variant='middle' sx={{ height: "80%", mr: "-2px", border: (theme) => `0.5px solid ${theme.palette.divider}`,}}></Divider>
-        <Grid
-          size={6}
-          sx={{
-            height: "90%",
-            // border: "1px solid red"
-          }}
-        >
-            <Stack
+                <Typography>Region: {data.region}</Typography>
+            </Box>
+            <Box
                 sx={{
-                    py: "25px",
+                    display: "flex",
+                    width: "100%",
                     height: "100%",
+                    flexDirection: 'row',
                     justifyContent: "space-between",
-                    "& > div": {
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: "100%",
-                    }
+                    alignItems: "center",
                 }}
             >
-                <Box
-                >
-                    <Typography align='center'>Max Time</Typography>
-                    <Typography align='center'>{data.max_time}</Typography>
+                <Box>
+                    <Typography variant="h3" align="center">
+                        {data.maxTime}
+                    </Typography>
+                    <Typography variant="h5" align="center">
+                        Max Time
+                    </Typography>
                 </Box>
-                <Divider variant='middle' sx={{mb: "-2px", border: (theme) => `0.5px solid ${theme.palette.divider}`,}}></Divider>
-                <Box
-                >
-                    <Typography align='center'>Average Time</Typography>
-                    <Typography align='center'>{data.avg_time}</Typography>
+                <Box>
+                    <Typography variant="h3" align="center">
+                        {data.avgTime}
+                    </Typography>
+                    <Typography variant="h5" align="center">
+                        Avg Time
+                    </Typography>
                 </Box>
-                <Divider variant='middle' sx={{mb: "-2px", border: (theme) => `0.5px solid ${theme.palette.divider}`,}}></Divider>
-                <Box
-                >
-                    <Typography align='center'>Min Time</Typography>
-                    <Typography align='center'>{data.min_time}</Typography>
+                <Box>
+                    <Typography variant="h3" align="center">
+                        {data.minTime}
+                    </Typography>
+                    <Typography variant="h5" align="center">
+                        Min Time
+                    </Typography>
                 </Box>
-            </Stack>
-        </Grid>
-  </Grid>
-    );
+            </Box>
+        </Box>
+
+    </Box>
 };

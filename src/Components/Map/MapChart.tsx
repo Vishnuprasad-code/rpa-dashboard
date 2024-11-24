@@ -14,6 +14,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import CustomSkeleton from "../LoadingAnimation/Skeleton.tsx";
+import { DashboardContext } from "../../Contexts/DashboardContext.tsx";
+import { Link } from "react-router-dom";
+import CustomSwiperCarousel from "../Carousel/SwiperCarousel.tsx";
+// import { border, margin } from "@mui/system";
 
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -24,48 +28,54 @@ interface StatsDataType {
 }
 
 
-export function USAMap(){
-  const [hoverdState, setHoveredState] = useState<string | null >(null);
-  const {selectedState, setSelectedState, mainStatsData} = useContext(MainStatsContext);
+export function USAMap() {
+  const [hoverdState, setHoveredState] = useState<string | null>(null);
+  const { selectedState, setSelectedState, mainStatsData } = useContext(MainStatsContext);
+  const { rpaListings } = useContext(DashboardContext)
 
-  useEffect(()=> {
-    if (!selectedState) return
+  useEffect(() => {
+    if (!hoverdState) return
 
     const timeout = setTimeout(() => {
-      setSelectedState(null);
-    }, 60000);
-  
-    return () => clearTimeout(timeout); // Cleanup on unmount
-  }, [selectedState]);
+      setHoveredState!(null);
+    }, 5000);
 
-  if (!mainStatsData) return <CustomSkeleton/>
+    return () => clearTimeout(timeout); // Cleanup on unmount
+  }, [hoverdState]);
+
+  if (!mainStatsData) return <CustomSkeleton />
 
   const statsData: StatsDataType = {};
-  for(let item of mainStatsData.graphData){
-    statsData[item.state] = Math.max(statsData[item.state] ?? 0, item.success * 100 / (item.success + item.failed))
-    statsData[item.rpa] = Math.max(statsData[item.rpa] ?? 0, item.success * 100 / (item.success + item.failed))
+  for (let item of mainStatsData.graphData) {
+    statsData[item.state] = Math.round(
+      Math.max(statsData[item.state] ?? 0, item.success * 100 / (item.success + item.failed))
+    )
+    statsData[item.rpa] = Math.round(
+      Math.max(statsData[item.rpa] ?? 0, item.success * 100 / (item.success + item.failed))
+    )
   }
 
   return (
     <Stack
-    sx={
-      (theme) => ({
-        height: "100%",
-        width: "100%",
-        // bgcolor: theme.palette.primary.dark,
-        borderRadius: '1rem',
-        position: "relative",
-      })
-    }>
+      sx={
+        (theme) => ({
+          height: "100%",
+          width: "100%",
+          // bgcolor: theme.palette.primary.dark,
+          borderRadius: '1rem',
+          position: "relative",
+        })
+      }>
       <CustomZoomPinchComponent>
-        <MapChart 
+        <MapChart
           setHoveredState={setHoveredState}
-          selectedState={selectedState}
-          setSelectedState={setSelectedState}
+          selectedState={selectedState!}
+          setSelectedState={setSelectedState!}
           statsData={statsData}
         />
       </CustomZoomPinchComponent>
-      { !selectedState && hoverdState && <Box sx={{
+      {!selectedState && !hoverdState && <GradientStrip />}
+      {!selectedState && hoverdState && <Box sx={{
         width: "100%",
         position: "absolute",
         bottom: 0,
@@ -82,13 +92,31 @@ export function USAMap(){
         height: "3em",
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, .3)",
+
+        display: "flex",
+        columnGap: 2,
+        "& .swiper-wrapper": {
+          paddingLeft: "30px"
+        }
       }}>
-        <Typography variant="h4" align="left">{selectedState}: {statsData[selectedState]}</Typography>
-      </Box>}
-    </Stack>
+        <Typography variant="h4" align="left">
+          {selectedState}
+        </Typography>
+        {
+          rpaListings[selectedState] &&
+          <CustomSwiperCarousel
+            slides={rpaListings[selectedState].map(({ label, slug }) => {
+              return <Box><Link to={`rpas/${slug}`} >{label}</Link>{statsData[label] && `: ${statsData[label]}%`}</Box>
+            })}
+            slidesPerView={"auto"}
+          />
+        }
+      </Box>
+      }
+    </Stack >
 
   );
-  
+
 }
 
 const MapChart = (
@@ -97,34 +125,48 @@ const MapChart = (
     setSelectedState,
     statsData
   }:
-  {
-    selectedState: string | null,
-    setHoveredState: (hoveredState: string) => void,
-    setSelectedState: (selectedState: string) => void,
-    statsData: StatsDataType
-  }
+    {
+      selectedState: string | null,
+      setHoveredState: (hoveredState: string) => void,
+      setSelectedState: React.Dispatch<React.SetStateAction<string | null>>,
+      statsData: StatsDataType
+    }
 ) => {
   const theme = useTheme();
 
+  function handleStateClick(clickedState: string): void {
+
+    setSelectedState((prevSelectedState: string | null): string | null => {
+      if (prevSelectedState === clickedState) {
+        return null;
+      }
+      return clickedState;
+    });
+  }
+
   return (
     <ComposableMap
-    style={{
-      height: "100%",
-      width: "100%",
-    }} projection="geoAlbersUsa">
+      style={{
+        height: "100%",
+        width: "100%",
+      }} projection="geoAlbersUsa">
       <Geographies geography={geoUrl}>
-        {({ geographies, borders }) => (
+        {({ geographies,
+          //  borders 
+        }) => (
           <>
             {geographies.map((geo) => (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
                 onMouseEnter={() => setHoveredState(geo.properties.name)}
-                onClick={() => setSelectedState(geo.properties.name)}
+                onClick={() => handleStateClick(geo.properties.name)}
                 style={{
                   default: {
-                    fill:  chooseStateColor(geo.properties.name, selectedState, statsData),
+                    fill: chooseStateColor(geo.properties.name, selectedState, statsData),
                     outline: "none",
+                    stroke: theme.palette.text.primary, // Border color
+                    strokeWidth: 0.75, // Border width
                   },
                   hover: {
                     fill: "#2F4F4F",
@@ -137,7 +179,7 @@ const MapChart = (
                 }}
               />
             ))}
-            <Geography geography={borders} fill="none" stroke={theme.palette.text.primary} />
+            {/* <Geography geography={borders} fill="none" stroke={theme.palette.text.primary} /> */}
           </>
         )}
       </Geographies>
@@ -146,10 +188,63 @@ const MapChart = (
 };
 
 
-function chooseStateColor(state: string, selectedState: string | null, statsData: StatsDataType){
+function GradientStrip() {
+  // Generate gradient stops dynamically
+  const generateGradient = () => {
+    const stops = Array.from({ length: 11 }, (_, i) => {
+      const percentage = i * 10; // 0%, 10%, ..., 100%
+      return `${getColor(percentage)} ${percentage}%`;
+    }).join(', ');
+
+    return `linear-gradient(to right, ${stops})`;
+  };
+
+  return (
+    <Box sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontSize: "10px"
+    }}>
+      0%
+      <Box
+        sx={{
+          width: '25%',
+          // margin: "auto",
+          mx: "10px",
+          height: '10px',
+          background: generateGradient(),
+          // border: '1px solid #ccc',
+          // borderRadius: "5px"
+        }}
+      >
+      </Box>
+      100%
+    </Box>
+
+  );
+};
+
+
+function chooseStateColor(state: string, selectedState: string | null, statsData: StatsDataType) {
   if (state == selectedState) return "#3ca7dc"
+  if (selectedState && state !== selectedState) return "grey"
   if (!statsData[state]) return "grey"
-  if ((statsData[state] ?? 0) > 90) return "green"
-  if ((statsData[state] ?? 0) > 70) return "orange"
-  return "red"
+  // if ((statsData[state] ?? 0) > 90) return "green"
+  // if ((statsData[state] ?? 0) > 70) return "orange"
+  // return "red"
+  return getColor(statsData[state] ?? 0)
+}
+
+
+
+function getColor(percentage_value: number): string {
+  // // percentage_value is a number between 0 and 1
+  // const hue = (percentage_value / 100) * 85; // Map 0% to 120 (green) and 100% to 0 (red)
+  // return `hsl(${hue}, 75%, 40%)`; // Adjust saturation and lightness as needed
+
+  // percentage_value is a number between 0 and 1
+  const green = Math.round(percentage_value * 120 / 100); // Maximum green component (darker)
+  const red = Math.round((100 - percentage_value) * 100 / 100); // Maximum red component
+  return `rgb(${red - 30}, ${green}, 0)`; // Blue is fixed at 0 for red/green shades
 }

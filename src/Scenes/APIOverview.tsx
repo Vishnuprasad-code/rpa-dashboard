@@ -1,12 +1,12 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 
-import {AltBox} from "../Components/StyledComponents/styledBox.tsx"
+import { AltBox } from "../Components/StyledComponents/styledBox.tsx"
 import CustomSkeleton from "../Components/LoadingAnimation/Skeleton.tsx"
 
-import {CustomResponsivePie} from "../Components/Charts/PieChartCircle.tsx"
+import { CustomResponsivePie } from "../Components/Charts/PieChartCircle.tsx"
 import CustomSwiperCarousel from "../Components/Carousel/SwiperCarousel.tsx"
 import { fetchAPIStatsData } from '../Http/http.ts';
 
@@ -18,53 +18,63 @@ export interface APIOverviewCardDataType {
 }
 
 
-export default function APIOverview(){
+export default function APIOverview() {
     const [dataList, setDataList] = useState<APIOverviewCardDataType[] | null>(null)
 
     const fetchData = async () => {
         try {
-          const dataList = await fetchAPIStatsData();
-          setDataList(dataList);
+            const dataList = await fetchAPIStatsData();
+            setDataList(dataList);
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
-    
-      useEffect(() => {
-        fetchData();
-      }, []); // Empty dependency array ensures this runs only once
+    };
 
-    if (dataList === null){
-        return <CustomSkeleton/>
+    useEffect(() => {
+        fetchData();
+    }, []); // Empty dependency array ensures this runs only once
+
+    if (dataList === null) {
+        return <CustomSkeleton />
     }
 
-    const cardsToRender = dataList.map((data) => <APIOverviewCard data={data}/>)
-    return <CustomSwiperCarousel slides={cardsToRender} slidesPerView={1} autoplayDelay={10000}/>
+    const cardsToRender = dataList.map((data) => <APIOverviewCard data={data} />)
+
+    return <AltBox
+        sx={{
+            width: "100%",
+            height: "100%",
+        }}
+    >
+
+        <CustomSwiperCarousel slides={cardsToRender} slidesPerView={1} autoplayDelay={10000} />
+
+    </AltBox >
 
 }
 
 export function APIOverviewCard(
-    {data}: {data: APIOverviewCardDataType}
-){
+    { data }: { data: APIOverviewCardDataType }
+) {
     const successCount = data.totalSuccessCalls ?? 0
     const failedCount = data.totalFailedCalls ?? 0
     const avg_response_time = data.avgResponseTime ?? 0
     const totalCount = successCount + failedCount
     const pieChartData = [
         {
-          id: "success",
-          label: "200",
-          value: successCount,
+            id: "success",
+            label: "200",
+            value: successCount,
         },
         {
-          id: "failed",
-          label: "non-200",
-          value: failedCount,
+            id: "failed",
+            label: "non-200",
+            value: failedCount,
         },
-      ];
-    
+    ];
+
     const centeredText = `${(successCount * 100 / totalCount).toFixed(0) || 0}%`
-    return  <AltBox
+    return <Box
         display={"flex"}
         width={"100%"} height={"100%"}
         sx={{
@@ -72,51 +82,51 @@ export function APIOverviewCard(
             justifyContent: "flex-start",
             alignItems: "center"
         }}
+    >
+        <Box
+            sx={{
+                flex: "1 0 auto",
+                width: "50%",
+                height: "100%",
+            }}
         >
-            <Box 
-                sx={{
-                    flex: "1 0 auto",
-                    width: "50%",
-                    height: "100%",
-                }}
-            >
             <Typography height={"20%"} variant="h4" margin="auto" align="center">
                 LLC FORMATION API
             </Typography>
-              <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={100}/>
-            </Box>
-            <Box 
-                display={"flex"}
-                sx={{
-                    // my: "auto",
-                    // marginLeft: "-35px",
-                    p: "3px",
-                    flex: "0 1 50%",
-                    width: "50%",
-                    height: "100%",
-                    flexDirection: 'row',
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    columnGap: 2,
-                }}
-            >
-                <Box>
-                    <Typography variant="h3" align="center">
+            <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={80} />
+        </Box>
+        <Box
+            display={"flex"}
+            sx={{
+                // my: "auto",
+                // marginLeft: "-35px",
+                p: "3px",
+                flex: "0 1 50%",
+                width: "50%",
+                height: "100%",
+                flexDirection: 'row',
+                justifyContent: "center",
+                alignItems: "center",
+                flexWrap: "wrap",
+                columnGap: 2,
+            }}
+        >
+            <Box>
+                <Typography variant="h3" align="center">
                     {totalCount}
-                    </Typography>
-                    <Typography variant="h5" align="center">
+                </Typography>
+                <Typography variant="h5" align="center">
                     Total Calls
-                    </Typography>
-                </Box>
-                <Box>
-                    <Typography variant="h3" align="center">
-                        {avg_response_time}
-                    </Typography>
-                    <Typography variant="h5" align="center">
-                        Avg Time
-                    </Typography>
-                </Box>
+                </Typography>
             </Box>
-    </AltBox>
+            <Box>
+                <Typography variant="h3" align="center">
+                    {avg_response_time}
+                </Typography>
+                <Typography variant="h5" align="center">
+                    Avg Time
+                </Typography>
+            </Box>
+        </Box>
+    </Box>
 };
