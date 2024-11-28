@@ -3,14 +3,15 @@ export interface FailedFilingType {
   process_id: string;
   rpa: string;
   filing_status: string;
-  start_time: number; // You might want to consider a Date type if you convert timestamps
-  end_time: number;   // Same as above
+  start_time: number;
+  end_time: number;
   total_execution_time: number;
   state: string;
   filing_type: string;
   success_on_retry: boolean;
-  success_or_failed: string; // Assuming these are the only possible values
-  copy_payload?: null
+  success_or_failed: string;
+  copy_payload?: null;
+  view_logs?: null;
 }
 
 export interface GraphDataType {
@@ -30,23 +31,23 @@ export interface MainStatsDataType {
 
 
 export interface QueueCountType {
-  state: string,
-  count: number,
-  filingType: string
+  state: string;
+  count: number;
+  filingType: string;
 }
 
 
 export interface RpaListingType {
-  [k: string]: string | number
+  [k: string]: string | number;
 }
 
 
 export interface RpaListingsType {
-  [k: string]: RpaListingType[]
+  [k: string]: RpaListingType[];
 }
 
 export interface DashboardContextType {
-  selectedTab: string,
+  selectedTab: string;
   setSelectedTab: (selectedTab: string) => void;
-  rpaListings: RpaListingsType
+  rpaListings: RpaListingsType;
 }

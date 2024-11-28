@@ -17,7 +17,9 @@ import CustomSkeleton from "../LoadingAnimation/Skeleton.tsx";
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx";
 import { Link } from "react-router-dom";
 import CustomSwiperCarousel from "../Carousel/SwiperCarousel.tsx";
-// import { border, margin } from "@mui/system";
+import { AltBox, NavAltBox } from "../StyledComponents/styledBox.tsx";
+import { height, width } from "@mui/system";
+import Button from "@mui/material/Button";
 
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -29,19 +31,19 @@ interface StatsDataType {
 
 
 export function USAMap() {
-  const [hoverdState, setHoveredState] = useState<string | null>(null);
+  const [hoveredState, setHoveredState] = useState<string | null>(null);
   const { selectedState, setSelectedState, mainStatsData } = useContext(MainStatsContext);
   const { rpaListings } = useContext(DashboardContext)
 
   useEffect(() => {
-    if (!hoverdState) return
+    if (!hoveredState) return
 
     const timeout = setTimeout(() => {
       setHoveredState!(null);
     }, 5000);
 
     return () => clearTimeout(timeout); // Cleanup on unmount
-  }, [hoverdState]);
+  }, [hoveredState]);
 
   if (!mainStatsData) return <CustomSkeleton />
 
@@ -55,27 +57,37 @@ export function USAMap() {
     )
   }
 
+  function handleStateSelect(clickedState: string): void {
+    setSelectedState!((prevSelectedState: string | null): string | null => {
+      if (prevSelectedState === clickedState) {
+        return null;
+      }
+      return clickedState;
+    });
+  }
+
+  function handleStateHover(hoveredState: string): void {
+    setHoveredState(hoveredState);
+  }
+
   return (
     <Stack
-      sx={
-        (theme) => ({
-          height: "100%",
-          width: "100%",
-          // bgcolor: theme.palette.primary.dark,
-          borderRadius: '1rem',
-          position: "relative",
-        })
-      }>
+      sx={{
+        height: "100%",
+        width: "100%",
+        borderRadius: '1rem',
+        position: "relative",
+      }}>
       <CustomZoomPinchComponent>
         <MapChart
-          setHoveredState={setHoveredState}
+          onStateHover={handleStateHover}
           selectedState={selectedState!}
-          setSelectedState={setSelectedState!}
+          onStateSelect={handleStateSelect}
           statsData={statsData}
         />
       </CustomZoomPinchComponent>
-      {!selectedState && !hoverdState && <GradientStrip />}
-      {!selectedState && hoverdState && <Box sx={{
+      {!selectedState && !hoveredState && <GradientStrip />}
+      {!selectedState && hoveredState && <Box sx={{
         width: "100%",
         position: "absolute",
         bottom: 0,
@@ -83,20 +95,22 @@ export function USAMap() {
         padding: "10px",
         // backgroundColor: "rgba(0, 0, 255, .1)",
       }}>
-        <Typography variant="h4" align="left">{hoverdState}</Typography>
+        <Typography variant="h4" align="left">{hoveredState}</Typography>
       </Box>}
       {selectedState && <Box sx={{
-        width: "100%",
-        position: "absolute",
-        bottom: 0,
-        height: "3em",
-        padding: "10px",
+        // width: "100%",
+        // position: "absolute",
+        // bottom: 0,
+        // height: "3em",
+        // padding: "10px",
         backgroundColor: "rgba(0, 0, 0, .3)",
 
         display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         columnGap: 2,
-        "& .swiper-wrapper": {
-          paddingLeft: "30px"
+        "& > div": {
+          flex: "1",
         }
       }}>
         <Typography variant="h4" align="left">
@@ -106,9 +120,11 @@ export function USAMap() {
           rpaListings[selectedState] &&
           <CustomSwiperCarousel
             slides={rpaListings[selectedState].map(({ label, slug }) => {
-              return <Box><Link to={`rpas/${slug}`} >{label}</Link>{statsData[label] && `: ${statsData[label]}%`}</Box>
+              return <NavAltBox sx={{ height: "100%" }}>
+                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >{label}{statsData[label] && `: ${statsData[label]}%`}</Button>
+              </NavAltBox>
             })}
-            slidesPerView={"auto"}
+            slidesPerView={3}
           />
         }
       </Box>
@@ -119,30 +135,17 @@ export function USAMap() {
 
 }
 
-const MapChart = (
-  { selectedState,
-    setHoveredState,
-    setSelectedState,
-    statsData
-  }:
-    {
-      selectedState: string | null,
-      setHoveredState: (hoveredState: string) => void,
-      setSelectedState: React.Dispatch<React.SetStateAction<string | null>>,
-      statsData: StatsDataType
-    }
-) => {
+
+interface MapChartPropsType {
+  selectedState: string | null,
+  onStateHover: (hoveredState: string) => void,
+  onStateSelect: (selectedState: string) => void,
+  statsData: StatsDataType
+}
+
+
+const MapChart = (props: MapChartPropsType) => {
   const theme = useTheme();
-
-  function handleStateClick(clickedState: string): void {
-
-    setSelectedState((prevSelectedState: string | null): string | null => {
-      if (prevSelectedState === clickedState) {
-        return null;
-      }
-      return clickedState;
-    });
-  }
 
   return (
     <ComposableMap
@@ -159,11 +162,11 @@ const MapChart = (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                onMouseEnter={() => setHoveredState(geo.properties.name)}
-                onClick={() => handleStateClick(geo.properties.name)}
+                onMouseEnter={() => props.onStateHover(geo.properties.name)}
+                onClick={() => props.onStateSelect(geo.properties.name)}
                 style={{
                   default: {
-                    fill: chooseStateColor(geo.properties.name, selectedState, statsData),
+                    fill: chooseStateColor(geo.properties.name, props.selectedState, props.statsData),
                     outline: "none",
                     stroke: theme.palette.text.primary, // Border color
                     strokeWidth: 0.75, // Border width

@@ -5,10 +5,10 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 
-export default function CustomCopyClipboard({processId}:{processId: string}){
+export default function CustomCopyClipboard({ processId }: { processId: string }) {
     const [isLoading, setIsLoading] = useState(false);
-  
-    async function handleCopyClipboard(){
+
+    async function handleCopyClipboard() {
         setIsLoading(true);
 
         unsecuredCopyToClipboard("");
@@ -21,6 +21,9 @@ export default function CustomCopyClipboard({processId}:{processId: string}){
         setIsLoading(false);
     }
 
-    const componentToRender = isLoading ? <HourglassBottomIcon/> : <ContentCopyIcon sx={{"&:hover": {cursor: "pointer"}}}onClick={handleCopyClipboard}/>
+    const componentToRender = (
+        isLoading ? <HourglassBottomIcon /> :
+            <ContentCopyIcon sx={{ "&:hover": { cursor: "pointer" } }} onClick={handleCopyClipboard} />
+    );
     return componentToRender
 };

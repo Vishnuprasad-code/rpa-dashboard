@@ -58,4 +58,19 @@ export const AltBox = styled(Box)(({ theme }) => ({
     boxShadow: "0 0.5px 5px 1px #005295",
   }
 }
-));  
+));
+
+
+export const NavAltBox = styled(Box)(({ theme }) => ({
+  background: `linear-gradient(to top, ${theme.palette.primary.dark}66, ${theme.palette.primary.dark})`,  /* ROYAL */
+  backdropFilter: 'saturate(100%) blur(4px)',  // Apply blur effect
+  // color: theme.palette.primary.contrastText,
+
+  fontSize: '1.2rem',
+  fontWeight: 'bold',
+  textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+  "&:hover": {
+    boxShadow: "0 0.5px 5px 1px #005295",
+  }
+}
+)); 

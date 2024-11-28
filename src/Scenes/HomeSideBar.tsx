@@ -288,8 +288,9 @@ function CompanyBox() {
             <Box
                 sx={(theme) => ({
                     backgroundColor: theme.palette.company.zb_main,
+                    border: "1px solid grey",
                     borderRadius: "50%",
-                    width: "38px",
+                    width: "39px",
                     height: "35px",
                 })}
             >
@@ -302,7 +303,8 @@ function CompanyBox() {
                         cursor: "pointer",
                         display: "block",
                         margin: "auto",
-                        marginTop: "1.5px"
+                        marginTop: "0.5px",
+                        marginLeft: "5px"
                     }}
                 />
 

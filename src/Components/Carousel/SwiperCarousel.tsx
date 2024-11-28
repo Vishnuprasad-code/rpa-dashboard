@@ -30,6 +30,8 @@ export default function CustomSwiperCarousel(
         nextEl: ".custom-next",
       }}
       spaceBetween={50}
+      centeredSlides={false}
+      centerInsufficientSlides={true}
       slidesPerView={slidesPerView} // Only one slide in view
       autoplay={typeof autoplayDelay == "number" && {
         delay: autoplayDelay, // 5 seconds

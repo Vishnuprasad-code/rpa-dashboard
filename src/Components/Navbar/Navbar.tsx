@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { RpaListings } from '../Masonry/RPAListings.tsx'
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx"
-import { ColorModeContext, useMode } from "../../theme.ts";
+import { ColorModeContext } from "../../theme.ts";
 import { useTheme } from "@emotion/react";
 
 
@@ -105,7 +105,7 @@ export default function NavBar() {
 }
 
 
-const SearchBar = ({ handleSearch }) => (
+const SearchBar = ({ handleSearch }: { handleSearch: (event: FormEvent<HTMLFormElement>) => void }) => (
   <Box
     sx={{
       display: "flex",
@@ -115,9 +115,7 @@ const SearchBar = ({ handleSearch }) => (
     }}
     mt="2px"
     component={"form"}
-    onSubmit={(event) => {
-      handleSearch(event);
-    }}
+    onSubmit={(event) => handleSearch(event)}
   >
     <TextField
       id="search-bar"
@@ -143,5 +141,5 @@ const SearchBar = ({ handleSearch }) => (
       type="submit" aria-label="search">
       <SearchIcon style={{ fill: "blue" }} />
     </IconButton>
-  </Box>
+  </Box >
 );

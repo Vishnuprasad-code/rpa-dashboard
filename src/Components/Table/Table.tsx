@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {
@@ -15,7 +16,9 @@ import {
 } from "@mui/material";
 import { columnsPartOne, columnsPartTwo, columnsExtra } from "./Columns.ts";
 
-import { FailedFilingType } from "../../Types/types.ts"
+import { FailedFilingType, RpaListingsType } from "../../Types/types.ts"
+import { DashboardContext } from "../../Contexts/DashboardContext.tsx";
+import { formatDateFromEpoch } from "../../Utils/utils.ts";
 
 
 export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
@@ -27,6 +30,12 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
   const currentPosRef = useRef(0); // Store the current scroll position
   const [isHovered, setIsHovered] = useState(false); // State to track if animation is paused
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>("all"); // State to track if animation is paused
+  const { rpaListings } = useContext(DashboardContext)
+
+  console.log(rpaListings)
+  function handleFilterChange(selectedStatusFilter: string) {
+    setSelectedStatusFilter(selectedStatusFilter)
+  }
 
   // Scroll logic with requestAnimationFrame
   useEffect(() => {
@@ -114,21 +123,21 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
                 key={column.id}
                 align={column.align}
                 style={{
-                  // minWidth: column.minWidth,
+                  minWidth: column.minWidth,
+                  maxWidth: column.maxWidth,
                 }}
               >
                 <CustomTableHeadCell
                   name={column.label}
                   selectedStatusFilter={selectedStatusFilter}
                   statusCountMap={statusCountMap}
-                  setSelectedStatusFilter={setSelectedStatusFilter}
+                  onFilterChange={handleFilterChange}
                 />
               </TableCell>
             ))}
           </TableRow>
         </TableHead>
 
-        {/* Table Body */}
         <TableBody ref={scrollRef}>
           {filteredDataRows.map((row) => (
             <TableRow key={`${row.process_id}-${row.start_time}`} hover role="checkbox" tabIndex={-1}>
@@ -139,9 +148,9 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      sx={{ maxWidth: "150px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                      sx={{ maxWidth: column.maxWidth, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
                     >
-                      {value}
+                      {column.componentToRender ? <column.componentToRender href={getRpaLogsHref(rpaListings, row)} icon={<VisibilityIcon />} /> : value}
                     </TableCell>
                   );
                 })}
@@ -177,8 +186,9 @@ function CustomTableHeadCell(
     name: string,
     selectedStatusFilter: string,
     statusCountMap: { [k: string]: number },
-    setSelectedStatusFilter: (selectedStatusFilter: string) => void
+    onFilterChange: (selectedStatusFilter: string) => void
   }) {
+
   if (props.name !== "STATUS") return <Box>{props.name}</Box>
 
   return <Box
@@ -192,7 +202,7 @@ function CustomTableHeadCell(
     <FilterMenu
       statusCountMap={props.statusCountMap}
       selectedStatusFilter={props.selectedStatusFilter}
-      setSelectedStatusFilter={props.setSelectedStatusFilter}
+      onFilterChange={props.onFilterChange}
     />
   </Box>
 }
@@ -202,7 +212,7 @@ export default function FilterMenu(
   props: {
     statusCountMap: { [k: string]: number },
     selectedStatusFilter: string,
-    setSelectedStatusFilter: (selectedStatusFilter: string) => void
+    onFilterChange: (selectedStatusFilter: string) => void
   }
 ) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -211,7 +221,7 @@ export default function FilterMenu(
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (key: string) => {
-    props.setSelectedStatusFilter(key);
+    props.onFilterChange(key);
     setAnchorEl(null);
   };
 
@@ -263,4 +273,23 @@ function getFilteredDataRows(
   }
 
   return [filteredDataRows, statusCountMap]
+}
+
+
+function getRpaLogsHref(rpaListings: RpaListingsType, row: FailedFilingType) {
+  const { state, rpa, process_id, start_time, end_time } = row;
+  let rpaId = null;
+  const rpaArray = rpaListings[`${state}`]
+  console.log(state, rpaListings)
+  for (const rpaObj of rpaArray) {
+    if (rpaObj.label === rpa) rpaId = rpaObj.rpa_id
+  }
+
+  const fromDate = formatDateFromEpoch(start_time - 60 * 10, 'Asia/Calcutta', 'YYYY-MM-DDTHH:mm:ss')
+  const endDate = formatDateFromEpoch(end_time + 60 * 10, 'Asia/Calcutta', 'YYYY-MM-DDTHH:mm:ss')
+  const url = `https://nest.scrapehero.com/nest/api/${rpaId}/development_logs/?` +
+    `from_date=${(fromDate)}&search=${process_id}&` +
+    `time_zone=Asia/Calcutta&to_date=${(endDate)}`
+
+  return url
 }

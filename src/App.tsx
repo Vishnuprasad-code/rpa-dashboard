@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ColorModeContext, useMode } from "./theme.ts";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import Grid from '@mui/material/Grid2';
-import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Outlet, useLoaderData } from 'react-router-dom';
 
 import { DashboardContext } from './Contexts/DashboardContext.tsx';
 import RpasOverview from "./Pages/RpasOverview.tsx"
@@ -20,6 +20,16 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Dashboard />,
+    loader: async () => {
+      try {
+        const rpaListingsData = await fetchRPAListingsData();
+        return rpaListingsData
+      } catch (error) {
+        console.log(error);
+        return {}
+      }
+
+    },
     children: [
       { index: true, element: <HomeMain /> },
       { path: 'rpas/:rpaSlug', element: <RpasOverview /> },
@@ -51,20 +61,7 @@ function App() {
 
 function Dashboard() {
   const [selectedTab, setSelectedTab] = useState<string>("Home")
-  const [rpaListings, setRPAListings] = useState<RpaListingsType>({})
-
-  const fetchData = async () => {
-    try {
-      const rpaListingsData = await fetchRPAListingsData();
-      setRPAListings(rpaListingsData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []); // Empty dependency array ensures this runs only once
+  const rpaListings = useLoaderData() as RpaListingsType
 
   return (
     <DashboardContext.Provider value={{

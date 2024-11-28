@@ -7,8 +7,12 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 
-export function formatDateFromEpoch(epochTime: number): string {
-    return dayjs.unix(epochTime).tz('America/Los_Angeles').format('DD/MM/YYYY HH:mm');
+export function formatDateFromEpoch(
+    epochTime: number,
+    timezone: string = 'America/Los_Angeles',
+    datetimeFormat: string = 'DD/MM/YYYY HH:mm'
+): string {
+    return dayjs.unix(epochTime).tz(timezone).format(datetimeFormat);
 }
 
 
@@ -17,16 +21,16 @@ export function unsecuredCopyToClipboard(copyText: string) {
         navigator.clipboard.writeText(copyText);
     } else { // Otherwise fallback to the above function
 
-    const textArea = document.createElement("textarea");
-    textArea.value = copyText;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        document.execCommand('copy');
-    } catch (err) {
-        console.error('Unable to copy to clipboard', err);
-    }
-    document.body.removeChild(textArea);
+        const textArea = document.createElement("textarea");
+        textArea.value = copyText;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.error('Unable to copy to clipboard', err);
+        }
+        document.body.removeChild(textArea);
     }
 }

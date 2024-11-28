@@ -66,7 +66,7 @@ export default function HomeMain() {
         mx={2}
         mt="10px"
         columnSpacing={2}
-        rowSpacing={3}
+        rowSpacing={2}
         alignItems="center"
         height="90%"
         sx={{
@@ -80,13 +80,13 @@ export default function HomeMain() {
         <Grid
           height={rowOneHieght}
           order={{ xl: 1, lg: 1, md: 4, sm: 4, xs: 4 }}
-          size={{ lg: 6, sm: 12, xs: 12 }}>
+          size={{ lg: 8, sm: 12, xs: 12 }}>
           <USAMap />
         </Grid>
         <Grid
           height={rowOneHieght}
           order={{ xl: 2, lg: 2, md: 3, sm: 3, xs: 3 }}
-          size={{ lg: 6, sm: 12, xs: 12 }}>
+          size={{ lg: 4, sm: 12, xs: 12 }}>
           <Table />
         </Grid>
         <Grid
