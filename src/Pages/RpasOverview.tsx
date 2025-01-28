@@ -39,47 +39,12 @@ import { fetchLatestMainStatsData, fetchQueueCount } from '../Http/http.ts'
 import { MainStatsDataType, QueueCountType, RpaListingsType } from '../Types/types.ts'
 import CustomCircularProgress from '../Components/LoadingAnimation/Progress.tsx';
 import CustomSkeleton from '../Components/LoadingAnimation/Skeleton.tsx';
+import { AltBox } from '../Components/StyledComponents/styledBox.tsx';
 
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-
-
-const MUIDateTimeRangePicker = ({ handleStartDateTimeChange, handleEndDateTimeChange, timeZone }) => {
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} dateLibInstance={dayjs.tz.setDefault(timeZone)}>
-      <DateTimePicker
-        // label="Start Date & Time"
-        // value={startDateTime}
-        onChange={handleStartDateTimeChange}
-        sx={{
-          "& input": {
-            display: "none"
-          },
-          "& .MuiFormControl-root": {
-            padding: 0,
-          },
-        }}
-      />
-      <span> - </span>
-      <DateTimePicker
-        // label="End Date & Time"
-        // value={endDateTime}
-        onChange={handleEndDateTimeChange}
-        sx={{
-          "& input": {
-            display: "none"
-          },
-          "& .MuiFormControl-root": {
-            padding: 0,
-          },
-        }}
-      // minDateTime={startDateTime}
-      />
-    </LocalizationProvider>
-  );
-};
 
 export default function RpasOverview() {
   const params = useParams();
@@ -87,25 +52,17 @@ export default function RpasOverview() {
   setSelectedTab("RPAs");
 
   const timeZone = 'America/Los_Angeles';
+
   const losAngelesTime = dayjs().tz(timeZone).startOf('day');
   const epochStartTime = losAngelesTime.unix();
+  const currentRpaData = getCurrentRpaData(rpaListings, params.rpaSlug)
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [startDateTime, setStartDateTime] = useState<number>(epochStartTime);
   const [endDateTime, setEndDateTime] = useState<number>(epochStartTime + 86400);
   const [dateButtonText, setDateButtonText] = useState<string>("Today")
-  const [mainStatsData, setMainStatsData] = useState<MainStatsDataType | null>(
-    null
-    // {
-    //   "totalCount": 0,
-    //   "successCount": 0,
-    //   "failedCount": 0,
-    //   "failedFilings": [],
-    //   "graphData": []
-    // }
-  )
+  const [mainStatsData, setMainStatsData] = useState<MainStatsDataType | null>(null)
 
-  const currentRpaData = getCurrentRpaData(rpaListings, params.rpaSlug)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -120,23 +77,55 @@ export default function RpasOverview() {
     setIsLoading(false);
   }, [startDateTime, endDateTime]); // Empty dependency array ensures this runs only once  
 
+  const handleStartDateTimeChange = (newValue: dayjs.Dayjs | null) => {
+    setStartDateTime(newValue!.unix());
+    setDateButtonText("dateRange");
+  };
+
+  const handleEndDateTimeChange = (newValue: dayjs.Dayjs | null) => {
+    setEndDateTime(newValue!.unix());
+    setDateButtonText("dateRange");
+  };
+
+  const handleSingleDateTimeChange = (buttonText: string) => {
+    const losAngelesTime = dayjs().tz(timeZone).startOf('day');
+    const epochStartTime = losAngelesTime.unix();
+
+    if (buttonText == "Today") {
+      setStartDateTime(epochStartTime);
+      setEndDateTime(epochStartTime + 86400);
+      setDateButtonText("Today");
+    }
+    else if (buttonText == "2d") {
+      setStartDateTime(epochStartTime - 86400);
+      setEndDateTime(epochStartTime + 86400);
+      setDateButtonText("2d");
+    }
+    else if (buttonText == "7d") {
+      setStartDateTime(epochStartTime - (6 * 86400));
+      setEndDateTime(epochStartTime + 86400);
+      setDateButtonText("7d");
+    }
+    else {
+      setStartDateTime(epochStartTime);
+      setEndDateTime(epochStartTime + 86400);
+      setDateButtonText("Today");
+    }
+
+  }
+
   return (
     <MainStatsContext.Provider value={{ mainStatsData: mainStatsData, setMainStatsData: setMainStatsData }}>
       <Stack
-        sx={
-          (theme) => ({
-            // bgcolor: theme.palette.primary.dark,
-            // overflow: 'hidden',
-            // minHeight: "80vh",
-            "& .MuiAccordion-root": {
-              width: "100%",
-              backgroundColor: "transparent"
-            },
-            "& .MuiAccordionDetails-root": {
-              padding: "0",
-            }
-          })
-        }
+        sx={{
+          "& .MuiAccordion-root": {
+            width: "100%",
+            backgroundColor: "transparent"
+          },
+          "& .MuiAccordionDetails-root": {
+            padding: "0",
+          }
+        }}
         m="20px 10px"
         spacing={1}
         alignItems={'center'}
@@ -154,7 +143,6 @@ export default function RpasOverview() {
         >
           <Typography variant='h4' textAlign="left" sx={{}}>
             {params.rpaSlug?.toUpperCase()}
-            {/* {JSON.stringify(currentRpaData)} */}
           </Typography>
           <a
             href={`https://nest.scrapehero.com/nest/api/${currentRpaData.rpa_id ?? "?apitags=13"}`}
@@ -178,11 +166,12 @@ export default function RpasOverview() {
         </Divider>
         <TimePeriodBar
           startDateTime={startDateTime}
-          setStartDateTime={setStartDateTime}
+          handleStartDateTimeChange={handleStartDateTimeChange}
           endDateTime={endDateTime}
-          setEndDateTime={setEndDateTime}
+          handleEndDateTimeChange={handleEndDateTimeChange}
           dateButtonText={dateButtonText}
-          setDateButtonText={setDateButtonText}
+          handleSingleDateTimeChange={handleSingleDateTimeChange}
+          timeZone={timeZone}
         />
         <Accordion>
           <AccordionSummary
@@ -250,27 +239,30 @@ function QueueBar() {
     width={"90%"}
     m={"auto"}
   >
-    <Typography>
-      Waiting In Queue
-    </Typography>
     <Box
       display={"flex"}
       justifyContent="flex-start"
       alignItems="center"
       columnGap={2}
       flexWrap={"wrap"}
-      mx={2}
+      // mx={2}
       sx={{
       }}
     >
+      <Typography>
+        Waiting In Queue:&#8594;
+      </Typography>
       {queueList.map(
         (data) => {
-          return <Box
+          return <AltBox
             display={"flex"}
             flexDirection={"column"}
             justifyContent="flex-start"
             alignItems="center"
-            padding={2}
+            sx={{
+              px: "20px !important",
+              py: "10px !important",
+            }}
           >
             <Typography>
               {data.count}
@@ -278,7 +270,7 @@ function QueueBar() {
             <Typography>
               {data.state}-{data.filingType}
             </Typography>
-          </Box>
+          </AltBox>
         }
       )}
     </Box>
@@ -295,51 +287,24 @@ const selectedDateFilerStyle = (theme: any) => ({
 });
 
 
+interface TimePeriodBarPropsType {
+  startDateTime: number;
+  endDateTime: number;
+  handleStartDateTimeChange: (newValue: dayjs.Dayjs | null) => void;
+  handleEndDateTimeChange: (newValue: dayjs.Dayjs | null) => void;
+  dateButtonText: string;
+  handleSingleDateTimeChange: (newValue: string) => void;
+  timeZone: string
+}
+
 function TimePeriodBar(
   {
     startDateTime, endDateTime,
-    setStartDateTime, setEndDateTime,
-    dateButtonText, setDateButtonText
-  }) {
+    handleStartDateTimeChange, handleEndDateTimeChange,
+    dateButtonText, handleSingleDateTimeChange,
+    timeZone
+  }: TimePeriodBarPropsType) {
 
-  const timeZone = 'America/Los_Angeles';
-
-  const handleStartDateTimeChange = (newValue) => {
-    setStartDateTime(newValue.unix());
-    setDateButtonText("dateRange");
-  };
-
-  const handleEndDateTimeChange = (newValue) => {
-    setEndDateTime(newValue.unix());
-    setDateButtonText("dateRange");
-  };
-
-  const handleSingleDateTimeChange = (buttonText: string) => {
-    const losAngelesTime = dayjs().tz(timeZone).startOf('day');
-    const epochStartTime = losAngelesTime.unix();
-
-    if (buttonText == "Today") {
-      setStartDateTime(epochStartTime);
-      setEndDateTime(epochStartTime + 86400);
-      setDateButtonText("Today");
-    }
-    else if (buttonText == "2d") {
-      setStartDateTime(epochStartTime - 86400);
-      setEndDateTime(epochStartTime + 86400);
-      setDateButtonText("2d");
-    }
-    else if (buttonText == "7d") {
-      setStartDateTime(epochStartTime - (6 * 86400));
-      setEndDateTime(epochStartTime + 86400);
-      setDateButtonText("7d");
-    }
-    else {
-      setStartDateTime(epochStartTime);
-      setEndDateTime(epochStartTime + 86400);
-      setDateButtonText("Today");
-    }
-
-  }
   return (
     <Box
       display={"flex"}
@@ -411,6 +376,52 @@ function TimePeriodBar(
     </Box>
   );
 }
+
+
+interface MUIDateTimeRangePickerPropsType {
+  handleStartDateTimeChange: (newValue: dayjs.Dayjs | null) => void;
+  handleEndDateTimeChange: (newValue: dayjs.Dayjs | null) => void;
+  timeZone: string;
+}
+
+const MUIDateTimeRangePicker = (
+  { handleStartDateTimeChange,
+    handleEndDateTimeChange,
+    timeZone
+  }: MUIDateTimeRangePickerPropsType) => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs} dateLibInstance={dayjs.tz.setDefault(timeZone)}>
+      <DateTimePicker
+        // label="Start Date & Time"
+        // value={startDateTime}
+        onChange={handleStartDateTimeChange}
+        sx={{
+          "& input": {
+            display: "none"
+          },
+          "& .MuiFormControl-root": {
+            padding: 0,
+          },
+        }}
+      />
+      <span> - </span>
+      <DateTimePicker
+        // label="End Date & Time"
+        // value={endDateTime}
+        onChange={handleEndDateTimeChange}
+        sx={{
+          "& input": {
+            display: "none"
+          },
+          "& .MuiFormControl-root": {
+            padding: 0,
+          },
+        }}
+      // minDateTime={startDateTime}
+      />
+    </LocalizationProvider>
+  );
+};
 
 
 function getCurrentRpaData(rpaListings: RpaListingsType, rpaSlug: string | undefined) {

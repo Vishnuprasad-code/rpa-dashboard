@@ -6,10 +6,15 @@ import { Box } from "@mui/material";
 
 
 import { Link } from 'react-router-dom';
-import { AltBox, GlossyBox } from '../StyledComponents/styledBox';
+import { AltBox } from '../StyledComponents/styledBox';
+import { RpaListingsType } from '../../Types/types';
 
 
-export function RpaListings({ data }) {
+export function RpaListings(
+  { onLinkClick,
+    data
+  }: { onLinkClick: () => void, data: RpaListingsType }
+) {
   return <Box sx={(theme) => ({
     width: "50vw", height: "680px",
     overflowY: "scroll",
@@ -24,7 +29,9 @@ export function RpaListings({ data }) {
     boxShadow: 24,
     backdropFilter: "blur(10px)",
     p: 4,
-  })}>
+  })}
+  >
+    <Typography variant="h4" align='center' mb={"20px"}>RPA MENU</Typography>
     <Masonry
       columns={{ xl: 4, lg: 4, md: 1, sm: 1, xs: 1 }} spacing={2}
     >
@@ -53,6 +60,7 @@ export function RpaListings({ data }) {
             }}>
             {data[state].map(item => (
               <ListItem
+                onClick={onLinkClick}
                 component={Link}
                 to={`rpas/${item.slug}`}
                 sx={(theme) => ({

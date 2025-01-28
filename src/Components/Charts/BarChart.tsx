@@ -64,16 +64,18 @@ const CustomTooltip = ({ data }: { data: BarDatum }) => {
 export function ResponsiveStackBar(
     {
         data,
-        clicHandler = null
+        clicHandler = null,
+        initialPositionY = 0,
 
     }: {
         data: any,
-        clicHandler: ((state: string) => void) | null
+        clicHandler: ((state: string) => void) | null,
+        initialPositionY: number | null
     }) {
 
     const theme = useTheme();
     return (
-        <CustomZoomPinchComponent initialPositionY={50}>
+        <CustomZoomPinchComponent initialPositionY={initialPositionY}>
             <ResponsiveBar
                 data={data}
                 keys={["success", "failed"]}

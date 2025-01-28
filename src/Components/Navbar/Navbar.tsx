@@ -83,21 +83,9 @@ export default function NavBar() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <RpaListings data={rpaListings} />
-        {/* <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'background.paper',
-          border: '2px solid #000',
-          boxShadow: 24,
-          // background: "rgba(20, 20, 20, 0.83)",
-          backdropFilter: "blur(10px)",
-          p: 4,
-        }}>
-          <RpaListings data={rpaListings} />
-        </Box> */}
+        <div>
+          <RpaListings onLinkClick={handleClose} data={rpaListings} />
+        </div>
       </Modal>
     </Box>
 
@@ -105,7 +93,7 @@ export default function NavBar() {
 }
 
 
-const SearchBar = ({ handleSearch }: { handleSearch: (event: FormEvent<HTMLFormElement>) => void }) => (
+const SearchBar = ({ handleSearch }: { handleSearch: (event: React.FormEvent<HTMLFormElement>) => void }) => (
   <Box
     sx={{
       display: "flex",

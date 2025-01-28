@@ -32,7 +32,6 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>("all"); // State to track if animation is paused
   const { rpaListings } = useContext(DashboardContext)
 
-  console.log(rpaListings)
   function handleFilterChange(selectedStatusFilter: string) {
     setSelectedStatusFilter(selectedStatusFilter)
   }
@@ -246,7 +245,7 @@ export default function FilterMenu(
         }}
       >
         {Object.entries(props.statusCountMap).map(([key, value]) => {
-          return <MenuItem onClick={() => handleClose(key)}>{`${key} (${value})`}</MenuItem>
+          return <MenuItem key={key} onClick={() => handleClose(key)}>{`${key} (${value})`}</MenuItem>
         })}
       </Menu>
     </div>
@@ -280,7 +279,7 @@ function getRpaLogsHref(rpaListings: RpaListingsType, row: FailedFilingType) {
   const { state, rpa, process_id, start_time, end_time } = row;
   let rpaId = null;
   const rpaArray = rpaListings[`${state}`]
-  console.log(state, rpaListings)
+
   for (const rpaObj of rpaArray) {
     if (rpaObj.label === rpa) rpaId = rpaObj.rpa_id
   }

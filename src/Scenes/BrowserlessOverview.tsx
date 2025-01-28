@@ -60,10 +60,12 @@ function BrowserlessOverviewCard(
 ) {
     return <Box
         sx={{
+            mx: 4,
+            // height: "100%",
             display: "flex",
-            width: "100%",
-            height: "100%",
             flexDirection: 'column',
+            justifyContent: "space-between",
+            alignContent: "center"
         }}
     >
         <Typography height={"20%"} variant="h4" m={"auto"} align="center">
@@ -76,31 +78,48 @@ function BrowserlessOverviewCard(
                 width: "100%",
                 height: "100%",
                 flexDirection: 'column',
+                rowGap: 4,
+                mt: 4,
             }}
         >
             <Box
                 sx={{
                     display: "flex",
-                    width: "100%",
                     height: "100%",
                     flexDirection: 'row',
                     justifyContent: "space-between",
                     alignItems: "center",
+                    columnGap: 5,
+                    order: 0,
                 }}
             >
-                <Typography>IP: {data.ip}</Typography>
                 <Box
-                    sx={{ display: "flex", }}>
-                    <img style={{ display: "inline-block", width: "20px", height: "20px" }} src={chromeIcon} alt="" />
-                    <Typography>: {data.version}</Typography>
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                    <img style={{ display: "inline-block", width: "30px", height: "30px", marginRight: "5px" }} src={chromeIcon} alt="" />
+                    <Typography variant='h4'>{data.version}</Typography>
                 </Box>
-                <Typography>Region: {data.region}</Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: 'column',
+                        justifyContent: "flex-end",
+                        alignContent: "flex-end",
+                        rowGap: 1,
+                    }}
+                >
+                    <Typography variant="h5" align="left">Region: {data.region}</Typography>
+                    <Typography
+                        variant="h5" align="left">IP: {data.ip}</Typography>
+                </Box>
             </Box>
             <Box
                 sx={{
                     display: "flex",
-                    width: "100%",
-                    height: "100%",
                     flexDirection: 'row',
                     justifyContent: "space-between",
                     alignItems: "center",

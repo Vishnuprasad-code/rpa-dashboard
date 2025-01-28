@@ -87,7 +87,7 @@ function Dashboard() {
         </Grid>
         <Grid
           size="grow"
-          direction="column"
+          // direction="column"
           height="100%"
           sx={
             {

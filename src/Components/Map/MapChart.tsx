@@ -101,7 +101,7 @@ export function USAMap() {
         // width: "100%",
         // position: "absolute",
         // bottom: 0,
-        // height: "3em",
+        height: "3em",
         // padding: "10px",
         backgroundColor: "rgba(0, 0, 0, .3)",
 

@@ -96,10 +96,10 @@ export function APIOverviewCard(
             <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={80} />
         </Box>
         <Box
-            display={"flex"}
             sx={{
                 // my: "auto",
                 // marginLeft: "-35px",
+                display: "flex",
                 p: "3px",
                 flex: "0 1 50%",
                 width: "50%",

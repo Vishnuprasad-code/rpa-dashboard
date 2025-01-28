@@ -11,11 +11,9 @@ import Avatar from '@mui/material/Avatar';
 
 
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 import shLogo from '../assets/sh-logo-800.png';
 import zbLogo from '../assets/circle-logo-teal.svg';
-import companyLogo from '../assets/company.webp';
 
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import HomeIcon from '@mui/icons-material/Home';
@@ -215,19 +213,19 @@ function ProfileBox() {
                     "mx": "auto",
                     "mt": "10px",
                     "pb": "10px",
-                    "font-family": '"Protest Guerrilla", sans-serif',
-                    "font-weight": "900",
-                    "font-style": "normal",
+                    "fontFamily": '"Protest Guerrilla", sans-serif',
+                    "fontWeight": "900",
+                    "fontStyle": "normal",
                     "textAlign": "center",
                     "WebkitTextStroke": "0.5px",
                     "WebkitTextStrokeColor": theme.palette.primary.dark,
                     // "textShadow": "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
                     "textOrientation": { lg: 'sideways', md: 'upright', sm: "upright", xs: "upright" },
                     "writingMode": { lg: 'horizontal-tb', md: 'vertical-rl', sm: "vertical-rl", xs: "vertical-rl" },
-                    "letter-spacing": {
+                    "letterSpacing": {
                         lg: "2px", md: '"2px"', sm: "-10px", xs: "-10px",
                     },
-                    "&>span:first-child": {
+                    "&>span:first-of-type": {
                         "WebkitTextFillColor": theme.palette.company.zb_main,
                         "WebkitTextStrokeColor": "black",
                     },
@@ -290,8 +288,8 @@ function CompanyBox() {
                     backgroundColor: theme.palette.company.zb_main,
                     border: "1px solid grey",
                     borderRadius: "50%",
-                    width: "39px",
-                    height: "35px",
+                    width: "38px",
+                    height: "33px",
                 })}
             >
                 <img

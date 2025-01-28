@@ -29,7 +29,7 @@ export default function CustomSwiperCarousel(
         prevEl: ".custom-prev",
         nextEl: ".custom-next",
       }}
-      spaceBetween={50}
+      spaceBetween={5}
       centeredSlides={false}
       centerInsufficientSlides={true}
       slidesPerView={slidesPerView} // Only one slide in view
