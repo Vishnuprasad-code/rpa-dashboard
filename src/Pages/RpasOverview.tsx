@@ -49,33 +49,35 @@ dayjs.extend(timezone);
 export default function RpasOverview() {
   const params = useParams();
   const { setSelectedTab, rpaListings } = useContext(DashboardContext);
+  const currentUrlRpaId = params.rpaSlug ?? "all";
+  // const [currentUrlState, setCurrentUrlState] = useState<string>("all")
   setSelectedTab("RPAs");
 
   const timeZone = 'America/Los_Angeles';
 
   const losAngelesTime = dayjs().tz(timeZone).startOf('day');
   const epochStartTime = losAngelesTime.unix();
-  const currentRpaData = getCurrentRpaData(rpaListings, params.rpaSlug)
+  const currentRpaData = getCurrentRpaData(rpaListings, currentUrlRpaId)
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [startDateTime, setStartDateTime] = useState<number>(epochStartTime);
   const [endDateTime, setEndDateTime] = useState<number>(epochStartTime + 86400);
   const [dateButtonText, setDateButtonText] = useState<string>("Today")
   const [mainStatsData, setMainStatsData] = useState<MainStatsDataType | null>(null)
 
+  const fetchData = async () => {
+    try {
+      const latestMainStatsData = await fetchLatestMainStatsData(currentUrlRpaId, startDateTime, endDateTime);
+      setMainStatsData(latestMainStatsData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const latestMainStatsData = await fetchLatestMainStatsData(params.rpaSlug, startDateTime, endDateTime);
-        setMainStatsData(latestMainStatsData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    setIsLoading(true);
+    setMainStatsData(null);
     fetchData();
-    setIsLoading(false);
-  }, [startDateTime, endDateTime]); // Empty dependency array ensures this runs only once  
+
+  }, [startDateTime, endDateTime, currentUrlRpaId]); // Empty dependency array ensures this runs only once  
 
   const handleStartDateTimeChange = (newValue: dayjs.Dayjs | null) => {
     setStartDateTime(newValue!.unix());
@@ -85,6 +87,7 @@ export default function RpasOverview() {
   const handleEndDateTimeChange = (newValue: dayjs.Dayjs | null) => {
     setEndDateTime(newValue!.unix());
     setDateButtonText("dateRange");
+    // setMainStatsData(null);
   };
 
   const handleSingleDateTimeChange = (buttonText: string) => {
@@ -112,6 +115,7 @@ export default function RpasOverview() {
       setDateButtonText("Today");
     }
 
+    // setMainStatsData(null);
   }
 
   return (
@@ -137,12 +141,12 @@ export default function RpasOverview() {
             justifyContent: "flex-start",
             alignItems: "center",
             columnGap: 2,
-            width: "90%",
+            width: "95%",
             height: "50px"
           }}
         >
           <Typography variant='h4' textAlign="left" sx={{}}>
-            {params.rpaSlug?.toUpperCase()}
+            Summary of {currentUrlRpaId?.toUpperCase()}
           </Typography>
           <a
             href={`https://nest.scrapehero.com/nest/api/${currentRpaData.rpa_id ?? "?apitags=13"}`}
@@ -155,7 +159,7 @@ export default function RpasOverview() {
               style={{ cursor: "pointer" }}
             /></a>
         </Box>
-        <QueueBar />
+        <QueueBar rpaId={currentUrlRpaId} />
         <Divider
           variant='middle'
           flexItem
@@ -188,9 +192,7 @@ export default function RpasOverview() {
                 width: "100%",
               }}
             >
-              {(mainStatsData && !isLoading) ?
-                <AllRpaBar /> :
-                <Box sx={{ width: "100%", height: "60px" }}><CustomSkeleton /></Box>}
+              {(!mainStatsData) ? <Box sx={{ width: "100%", height: "60px" }}><CustomSkeleton /></Box> : <AllRpaBar />}
             </Box>
           </AccordionDetails>
         </Accordion>
@@ -215,28 +217,39 @@ export default function RpasOverview() {
   )
 }
 
-function QueueBar() {
-  const [queueList, setQueueList] = useState<QueueCountType[]>([])
+function QueueBar({ rpaId }: { rpaId: string }) {
+  const [queueList, setQueueList] = useState<QueueCountType[] | null>(null)
+
+  const fetchData = async () => {
+    try {
+      const latestQueueList = await fetchQueueCount(rpaId);
+      setQueueList(latestQueueList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const latestQueueList = await fetchQueueCount();
-        setQueueList([...Array(5).fill(latestQueueList).flat()]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+    fetchData()
+    const intervalId = setInterval(() => {
+      console.log("Sending request......")
+      fetchData();
+    }, 45000); // 45 seconds
 
-  }, []); // Empty dependency array ensures this runs only once  
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
 
+  }, [rpaId]); // Empty dependency array ensures this runs only once
+
+  if (!queueList) return <Box sx={{ width: "100%", height: "5rem" }}><CustomSkeleton /></Box>
+
+  let totalQueueCount = getTotalQueueCount(queueList)
   return <Box
     display={"flex"}
     flexDirection={"column"}
     justifyContent="flex-start"
     alignItems="flex-start"
-    width={"90%"}
+    width={"99%"}
     m={"auto"}
   >
     <Box
@@ -249,8 +262,23 @@ function QueueBar() {
       sx={{
       }}
     >
-      <Typography>
-        Waiting In Queue:&#8594;
+      <Typography variant='h1'
+        sx={(theme) => ({
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "5rem",
+          minWidth: "5rem",
+          borderRadius: "50%",
+          border: `1px solid ${theme.palette.text.primary}`,
+        })}>
+        {totalQueueCount ?? 0}
+      </Typography>
+      <Typography sx={{
+        width: "3rem",
+        textAlign: "center"
+      }}>
+        Waiting In Queue
       </Typography>
       {queueList.map(
         (data) => {
@@ -259,22 +287,64 @@ function QueueBar() {
             flexDirection={"column"}
             justifyContent="flex-start"
             alignItems="center"
-            sx={{
-              px: "20px !important",
-              py: "10px !important",
-            }}
+            sx={(theme) => ({
+              px: "0 !important",
+              py: "5px !important",
+              height: "5rem",
+              width: "7rem",
+              borderRadius: "5px",
+              border: `0.01px dotted ${theme.palette.text.primary}`,
+              rowGap: "10px"
+            })}
           >
-            <Typography>
+            <Box
+              sx={(theme) => ({
+                width: "100%",
+                borderBottom: `0.25px solid ${theme.palette.text.primary}`,
+                overflow: "hidden",
+              })}>
+              <Typography sx={{
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                px: "1rem",
+                m: "auto",
+                textAlign: "center",
+                flex: "0 1",
+                textTransform: 'uppercase',
+                "@keyframes to-and-fro": {
+                  "0%": {
+                    transform: "translateX(0)"
+                  },
+                  "50%": {
+                    transform: "translateX(-100%)"
+                  },
+                  "100%": {
+                    transform: "translateX(0)"
+                  }
+                },
+                "&:hover": {
+                  overflow: "visible",
+                  textOverflow: "normal",
+                  animation: "to-and-fro 10s linear infinite"
+                }
+              }}
+              >
+                {data.state}-{data.filingType}
+              </Typography>
+            </Box>
+            <Typography
+              variant='h2'
+              sx={{
+                flex: "1 0"
+              }}>
               {data.count}
-            </Typography>
-            <Typography>
-              {data.state}-{data.filingType}
             </Typography>
           </AltBox>
         }
       )}
     </Box>
-  </Box>
+  </Box >
 }
 
 
@@ -435,4 +505,11 @@ function getCurrentRpaData(rpaListings: RpaListingsType, rpaSlug: string | undef
   }
 
   return {}
+}
+
+
+function getTotalQueueCount(queueList: QueueCountType[]) {
+  let result = queueList.reduce((acc, obj) => { return acc + (obj.count ?? 0); }, 0);
+  return result
+
 }

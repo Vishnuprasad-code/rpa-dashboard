@@ -1,234 +1,233 @@
 export const RPAListingsMockData = {
   "California": [
     {
-      "label": "ca-llc-soi",
+      "label": "llc_soi_ca",
       "state": "California",
       "rpa_id": 304,
-      "slug": "llc_soi_ca",
-      "CA": "California"
+      "slug": "ca-llc-soi"
     },
     {
-      "label": "ca-llc",
+      "label": "llc_ca",
       "state": "California",
       "rpa_id": 234,
-      "slug": "llc_ca",
+      "slug": "ca-llc",
       "CA": "California"
     },
     {
-      "label": "ca-evidence-retrieval",
+      "label": "evidence_retrieval_ca",
       "state": "California",
       "rpa_id": 312,
-      "slug": "evidence_retrieval_ca",
+      "slug": "ca-evidence-retrieval",
       "CA": "California"
     },
     {
-      "label": "ca-request-entity-access",
+      "label": "request_entity_access_ca",
       "state": "California",
       "rpa_id": 337,
-      "slug": "request_entity_access_ca",
+      "slug": "ca-request-entity-access",
       "CA": "California"
     },
     {
-      "label": "ca-grant-entity-access",
+      "label": "grant_entity_access_ca",
       "state": "California",
       "rpa_id": 338,
-      "slug": "grant_entity_access_ca",
+      "slug": "ca-grant-entity-access",
       "CA": "California"
     }
   ],
   "Pennsylvania": [
     {
-      "label": "pa-llc",
+      "label": "llc_pa",
       "state": "Pennsylvania",
       "rpa_id": 401,
-      "slug": "llc_pa",
+      "slug": "pa-llc",
       "PA": "Pennsylvania"
     },
     {
-      "label": "pa-evidence-retrieval",
+      "label": "evidence_retrieval_pa",
       "state": "Pennsylvania",
       "rpa_id": 402,
-      "slug": "evidence_retrieval_pa",
+      "slug": "pa-evidence-retrieval",
       "PA": "Pennsylvania"
     }
   ],
   "New Jersey": [
     {
-      "label": "nj-llc",
+      "label": "llc_nj",
       "state": "New Jersey",
       "rpa_id": 106,
-      "slug": "llc_nj",
+      "slug": "nj-llc",
       "NJ": "New Jersey"
     },
     {
-      "label": "nj-annual",
+      "label": "annual_nj",
       "state": "New Jersey",
       "rpa_id": 335,
-      "slug": "annual_nj",
+      "slug": "nj-annual",
       "NJ": "New Jersey"
     }
   ],
   "Illinois": [
     {
-      "label": "il-llc",
+      "label": "llc_il",
       "state": "Illinois",
       "rpa_id": 83,
-      "slug": "llc_il",
+      "slug": "il-llc",
       "IL": "Illinois"
     },
     {
-      "label": "il-annual",
+      "label": "annual_il",
       "state": "Illinois",
       "rpa_id": 323,
-      "slug": "annual_il",
+      "slug": "il-annual",
       "IL": "Illinois"
     }
   ],
   "Colorado": [
     {
-      "label": "co-llc",
+      "label": "llc_co",
       "state": "Colorado",
       "rpa_id": 357,
-      "slug": "llc_co",
+      "slug": "co-llc",
       "CO": "Colorado"
     }
   ],
   "New York": [
     {
-      "label": "ny-llc",
+      "label": "llc_ny",
       "state": "New York",
       "rpa_id": 74,
-      "slug": "llc_ny",
+      "slug": "ny-llc",
       "NY": "New York"
     }
   ],
   "Florida": [
     {
-      "label": "fl-llc",
+      "label": "llc_fl",
       "state": "Florida",
       "rpa_id": 237,
-      "slug": "llc_fl",
+      "slug": "fl-llc",
       "FL": "Florida"
     },
     {
-      "label": "fl-annual",
+      "label": "annual_fl",
       "state": "Florida",
       "rpa_id": 101,
-      "slug": "annual_fl",
+      "slug": "fl-annual",
       "FL": "Florida"
     },
     {
-      "label": "fl-evidence-retrieval",
+      "label": "evidence_retrieval_fl",
       "state": "Florida",
       "rpa_id": 463,
-      "slug": "evidence_retrieval_fl",
+      "slug": "fl-evidence-retrieval",
       "FL": "Florida"
     }
   ],
   "North Carolina": [
     {
-      "label": "nc-llc",
+      "label": "llc_nc",
       "state": "North Carolina",
       "rpa_id": 470,
-      "slug": "llc_nc",
+      "slug": "nc-llc",
       "NC": "North Carolina"
     },
     {
-      "label": "nc-annual",
+      "label": "annual_nc",
       "state": "North Carolina",
       "rpa_id": 268,
-      "slug": "annual_nc",
+      "slug": "nc-annual",
       "NC": "North Carolina"
     }
   ],
   "Georgia": [
     {
-      "label": "ga-annual",
+      "label": "annual_ga",
       "state": "Georgia",
       "rpa_id": 89,
-      "slug": "annual_ga",
+      "slug": "ga-annual",
       "GA": "Georgia"
     },
     {
-      "label": "ga-llc",
+      "label": "llc_ga",
       "state": "Georgia",
       "rpa_id": 76,
-      "slug": "llc_ga",
+      "slug": "ga-llc",
       "GA": "Georgia"
     }
   ],
   "Michigan": [
     {
-      "label": "mi-llc",
+      "label": "llc_mi",
       "state": "Michigan",
       "rpa_id": 81,
-      "slug": "llc_mi",
+      "slug": "mi-llc",
       "MI": "Michigan"
     }
   ],
   "Texas": [
     {
-      "label": "tx-annual",
+      "label": "annual_tx",
       "state": "Texas",
       "rpa_id": 294,
-      "slug": "annual_tx",
+      "slug": "tx-annual",
       "TX": "Texas"
     },
     {
-      "label": "tx-llc",
+      "label": "llc_tx",
       "state": "Texas",
       "rpa_id": 145,
-      "slug": "llc_tx",
+      "slug": "tx-llc",
       "TX": "Texas"
     },
     {
-      "label": "tx-annual-ext",
+      "label": "annual_ext_tx",
       "state": "Texas",
       "rpa_id": 129,
-      "slug": "annual_ext_tx",
+      "slug": "tx-annual-ext",
       "TX": "Texas"
     },
     {
-      "label": "tx-taxable-entity-search",
+      "label": "taxable_entity_search_tx",
       "state": "Texas",
       "rpa_id": 344,
-      "slug": "taxable_entity_search_tx",
+      "slug": "tx-taxable-entity-search",
       "TX": "Texas"
     }
   ],
   "Delaware": [
     {
-      "label": "de-annual",
+      "label": "annual_de",
       "state": "Delaware",
       "rpa_id": 128,
-      "slug": "annual_de",
+      "slug": "de-annual",
       "DE": "Delaware"
     }
   ],
   "Virginia": [
     {
-      "label": "va-llc",
+      "label": "llc_va",
       "state": "Virginia",
       "rpa_id": 102,
-      "slug": "llc_va",
+      "slug": "va-llc",
       "VA": "Virginia"
     }
   ],
   "Kentucky": [
     {
-      "label": "ky-annual",
+      "label": "annual_ky",
       "state": "Kentucky",
       "rpa_id": 130,
-      "slug": "annual_ky",
+      "slug": "ky-annual",
       "KY": "Kentucky"
     }
   ],
   "Ohio": [
     {
-      "label": "oh-llc",
+      "label": "llc_oh",
       "state": "Ohio",
       "rpa_id": 109,
-      "slug": "llc_oh",
+      "slug": "oh-llc",
       "OH": "Ohio"
     }
   ]

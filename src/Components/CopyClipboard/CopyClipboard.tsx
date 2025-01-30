@@ -5,7 +5,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 
-export default function CustomCopyClipboard({ processId }: { processId: string }) {
+export default function CustomCopyClipboard({ filingType, processId }: { filingType: string, processId: string }) {
     const [isLoading, setIsLoading] = useState(false);
 
     async function handleCopyClipboard() {
@@ -13,7 +13,7 @@ export default function CustomCopyClipboard({ processId }: { processId: string }
 
         unsecuredCopyToClipboard("");
 
-        const payloadObject = await fetchPayloadText(processId);
+        const payloadObject = await fetchPayloadText(filingType, processId);
         const copyText = payloadObject.payloadText;
 
         unsecuredCopyToClipboard(copyText);

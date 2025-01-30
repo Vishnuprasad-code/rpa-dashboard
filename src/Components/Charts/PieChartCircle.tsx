@@ -2,9 +2,9 @@
 // yarn add @nivo/pie
 import { ResponsivePie } from "@nivo/pie";
 
-import { useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { Typography } from "@mui/material";
-import {StyledToolTip} from "../StyledComponents/styledToolTip.tsx"
+import { StyledToolTip } from "../StyledComponents/styledToolTip.tsx"
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -12,10 +12,9 @@ import {StyledToolTip} from "../StyledComponents/styledToolTip.tsx"
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
-const CustomTooltip = ({ name, value, color }) => {
-  const theme = useTheme();
+const CustomTooltip = (props: any) => {
   return <StyledToolTip>
-        <Typography variant="h4">{name}: {value}</Typography>
+    <Typography variant="h4">{props.name}: {props.value}</Typography>
   </StyledToolTip>
   // <div
   //     style={{
@@ -39,34 +38,32 @@ const CustomTooltip = ({ name, value, color }) => {
   //   </div>
 };
 
-const CenteredText = (
-  innerRadius, centerX, centerY, centeredText
-) => {
-    const theme = useTheme();
-    return (<text
-      x={centerX}
-      y={centerY}
-      textAnchor="middle"
-      dominantBaseline="central"
-      style={{
-        fill: theme.palette.text.primary,
-        fontSize: `${innerRadius * 0.6}px`,
-        fontWeight: "bold",
-      }}
-    >
-      {centeredText}
-    </text>
-);
+const CenteredText = (props: any) => {
+  const theme = useTheme();
+  return (<text
+    x={props.centerX}
+    y={props.centerY}
+    textAnchor="middle"
+    dominantBaseline="central"
+    style={{
+      fill: theme.palette.text.primary,
+      fontSize: `${props.innerRadius * 0.6}px`,
+      fontWeight: "bold",
+    }}
+  >
+    {props.centeredText}
+  </text>
+  );
 
 }
 
-export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMargin=60}) {
+export function CustomResponsivePie(props: any) {
   const theme = useTheme();
   return (
     <ResponsivePie
-      data={data}
+      data={props.data}
       theme={{ legends: { text: { fontSize: 12 } } }}
-      margin={{ top: topMargin, right: 0, bottom: bottomMargin, left: 0 }}
+      margin={{ top: props.topMargin ?? 20, right: 0, bottom: props.bottomMargin ?? 60, left: 0 }}
       innerRadius={0.6}
       padAngle={0.7}
       cornerRadius={1}
@@ -74,10 +71,10 @@ export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMar
       activeOuterRadiusOffset={2}
       colors={["#33f08a", "#cc6b3c"]}
       layers={[
-        "arcs", 
-        "arcLabels", 
+        "arcs",
+        "arcLabels",
         "legends",
-        ({innerRadius, centerX, centerY}) => CenteredText(innerRadius, centerX, centerY, centeredText)
+        ({ innerRadius, centerX, centerY }) => CenteredText({ innerRadius, centerX, centerY, centeredText: props.centeredText })
       ]}
       borderWidth={2}
       borderColor="transparent"
@@ -114,11 +111,11 @@ export function CustomResponsivePie({data, centeredText, topMargin=15, bottomMar
       ]}
       tooltip={({ datum }) => (
         <CustomTooltip
-            name={datum.id}
-            value={datum.value}
-            color={datum.color}
+          name={datum.id}
+          value={datum.value}
+          color={datum.color}
         />
-    )}
+      )}
     />
-);
+  );
 }

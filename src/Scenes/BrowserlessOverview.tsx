@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import Typography from '@mui/material/Typography';
-import { Divider } from '@mui/material';
 import { Box } from '@mui/material';
 import { AltBox } from "../Components/StyledComponents/styledBox.tsx"
 
@@ -87,7 +86,7 @@ function BrowserlessOverviewCard(
                     display: "flex",
                     height: "100%",
                     flexDirection: 'row',
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignItems: "center",
                     columnGap: 5,
                     order: 0,

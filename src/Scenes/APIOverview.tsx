@@ -12,6 +12,7 @@ import { fetchAPIStatsData } from '../Http/http.ts';
 
 
 export interface APIOverviewCardDataType {
+    apiName: string
     totalSuccessCalls: number;
     totalFailedCalls: number;
     avgResponseTime: string;
@@ -56,6 +57,7 @@ export default function APIOverview() {
 export function APIOverviewCard(
     { data }: { data: APIOverviewCardDataType }
 ) {
+    const apiName = data.apiName ?? "unknown"
     const successCount = data.totalSuccessCalls ?? 0
     const failedCount = data.totalFailedCalls ?? 0
     const avg_response_time = data.avgResponseTime ?? 0
@@ -91,7 +93,7 @@ export function APIOverviewCard(
             }}
         >
             <Typography height={"20%"} variant="h4" margin="auto" align="center">
-                LLC FORMATION API
+                {apiName}
             </Typography>
             <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={80} />
         </Box>
@@ -112,7 +114,7 @@ export function APIOverviewCard(
             }}
         >
             <Box>
-                <Typography variant="h3" align="center">
+                <Typography variant="h2" align="center">
                     {totalCount}
                 </Typography>
                 <Typography variant="h5" align="center">
@@ -120,7 +122,7 @@ export function APIOverviewCard(
                 </Typography>
             </Box>
             <Box>
-                <Typography variant="h3" align="center">
+                <Typography variant="h2" align="center">
                     {avg_response_time}
                 </Typography>
                 <Typography variant="h5" align="center">

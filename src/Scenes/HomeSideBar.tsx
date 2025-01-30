@@ -12,8 +12,8 @@ import Avatar from '@mui/material/Avatar';
 
 import { useTheme } from '@mui/material/styles';
 
-import shLogo from '../assets/sh-logo-800.png';
-import zbLogo from '../assets/circle-logo-teal.svg';
+import shLogo from '../assets/sh_1_optimized.png';
+import zbLogo from '../assets/circle-logo-teal.png';
 
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import HomeIcon from '@mui/icons-material/Home';
@@ -21,7 +21,7 @@ import ApiIcon from '@mui/icons-material/Api';
 import ArticleIcon from '@mui/icons-material/Article';
 
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 const routes = [
@@ -97,7 +97,6 @@ export default function HomeSideBar() {
 
 function SideMenu() {
     const theme = useTheme();
-
     const { selectedTab, setSelectedTab } = useContext(DashboardContext);
 
     return (
@@ -199,16 +198,22 @@ function SideMenu() {
 }
 
 function ProfileBox() {
+    const { setSelectedTab } = useContext(DashboardContext);
     return (
         <Box
             sx={{
-                // border: "1px solid cyan",
                 borderRadius: "1px",
                 width: '100%',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
             }}
         >
             <Typography
+                onClick={() => setSelectedTab("Home")}
                 variant="h2"
+                component={Link}
+                to="/"
                 sx={(theme) => ({
                     "mx": "auto",
                     "mt": "10px",
@@ -235,6 +240,16 @@ function ProfileBox() {
                     }
                 })}
             >
+                {/* <img
+                    alt="sh"
+                    width="25px"
+                    height="25px"
+                    src={shLogo}
+                    style={{
+                        "marginRight": "5px"
+                    }}
+
+                /> */}
                 <span
                 >
                     ZB
@@ -243,7 +258,7 @@ function ProfileBox() {
                 <span>
                     DASH</span>
             </Typography>
-        </Box>
+        </ Box >
     );
 
 }
@@ -264,8 +279,8 @@ function CompanyBox() {
             <Box
                 sx={{
                     borderRadius: "50%",
-                    width: "35px",
-                    height: "35px",
+                    width: "38px",
+                    height: "38px",
                     marginBottom: "-5px"
                 }}
             >
@@ -289,7 +304,8 @@ function CompanyBox() {
                     border: "1px solid grey",
                     borderRadius: "50%",
                     width: "38px",
-                    height: "33px",
+                    height: "34px",
+                    // marginBottom: "-5px"
                 })}
             >
                 <img
@@ -301,8 +317,6 @@ function CompanyBox() {
                         cursor: "pointer",
                         display: "block",
                         margin: "auto",
-                        marginTop: "0.5px",
-                        marginLeft: "5px"
                     }}
                 />
 

@@ -49,14 +49,23 @@ const totalsRedender = (bars: readonly ComputedBarDatum<BarDatum>[], theme: Them
 
 const CustomTooltip = ({ data }: { data: BarDatum }) => {
     return (
-        <StyledToolTip>
-            <Typography sx={{
-                textDecoration: "underline",
+        <StyledToolTip sx={{
+            "& > div": {
+                mx: "10px",
+                my: "5px",
+            }
+        }}>
+            <Typography variant="h5" sx={{
+                width: "100%",
+                px: "10px",
+                py: "5px",
+                textTransform: "uppercase",
+                borderBottom: "1px solid black",
                 textUnderlineOffset: "10px",
                 marginBottom: "10px"
             }}>{data["rpa"]}</Typography>
-            <div>success: {data["success"] ?? 0}</div>
-            <div>failed: {data["failed"] ?? 0}</div>
+            <div>Successful: {data["success"] ?? 0}</div>
+            <div>Failed: {data["failed"] ?? 0}</div>
         </StyledToolTip>
     );
 }
@@ -70,7 +79,7 @@ export function ResponsiveStackBar(
     }: {
         data: any,
         clicHandler: ((state: string) => void) | null,
-        initialPositionY: number | null
+        initialPositionY?: number | null
     }) {
 
     const theme = useTheme();
@@ -80,8 +89,8 @@ export function ResponsiveStackBar(
                 data={data}
                 keys={["success", "failed"]}
                 indexBy="rpa"
-                margin={{ top: 25, right: 5, bottom: 50, left: 5 }}
-                padding={0.5}
+                margin={{ top: data.length > 5 ? 50 : 150, right: 50, bottom: 50, left: 50 }}
+                padding={data.length > 5 ? 0.5 : 0.7}
                 valueScale={{ type: "linear" }}
                 indexScale={{ type: "band", round: true }}
                 colors={["#00B6CB", "#cc6b3c"]}  // #3ca7dc

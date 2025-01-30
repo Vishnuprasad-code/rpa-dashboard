@@ -1,6 +1,27 @@
 import { createContext, useState, useMemo } from "react";
-import { createTheme, Theme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
+import { Theme } from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  // interface Theme {
+  //   palette: {
+  //     mode: "dark" | "light";
+  //     primary: { [k: string]: string };
+  //     secondary: { [k: string]: string };
+  //     neutral: { [k: string]: string };
+  //     company: { [k: string]: string };
+  //     background: { [k: string]: string };
+  //   };
+  // }
+
+  interface Palette {
+    mode: "dark" | "light";
+    neutral: { [k: string]: string };
+    company: { [k: string]: string };
+  }
+
+}
 
 // color design tokens export
 export const tokens = (mode: string) => ({

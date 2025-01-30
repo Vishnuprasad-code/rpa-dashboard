@@ -67,7 +67,7 @@ function CaptchaBalanceCard(
     }}
   >
     <Typography height={"20%"} variant="h4" m={"auto"} align="center">
-      BALANCE REPORT
+      CAPTCHA BALANCE
     </Typography>
 
     <Box
@@ -96,8 +96,7 @@ function CaptchaBalanceCard(
       </Box>
       <Divider orientation="vertical" variant='middle' sx={{ height: "80%", mr: "-2px", border: (theme) => `0.5px solid ${theme.palette.divider}`, }}></Divider>
       <Box>
-        <Typography variant='h1'>{data.balanceRemaining} $</Typography>
-        <Typography variant='h6'>Remaining</Typography>
+        <Typography variant='h1'>${data.balanceRemaining ?? 0}</Typography>
       </Box>
     </Box>
 

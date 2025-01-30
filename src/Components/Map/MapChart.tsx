@@ -17,8 +17,7 @@ import CustomSkeleton from "../LoadingAnimation/Skeleton.tsx";
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx";
 import { Link } from "react-router-dom";
 import CustomSwiperCarousel from "../Carousel/SwiperCarousel.tsx";
-import { AltBox, NavAltBox } from "../StyledComponents/styledBox.tsx";
-import { height, width } from "@mui/system";
+import { NavAltBox } from "../StyledComponents/styledBox.tsx";
 import Button from "@mui/material/Button";
 
 
@@ -121,7 +120,7 @@ export function USAMap() {
           <CustomSwiperCarousel
             slides={rpaListings[selectedState].map(({ label, slug }) => {
               return <NavAltBox sx={{ height: "100%" }}>
-                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >{label}{statsData[label] && `: ${statsData[label]}%`}</Button>
+                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >{label}{statsData[slug] && `: ${statsData[slug]}%`}</Button>
               </NavAltBox>
             })}
             slidesPerView={3}

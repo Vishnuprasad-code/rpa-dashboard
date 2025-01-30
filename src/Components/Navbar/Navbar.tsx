@@ -8,29 +8,26 @@ import NotificationImportantIcon from '@mui/icons-material/NotificationImportant
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+
 
 import { RpaListings } from '../Masonry/RPAListings.tsx'
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx"
 import { ColorModeContext } from "../../theme.ts";
-import { useTheme } from "@emotion/react";
+import { useTheme } from '@mui/material/styles';
+import { fetchSearchResults } from "../../Http/http.ts";
+import { RpaListingType } from "../../Types/types.ts";
+import CustomCircularProgress from "../LoadingAnimation/Progress.tsx";
 
 
 export default function NavBar() {
   const theme = useTheme();
   const { rpaListings } = useContext(DashboardContext);
   const colorMode = useContext(ColorModeContext)
-  const [searchInput, setSearchInput] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
-  function handleSearch(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    console.log(data.get('search'));
-    setSearchInput(data.get('search'))
-  }
   return <Box
     sx={{
       display: "flex",
@@ -55,7 +52,7 @@ export default function NavBar() {
         order: 2,
       }}
     >
-      <SearchBar handleSearch={handleSearch} />
+      <SearchBar />
     </Box>
     <Box
       sx={{
@@ -93,8 +90,37 @@ export default function NavBar() {
 }
 
 
-const SearchBar = ({ handleSearch }: { handleSearch: (event: React.FormEvent<HTMLFormElement>) => void }) => (
-  <Box
+const SearchBar = () => {
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [result, setResult] = useState<RpaListingType | {}>({});
+
+
+  const fetchData = async (uuid: string) => {
+    try {
+      return await fetchSearchResults(uuid);
+    } catch (error) {
+      console.log(error);
+    }
+
+    return {}
+  };
+
+
+  async function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleOpen();
+    const data = new FormData(event.currentTarget);
+    setIsLoading(true);
+    const resultObject = await fetchData(data.get('search') as string)
+    setResult(resultObject)
+    setIsLoading(false);
+
+  }
+
+  return <Box
     sx={{
       display: "flex",
       justifyContent: "space-between",
@@ -129,5 +155,85 @@ const SearchBar = ({ handleSearch }: { handleSearch: (event: React.FormEvent<HTM
       type="submit" aria-label="search">
       <SearchIcon style={{ fill: "blue" }} />
     </IconButton>
+    <Modal
+      open={open}
+      onClose={handleClose}
+    >
+      <Box sx={(theme) => ({
+        backgroundColor: `${theme.palette.background.default}f2`,
+        minWidth: "50vw",
+
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+
+      })}
+      >
+        {isLoading ? <CustomCircularProgress /> : <KeyValueTable data={result} />};
+      </Box >
+    </Modal>
   </Box >
-);
+
+};
+
+
+const KeyValueTable = ({ data }: { data: RpaListingType }) => {
+  if (!data || !Object.keys(data).length) return <Box p="10rem">NO RESULT!</Box>
+
+  return (
+    <TableContainer component={Paper} sx={(theme) => ({
+      m: "1rem",
+      "& td": {
+        p: "0",
+        pt: "10px",
+        px: "10px",
+        fontSize: "1rem",
+        border: "1px solid grey"
+      },
+      "& th": {
+        textAlign: "center",
+        border: "1px solid grey",
+        fontSize: "1.2rem",
+      },
+      "& a:visited": {
+        textDecoration: "none",
+        textDecorationColor: "blue"
+      },
+      "& a:hover": {
+        // textDecoration: "none",
+        textDecorationColor: "blue",
+        color: "blue",
+      },
+      "& a": {
+        color: theme.palette.text.primary
+      }
+
+    })}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell><strong>Key</strong></TableCell>
+            <TableCell><strong>Value</strong></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Object.entries(data).map(([key, value]) => (
+            <TableRow key={key}>
+              <TableCell>{key}</TableCell>
+              <TableCell>
+                {value.toString().startsWith("http") ?
+                  <a
+                    href={value.toString()} target="_blank">{value.toString()}</a> :
+                  value.toString()} </TableCell> {/* Ensure values are displayed as strings */}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};

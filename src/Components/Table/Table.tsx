@@ -166,7 +166,7 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
                 isFullTable && columnsExtra.map((column) => {
                   return (
                     <TableCell key={column.id} align={column.align}>
-                      {column.componentToRender && <column.componentToRender processId={row.process_id} />}
+                      {column.componentToRender && <column.componentToRender filingType={row.filing_type} processId={row.process_id} />}
                     </TableCell>
                   );
                 })}
@@ -281,7 +281,7 @@ function getRpaLogsHref(rpaListings: RpaListingsType, row: FailedFilingType) {
   const rpaArray = rpaListings[`${state}`]
 
   for (const rpaObj of rpaArray) {
-    if (rpaObj.label === rpa) rpaId = rpaObj.rpa_id
+    if (rpaObj.slug === rpa) rpaId = rpaObj.rpa_id
   }
 
   const fromDate = formatDateFromEpoch(start_time - 60 * 10, 'Asia/Calcutta', 'YYYY-MM-DDTHH:mm:ss')
