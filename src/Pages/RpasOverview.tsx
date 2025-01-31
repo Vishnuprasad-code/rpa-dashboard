@@ -281,6 +281,7 @@ function QueueBar({ rpaId }: { rpaId: string }) {
       </Typography>
       {queueList.map(
         (data) => {
+          const queueItemTitle = `${data.state}-${data.filingType}`
           return <AltBox
             display={"flex"}
             flexDirection={"column"}
@@ -303,9 +304,9 @@ function QueueBar({ rpaId }: { rpaId: string }) {
                 overflow: "hidden",
               })}>
               <Typography sx={{
-                overflow: "hidden",
                 whiteSpace: "nowrap",
-                textOverflow: "ellipsis",
+                overflow: "visible",
+                textOverflow: "normal",
                 px: "1rem",
                 m: "auto",
                 textAlign: "center",
@@ -322,14 +323,10 @@ function QueueBar({ rpaId }: { rpaId: string }) {
                     transform: "translateX(0)"
                   }
                 },
-                "&:hover": {
-                  overflow: "visible",
-                  textOverflow: "normal",
-                  animation: "to-and-fro 10s linear infinite"
-                }
+                ...(queueItemTitle.length > 8 && { animation: "to-and-fro 12s linear infinite" }),
               }}
               >
-                {data.state}-{data.filingType}
+                {queueItemTitle}
               </Typography>
             </Box>
             <Typography
