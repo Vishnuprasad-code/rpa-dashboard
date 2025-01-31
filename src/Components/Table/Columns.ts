@@ -1,8 +1,9 @@
 import CustomCopyClipboard from "../CopyClipboard/CopyClipboard";
+import CustomStatusJsonModal from "../StatusJsonModal/StatusJsonModal";
 import { CustomLinkIconComponent } from "../LinkIcon/CustomLinkIconComponent";
 
 interface Column {
-  id: "process_id" | "rpa" | "view_logs" | "filing_status" | "success_on_retry" | "copy_payload";
+  id: "process_id" | "rpa" | "view_logs" | "filing_status" | "success_on_retry" | "copy_payload" | "status_json";
   label: string;
   minWidth?: number;
   maxWidth?: number;
@@ -59,6 +60,13 @@ export const columnsExtra: readonly Column[] = [
     minWidth: 5,
     align: "center",
     componentToRender: CustomCopyClipboard
+  },
+  {
+    id: "status_json",
+    label: "STATUS JSON",
+    minWidth: 5,
+    align: "center",
+    componentToRender: CustomStatusJsonModal
   },
 ];
 

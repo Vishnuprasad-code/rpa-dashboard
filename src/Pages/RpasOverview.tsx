@@ -74,7 +74,6 @@ export default function RpasOverview() {
   };
 
   useEffect(() => {
-    setMainStatsData(null);
     fetchData();
 
   }, [startDateTime, endDateTime, currentUrlRpaId]); // Empty dependency array ensures this runs only once  
@@ -87,7 +86,7 @@ export default function RpasOverview() {
   const handleEndDateTimeChange = (newValue: dayjs.Dayjs | null) => {
     setEndDateTime(newValue!.unix());
     setDateButtonText("dateRange");
-    // setMainStatsData(null);
+    setMainStatsData(null);
   };
 
   const handleSingleDateTimeChange = (buttonText: string) => {
@@ -115,7 +114,7 @@ export default function RpasOverview() {
       setDateButtonText("Today");
     }
 
-    // setMainStatsData(null);
+    setMainStatsData(null);
   }
 
   return (

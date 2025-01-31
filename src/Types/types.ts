@@ -12,6 +12,7 @@ export interface FailedFilingType {
   success_or_failed: string;
   copy_payload?: null;
   view_logs?: null;
+  status_json?: null;
 }
 
 export interface GraphDataType {

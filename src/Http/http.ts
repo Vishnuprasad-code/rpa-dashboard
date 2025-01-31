@@ -37,7 +37,7 @@ export async function fetchLatestMainStatsData(
 
   }
   const response = await fetch(
-    `http://0.0.0.0:8000/api/graphs/filings_graph?fromDate=${startDateTime}&toDate=${endDateTime}&rpaId=${rpaSlug}&callType=prod`);
+    `/api/graphs/filings_graph?fromDate=${startDateTime}&toDate=${endDateTime}&rpaId=${rpaSlug}&callType=prod`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch user places');
@@ -48,7 +48,7 @@ export async function fetchLatestMainStatsData(
 
 
 export async function fetchSearchResults(uuid: string): Promise<RpaListingType> {
-  const url = `http://0.0.0.0:8000/api/rpa_data/search?uuid=${uuid}`
+  const url = `/api/rpa_data/search?uuid=${uuid}`
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error('Failed to fetch user places');
@@ -59,7 +59,7 @@ export async function fetchSearchResults(uuid: string): Promise<RpaListingType> 
 
 
 export async function fetchQueueCount(rpaId: string = "all"): Promise<QueueCountType[]> {
-  const url = `http://0.0.0.0:8000/api/rpa_data/queue_count?rpaId=${rpaId}`
+  const url = `/api/rpa_data/queue_count?rpaId=${rpaId}`
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error('Failed to fetch user places');
@@ -76,7 +76,7 @@ export async function fetchCaptchaBalance(): Promise<CaptchaBalanceDataType[]> {
   //   return CaptchaBalanceMockData
   // }
 
-  const url = "http://0.0.0.0:8000/api/service_stats/captcha_balance"
+  const url = "/api/service_stats/captcha_balance"
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -93,7 +93,7 @@ export async function fetchBrowserlessStats(): Promise<any[]> {
   //   return BrowserlessStatsMockData
   // }
 
-  const url = "http://0.0.0.0:8000/api/service_stats/browser_stats"
+  const url = "/api/service_stats/browser_stats"
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -111,7 +111,7 @@ export async function fetchAPIStatsData(): Promise<APIOverviewCardDataType[]> {
   //   return APIStatsMockData
   // }
 
-  const url = "http://0.0.0.0:8000/api/service_stats/api_stats"
+  const url = "/api/service_stats/api_stats"
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -128,7 +128,7 @@ export async function fetchRPAListingsData(): Promise<any> {
     return RPAListingsMockData
   }
 
-  const url = "http://0.0.0.0:8000/api/"
+  const url = "/api/"
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error('Failed to fetch user places');
@@ -144,7 +144,7 @@ export async function fetchPayloadText(filingType: string, processId: string): P
   //   return { payloadText: processId }
   // }
 
-  const url = `http://0.0.0.0:8000/api/rpa_data/backup_payload?filing_type=${filingType}&uuid=${processId}`
+  const url = `/api/rpa_data/backup_payload?filing_type=${filingType}&uuid=${processId}`
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error('Failed to fetch user places');

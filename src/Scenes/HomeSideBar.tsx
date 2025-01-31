@@ -21,7 +21,7 @@ import ApiIcon from '@mui/icons-material/Api';
 import ArticleIcon from '@mui/icons-material/Article';
 
 
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const routes = [
