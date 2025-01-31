@@ -75,7 +75,7 @@ export function APIOverviewCard(
         },
     ];
 
-    const centeredText = `${(successCount * 100 / totalCount).toFixed(0) || 0}%`
+    const centeredText = totalCount > 0 ? `${(successCount * 100 / totalCount).toFixed(0) || 0}%` : 'N/A'
     return <Box
         display={"flex"}
         width={"100%"} height={"100%"}
