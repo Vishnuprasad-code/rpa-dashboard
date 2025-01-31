@@ -5,7 +5,7 @@ import { APIOverviewCardDataType } from '../Scenes/APIOverview.tsx'
 
 
 // import { mockStatsData } from './MockStatsData.ts';
-import { RPAListingsMockData } from "./RPAListingsMockData.ts";
+// import { RPAListingsMockData } from "./RPAListingsMockData.ts";
 // import { CaptchaBalanceMockData } from "./CaptchaBalanceMockData.ts";
 // import { APIStatsMockData } from "./APIStatsMockData.ts";
 // import { BrowserlessStatsMockData } from './BrowserlessStatsMockData.ts';
@@ -123,12 +123,12 @@ export async function fetchAPIStatsData(): Promise<APIOverviewCardDataType[]> {
 
 
 export async function fetchRPAListingsData(): Promise<any> {
-  if (RPAListingsMockData) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return RPAListingsMockData
-  }
+  // if (RPAListingsMockData) {
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  //   return RPAListingsMockData
+  // }
 
-  const url = "/api/"
+  const url = "/api/rpa_data/zb_rpas"
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error('Failed to fetch user places');

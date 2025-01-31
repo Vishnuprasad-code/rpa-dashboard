@@ -201,23 +201,32 @@ function ProfileBox() {
     const { setSelectedTab } = useContext(DashboardContext);
     return (
         <Box
-            sx={{
-                borderRadius: "1px",
-                width: '100%',
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
+            width="100%"
+            display={"flex"}
+            flexDirection={{ lg: "row", md: "column", sm: "column", xs: "column" }}
+            justifyContent='center'
+            alignItems="center"
+            columnGap="1rem"
+            paddingTop={{ lg: "0.8rem", md: "0.8rem", sm: "0", xs: "0" }}
         >
+            <img
+                alt="sh"
+                width="45px"
+                height="45px"
+                src={shLogo}
+
+            />
             <Typography
                 onClick={() => setSelectedTab("Home")}
                 variant="h2"
                 component={Link}
                 to="/"
                 sx={(theme) => ({
-                    "mx": "auto",
-                    "mt": "10px",
-                    "pb": "10px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    // "pb": "10px",
                     "fontFamily": '"Protest Guerrilla", sans-serif',
                     "fontWeight": "900",
                     "fontStyle": "normal",
@@ -240,16 +249,6 @@ function ProfileBox() {
                     }
                 })}
             >
-                {/* <img
-                    alt="sh"
-                    width="25px"
-                    height="25px"
-                    src={shLogo}
-                    style={{
-                        "marginRight": "5px"
-                    }}
-
-                /> */}
                 <span
                 >
                     ZB

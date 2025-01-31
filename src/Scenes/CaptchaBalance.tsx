@@ -10,13 +10,16 @@ import CustomSkeleton from "../Components/LoadingAnimation/Skeleton.tsx"
 
 
 import capsolverIcon from '../assets/capsolver.png';
+import capMonsterIcon from '../assets/cmonster.png';
+import bcsIcon from '../assets/bcs.png';
+import tcsIcon from '../assets/2captcha.png';
 import { fetchCaptchaBalance } from "../Http/http.ts";
 
 
 
 export interface CaptchaBalanceDataType {
-  captchaSolver: string;
-  balanceRemaining: string
+  captchaSolver: "CAPSOLVER" | "CAPMONSTER" | "BCS" | "2CAPTCHA";
+  balanceRemaining: string;
 }
 
 
@@ -58,6 +61,13 @@ export default function CaptchaBalance() {
 function CaptchaBalanceCard(
   { data }: { data: CaptchaBalanceDataType }
 ) {
+
+  const solverIconMap = {
+    "CAPSOLVER": capsolverIcon,
+    "CAPMONSTER": capMonsterIcon,
+    "BCS": bcsIcon,
+    "2CAPTCHA": tcsIcon,
+  }
   return <Box
     sx={{
       display: "flex",
@@ -67,7 +77,7 @@ function CaptchaBalanceCard(
     }}
   >
     <Typography height={"20%"} variant="h4" m={"auto"} align="center">
-      CAPTCHA BALANCE
+      CAPTCHA RESOLVER BALANCE
     </Typography>
 
     <Box
@@ -89,10 +99,10 @@ function CaptchaBalanceCard(
       <Box
       >
         <img
-          width={"50px"}
+          // width={"50px"}
           height={"50px"}
-          src={capsolverIcon} alt="" />
-        <Typography variant='h4'>{data.captchaSolver}</Typography>
+          src={solverIconMap[data.captchaSolver]} alt="" />
+        <Typography mt="0.5rem" variant='h4'>{data.captchaSolver}</Typography>
       </Box>
       <Divider orientation="vertical" variant='middle' sx={{ height: "80%", mr: "-2px", border: (theme) => `0.5px solid ${theme.palette.divider}`, }}></Divider>
       <Box>

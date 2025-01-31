@@ -41,7 +41,9 @@ const router = createBrowserRouter([
 
 
 function HelloWorld() {
-  return <div>Hello World</div>
+  return <div style={{
+    margin: "auto"
+  }}>Page not found</div>
 }
 
 
