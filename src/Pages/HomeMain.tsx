@@ -11,6 +11,7 @@ import CaptchaBalance from "../Scenes/CaptchaBalance";
 import APIOverview from "../Scenes/APIOverview";
 import BrowserlessOverview from "../Scenes/BrowserlessOverview";
 import { MainStatsDataType } from "../Types/types";
+import { BarDatum } from "@nivo/bar/dist/types/types";
 
 
 
@@ -27,6 +28,15 @@ export default function HomeMain() {
   )
   const [selectedState, setSelectedState] = useState<string | null>(null);
 
+  const handleStateSelection = (data: BarDatum) => setSelectedState(data.state as string)
+  function handleStateSelectMap(clickedState: string): void {
+    setSelectedState((prevSelectedState: string | null): string | null => {
+      if (prevSelectedState === clickedState) {
+        return null;
+      }
+      return clickedState;
+    });
+  }
 
   const fetchData = async () => {
     try {
@@ -58,7 +68,8 @@ export default function HomeMain() {
       mainStatsData: mainStatsData,
       setMainStatsData: setMainStatsData,
       selectedState: selectedState,
-      setSelectedState: setSelectedState,
+      handleStateSelection: handleStateSelection,
+      handleStateSelectMap: handleStateSelectMap,
     }}>
       <Grid
         container

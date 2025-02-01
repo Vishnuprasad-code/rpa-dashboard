@@ -11,7 +11,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -40,6 +40,7 @@ import { MainStatsDataType, QueueCountType, RpaListingsType } from '../Types/typ
 import CustomCircularProgress from '../Components/LoadingAnimation/Progress.tsx';
 import CustomSkeleton from '../Components/LoadingAnimation/Skeleton.tsx';
 import { AltBox } from '../Components/StyledComponents/styledBox.tsx';
+import { BarDatum } from '@nivo/bar/dist/types/types';
 
 
 dayjs.extend(utc);
@@ -48,11 +49,12 @@ dayjs.extend(timezone);
 
 export default function RpasOverview() {
   const params = useParams();
+  const navigate = useNavigate();
   const { setSelectedTab, rpaListings } = useContext(DashboardContext);
   const currentUrlRpaId = params.rpaSlug ?? "all";
   setSelectedTab("RPAs");
 
-  const timeZone = 'America/Los_Angeles';
+  const timeZone = 'America/Chicago';
 
   const losAngelesTime = dayjs().tz(timeZone).startOf('day');
   const epochStartTime = losAngelesTime.unix();
@@ -61,22 +63,27 @@ export default function RpasOverview() {
   const [startDateTime, setStartDateTime] = useState<number>(epochStartTime);
   const [endDateTime, setEndDateTime] = useState<number>(epochStartTime + 86400);
   const [dateButtonText, setDateButtonText] = useState<string>("Today")
+
   const [mainStatsData, setMainStatsData] = useState<MainStatsDataType | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const latestMainStatsData = await fetchLatestMainStatsData(currentUrlRpaId, startDateTime, endDateTime);
       setMainStatsData(latestMainStatsData);
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    setMainStatsData(null);
     fetchData();
 
   }, [startDateTime, endDateTime, currentUrlRpaId]);
+
+  const handleStateSelection = (data: BarDatum) => navigate(`/rpas/${data.rpa}`);
 
   const handleStartDateTimeChange = (newValue: dayjs.Dayjs | null) => {
     setStartDateTime(newValue!.unix());
@@ -86,7 +93,6 @@ export default function RpasOverview() {
   const handleEndDateTimeChange = (newValue: dayjs.Dayjs | null) => {
     setEndDateTime(newValue!.unix());
     setDateButtonText("dateRange");
-    setMainStatsData(null);
   };
 
   const handleSingleDateTimeChange = (buttonText: string) => {
@@ -114,11 +120,15 @@ export default function RpasOverview() {
       setDateButtonText("Today");
     }
 
-    setMainStatsData(null);
+
   }
 
   return (
-    <MainStatsContext.Provider value={{ mainStatsData: mainStatsData, setMainStatsData: setMainStatsData }}>
+    <MainStatsContext.Provider value={{
+      mainStatsData: mainStatsData,
+      setMainStatsData: setMainStatsData,
+      handleStateSelection: handleStateSelection
+    }}>
       <Stack
         sx={{
           "& .MuiAccordion-root": {
@@ -191,7 +201,7 @@ export default function RpasOverview() {
                 width: "100%",
               }}
             >
-              {(!mainStatsData) ? <Box sx={{ width: "100%", height: "60px" }}><CustomSkeleton /></Box> : <AllRpaBar />}
+              {(isLoading) ? <Box sx={{ width: "100%", height: "60px" }}><CustomSkeleton /></Box> : <AllRpaBar />}
             </Box>
           </AccordionDetails>
         </Accordion>
@@ -204,10 +214,10 @@ export default function RpasOverview() {
             <Typography variant='h5' margin="auto" textAlign={"center"}>TABLE</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {mainStatsData ?
+            {isLoading ?
+              <Box sx={{ display: "flex", justifyContent: "center", width: "100%", height: "60px" }}><CustomCircularProgress /></Box> :
               <Table isPaused={true}
-                isFullTable={true} /> :
-              <Box sx={{ display: "flex", justifyContent: "center", width: "100%", height: "60px" }}><CustomCircularProgress /></Box>
+                isFullTable={true} />
             }
           </AccordionDetails>
         </Accordion>
@@ -386,7 +396,7 @@ function TimePeriodBar(
           borderRadius: "10px"
         }}
       >
-        <Typography variant="h5">{formatDateFromEpoch(startDateTime)} - {formatDateFromEpoch(endDateTime)}</Typography>
+        <Typography variant="h5">{formatDateFromEpoch(startDateTime)} - {formatDateFromEpoch(endDateTime)} CST</Typography>
       </Box>
       <Box
         display={"flex"}

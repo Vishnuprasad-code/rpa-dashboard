@@ -92,7 +92,7 @@ export function APIOverviewCard(
                 height: "100%",
             }}
         >
-            <Typography height={"20%"} variant="h4" margin="auto" align="center">
+            <Typography overflow={"visible"} noWrap height={"20%"} variant="h4" margin="auto" align="center">
                 {apiName}
             </Typography>
             <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={80} />
@@ -102,7 +102,7 @@ export function APIOverviewCard(
                 // my: "auto",
                 // marginLeft: "-35px",
                 display: "flex",
-                p: "3px",
+                p: "10px",
                 flex: "0 1 50%",
                 width: "50%",
                 height: "100%",

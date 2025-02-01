@@ -8,10 +8,10 @@ import NotificationImportantIcon from '@mui/icons-material/NotificationImportant
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 
 import { RpaListings } from '../Masonry/RPAListings.tsx'
+import { KeyValueTable } from '../StatusJsonModal/StatusJsonModal.tsx'
 import { DashboardContext } from "../../Contexts/DashboardContext.tsx"
 import { ColorModeContext } from "../../theme.ts";
 import { useTheme } from '@mui/material/styles';
@@ -179,61 +179,4 @@ const SearchBar = () => {
     </Modal>
   </Box >
 
-};
-
-
-const KeyValueTable = ({ data }: { data: RpaListingType }) => {
-  if (!data || !Object.keys(data).length) return <Box p="10rem">NO RESULT!</Box>
-
-  return (
-    <TableContainer component={Paper} sx={(theme) => ({
-      m: "1rem",
-      "& td": {
-        p: "0",
-        pt: "10px",
-        px: "10px",
-        fontSize: "1rem",
-        border: "1px solid grey"
-      },
-      "& th": {
-        textAlign: "center",
-        border: "1px solid grey",
-        fontSize: "1.2rem",
-      },
-      "& a:visited": {
-        textDecoration: "none",
-        textDecorationColor: "blue"
-      },
-      "& a:hover": {
-        // textDecoration: "none",
-        textDecorationColor: "blue",
-        color: "blue",
-      },
-      "& a": {
-        color: theme.palette.text.primary
-      }
-
-    })}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell><strong>Key</strong></TableCell>
-            <TableCell><strong>Value</strong></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Object.entries(data).map(([key, value]) => (
-            <TableRow key={key}>
-              <TableCell>{key}</TableCell>
-              <TableCell>
-                {value.toString().startsWith("http") ?
-                  <a
-                    href={value.toString()} target="_blank">{value.toString()}</a> :
-                  value.toString()} </TableCell> {/* Ensure values are displayed as strings */}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
 };

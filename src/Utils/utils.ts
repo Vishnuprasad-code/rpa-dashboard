@@ -9,7 +9,7 @@ dayjs.extend(timezone);
 
 export function formatDateFromEpoch(
     epochTime: number,
-    timezone: string = 'America/Los_Angeles',
+    timezone: string = 'America/Chicago',
     datetimeFormat: string = 'DD/MM/YYYY HH:mm'
 ): string {
     return dayjs.unix(epochTime).tz(timezone).format(datetimeFormat);

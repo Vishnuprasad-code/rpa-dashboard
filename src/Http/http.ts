@@ -29,7 +29,7 @@ export async function fetchLatestMainStatsData(
   // }
 
   if (!startDateTime || !endDateTime) {
-    const timeZone = 'America/Los_Angeles';
+    const timeZone = 'America/Chicago';
     const losAngelesTime = dayjs().tz(timeZone).startOf('day');
     startDateTime = losAngelesTime.unix();
     // startDateTime = startDateTime - 86400

@@ -31,7 +31,7 @@ interface StatsDataType {
 
 export function USAMap() {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
-  const { selectedState, setSelectedState, mainStatsData } = useContext(MainStatsContext);
+  const { selectedState, handleStateSelectMap, mainStatsData } = useContext(MainStatsContext);
   const { rpaListings } = useContext(DashboardContext)
 
   useEffect(() => {
@@ -56,15 +56,6 @@ export function USAMap() {
     )
   }
 
-  function handleStateSelect(clickedState: string): void {
-    setSelectedState!((prevSelectedState: string | null): string | null => {
-      if (prevSelectedState === clickedState) {
-        return null;
-      }
-      return clickedState;
-    });
-  }
-
   function handleStateHover(hoveredState: string): void {
     setHoveredState(hoveredState);
   }
@@ -81,7 +72,7 @@ export function USAMap() {
         <MapChart
           onStateHover={handleStateHover}
           selectedState={selectedState!}
-          onStateSelect={handleStateSelect}
+          onStateSelect={handleStateSelectMap!}
           statsData={statsData}
         />
       </CustomZoomPinchComponent>
@@ -116,7 +107,7 @@ export function USAMap() {
           {selectedState}
         </Typography>
         {
-          rpaListings[selectedState] &&
+          rpaListings && rpaListings[selectedState] &&
           <CustomSwiperCarousel
             slides={rpaListings[selectedState].map(({ label, slug }) => {
               return <NavAltBox sx={{ height: "100%" }}>

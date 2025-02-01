@@ -29,7 +29,7 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
   const scrollRef = useRef<HTMLTableSectionElement>(null);
   const currentPosRef = useRef(0); // Store the current scroll position
   const [isHovered, setIsHovered] = useState(false); // State to track if animation is paused
-  const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>("all"); // State to track if animation is paused
+  const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>("all");
   const { rpaListings } = useContext(DashboardContext)
 
   function handleFilterChange(selectedStatusFilter: string) {
@@ -149,7 +149,7 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
                       align={column.align}
                       sx={{ maxWidth: column.maxWidth, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
                     >
-                      {column.componentToRender ? <column.componentToRender href={getRpaLogsHref(rpaListings, row)} icon={<VisibilityIcon />} /> : value}
+                      {(Object.keys(rpaListings).length > 0 && column.componentToRender) ? <column.componentToRender href={getRpaLogsHref(rpaListings, row)} icon={<VisibilityIcon />} /> : value}
                     </TableCell>
                   );
                 })}

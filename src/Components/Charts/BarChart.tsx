@@ -50,14 +50,15 @@ const totalsRedender = (bars: readonly ComputedBarDatum<BarDatum>[], theme: Them
 const CustomTooltip = ({ data }: { data: BarDatum }) => {
     return (
         <StyledToolTip sx={{
-            "& > div": {
-                mx: "10px",
-                my: "5px",
-            }
+            p: "10px",
+            // "& > div": {
+            //     mx: "10px",
+            //     my: "5px",
+            // }
         }}>
             <Typography variant="h5" sx={{
                 width: "100%",
-                px: "10px",
+                pb: "5px",
                 py: "5px",
                 textTransform: "uppercase",
                 borderBottom: "1px solid black",
@@ -78,7 +79,7 @@ export function ResponsiveStackBar(
 
     }: {
         data: any,
-        clicHandler: ((state: string) => void) | null,
+        clicHandler: ((data: BarDatum) => void) | null,
         initialPositionY?: number | null
     }) {
 
@@ -104,7 +105,13 @@ export function ResponsiveStackBar(
                     text: {
                         fontSize: 12,
                         fill: theme.palette.text.primary,
-                    }
+                    },
+                    tooltip: {
+                        container: {
+                            position: 'absolute',
+                            overflow: 'visible',
+                        },
+                    },
                 }}
                 defs={[
                     {
@@ -156,7 +163,7 @@ export function ResponsiveStackBar(
                     'legends',
                     ({ bars }) => totalsRedender(bars, theme),
                 ]}
-                onClick={({ data }) => clicHandler && clicHandler(String(data.state))}
+                onClick={({ data }) => clicHandler && clicHandler(data)}
                 role="application"
                 ariaLabel="Nivo bar chart"
                 barAriaLabel={(e) =>

@@ -71,7 +71,7 @@ export default function CustomStatusJsonModal(props: { filingType: string, proce
 };
 
 
-const KeyValueTable = ({ data }: { data: RpaListingType }) => {
+export const KeyValueTable = ({ data }: { data: RpaListingType }) => {
     if (!data || !Object.keys(data).length) return <Box p="10rem">NO RESULT!</Box>
 
     return (

@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 import { MainStatsDataType } from '../Types/types.ts'
+import { BarDatum } from '@nivo/bar/dist/types/types';
 
 
 export interface MainStatsContextType {
@@ -8,7 +9,8 @@ export interface MainStatsContextType {
   'setMainStatsData': (statsData: MainStatsDataType) => void,
   'selectedState'?: string | null,
   // 'setSelectedState'?: (value: (null | string | ((prevState: string) => string | null))) => void,
-  'setSelectedState'?: React.Dispatch<React.SetStateAction<string | null>>,
+  'handleStateSelection': (data: BarDatum) => void,
+  'handleStateSelectMap'?: (state: string) => void,
 }
 
 export const MainStatsContext = createContext<MainStatsContextType>({
@@ -21,5 +23,5 @@ export const MainStatsContext = createContext<MainStatsContextType>({
   },
   setMainStatsData: () => null,
   selectedState: null,
-  setSelectedState: () => null,
+  handleStateSelection: () => null,
 });

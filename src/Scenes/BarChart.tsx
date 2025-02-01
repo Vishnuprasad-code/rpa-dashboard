@@ -9,8 +9,7 @@ import CustomSkeleton from "../Components/LoadingAnimation/Skeleton.tsx";
 
 
 export default function AllRpaBar() {
-    const { mainStatsData, setSelectedState } = useContext(MainStatsContext);
-    const handleStateSelection = setSelectedState && ((state: string) => setSelectedState(state)) || null
+    const { mainStatsData, handleStateSelection } = useContext(MainStatsContext);
 
     if (!mainStatsData) return <CustomSkeleton />
 
