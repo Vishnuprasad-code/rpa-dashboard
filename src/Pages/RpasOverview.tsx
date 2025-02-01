@@ -50,7 +50,6 @@ export default function RpasOverview() {
   const params = useParams();
   const { setSelectedTab, rpaListings } = useContext(DashboardContext);
   const currentUrlRpaId = params.rpaSlug ?? "all";
-  // const [currentUrlState, setCurrentUrlState] = useState<string>("all")
   setSelectedTab("RPAs");
 
   const timeZone = 'America/Los_Angeles';
@@ -74,9 +73,10 @@ export default function RpasOverview() {
   };
 
   useEffect(() => {
+    setMainStatsData(null);
     fetchData();
 
-  }, [startDateTime, endDateTime, currentUrlRpaId]); // Empty dependency array ensures this runs only once  
+  }, [startDateTime, endDateTime, currentUrlRpaId]);
 
   const handleStartDateTimeChange = (newValue: dayjs.Dayjs | null) => {
     setStartDateTime(newValue!.unix());
@@ -256,8 +256,8 @@ function QueueBar({ rpaId }: { rpaId: string }) {
       justifyContent="flex-start"
       alignItems="center"
       columnGap={2}
+      rowGap={2}
       flexWrap={"wrap"}
-      // mx={2}
       sx={{
       }}
     >
@@ -294,7 +294,7 @@ function QueueBar({ rpaId }: { rpaId: string }) {
               width: "7rem",
               borderRadius: "5px",
               border: `0.01px dotted ${theme.palette.text.primary}`,
-              rowGap: "10px"
+              rowGap: "10px",
             })}
           >
             <Box
@@ -307,7 +307,6 @@ function QueueBar({ rpaId }: { rpaId: string }) {
                 whiteSpace: "nowrap",
                 overflow: "visible",
                 textOverflow: "normal",
-                px: "1rem",
                 m: "auto",
                 textAlign: "center",
                 flex: "0 1",
@@ -323,7 +322,7 @@ function QueueBar({ rpaId }: { rpaId: string }) {
                     transform: "translateX(0)"
                   }
                 },
-                ...(queueItemTitle.length > 8 && { animation: "to-and-fro 12s linear infinite" }),
+                ...(queueItemTitle.length > 12 && { animation: "to-and-fro 12s linear infinite" }),
               }}
               >
                 {queueItemTitle}

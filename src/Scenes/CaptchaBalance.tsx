@@ -99,8 +99,7 @@ function CaptchaBalanceCard(
       <Box
       >
         <img
-          // width={"50px"}
-          height={"50px"}
+          style={{ maxHeight: "50px" }}
           src={solverIconMap[data.captchaSolver]} alt="" />
         <Typography mt="0.5rem" variant='h4'>{data.captchaSolver}</Typography>
       </Box>

@@ -127,7 +127,7 @@ export function ResponsiveStackBar(
                     },
                 ]}
                 enableGridY={true}
-                gridYValues={4}
+                gridYValues={2}
                 enableLabel={false}
                 fill={[]}
                 borderRadius={2}
