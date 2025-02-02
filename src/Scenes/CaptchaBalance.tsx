@@ -26,17 +26,23 @@ export interface CaptchaBalanceDataType {
 export default function CaptchaBalance() {
   const [dataList, setDataList] = useState<CaptchaBalanceDataType[] | null>(null)
 
-  const fetchData = async () => {
-    try {
-      const dataList = await fetchCaptchaBalance();
-      setDataList(dataList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    const fetchData = async () => {
+      try {
+        const dataList = await fetchCaptchaBalance();
+        setDataList(dataList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData()
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 120000); // 120 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures this runs only once
 
   if (dataList === null) {

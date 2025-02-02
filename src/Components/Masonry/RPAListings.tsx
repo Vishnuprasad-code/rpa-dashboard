@@ -60,6 +60,7 @@ export function RpaListings(
             }}>
             {data[state].map(item => (
               <ListItem
+                key={item.label}
                 onClick={onLinkClick}
                 component={Link}
                 to={`rpas/${item.slug}`}

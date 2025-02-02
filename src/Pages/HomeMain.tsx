@@ -38,24 +38,22 @@ export default function HomeMain() {
     });
   }
 
-  const fetchData = async () => {
-    try {
-      const latestMainStatsData = await fetchLatestMainStatsData();
-      setMainStatsData(latestMainStatsData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    // Initial fetch
-    fetchData();
 
+    const fetchData = async () => {
+      try {
+        const latestMainStatsData = await fetchLatestMainStatsData();
+        setMainStatsData(latestMainStatsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
     // Set up interval to fetch data every 30 seconds
     const intervalId = setInterval(() => {
-      console.log("Sending request......")
       fetchData();
-    }, 45000); // 30 seconds
+    }, 45000); // 45 seconds
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);

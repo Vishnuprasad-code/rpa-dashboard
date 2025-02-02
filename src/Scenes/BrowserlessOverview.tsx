@@ -14,17 +14,23 @@ import CustomSwiperCarousel from '../Components/Carousel/SwiperCarousel.tsx';
 export default function BrowserlessOverview() {
     const [dataList, setDataList] = useState<any[] | null>(null)
 
-    const fetchData = async () => {
-        try {
-            const dataList = await fetchBrowserlessStats();
-            setDataList(dataList);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
-        fetchData();
+        const fetchData = async () => {
+            try {
+                const dataList = await fetchBrowserlessStats();
+                setDataList(dataList);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData()
+        const intervalId = setInterval(() => {
+            fetchData();
+        }, 120000); // 120 seconds
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(intervalId);
     }, []); // Empty dependency array ensures this runs only once
 
     if (dataList === null) {

@@ -52,7 +52,10 @@ export default function RpasOverview() {
   const navigate = useNavigate();
   const { setSelectedTab, rpaListings } = useContext(DashboardContext);
   const currentUrlRpaId = params.rpaSlug ?? "all";
-  setSelectedTab("RPAs");
+
+  useEffect(() => {
+    setSelectedTab("RPAs");
+  }, []);
 
   const timeZone = 'America/Chicago';
 
@@ -67,18 +70,18 @@ export default function RpasOverview() {
   const [mainStatsData, setMainStatsData] = useState<MainStatsDataType | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const latestMainStatsData = await fetchLatestMainStatsData(currentUrlRpaId, startDateTime, endDateTime);
-      setMainStatsData(latestMainStatsData);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const latestMainStatsData = await fetchLatestMainStatsData(currentUrlRpaId, startDateTime, endDateTime);
+        setMainStatsData(latestMainStatsData);
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    };
+
     fetchData();
 
   }, [startDateTime, endDateTime, currentUrlRpaId]);
@@ -229,19 +232,18 @@ export default function RpasOverview() {
 function QueueBar({ rpaId }: { rpaId: string }) {
   const [queueList, setQueueList] = useState<QueueCountType[] | null>(null)
 
-  const fetchData = async () => {
-    try {
-      const latestQueueList = await fetchQueueCount(rpaId);
-      setQueueList(latestQueueList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const latestQueueList = await fetchQueueCount(rpaId);
+        setQueueList(latestQueueList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchData()
     const intervalId = setInterval(() => {
-      console.log("Sending request......")
       fetchData();
     }, 45000); // 45 seconds
 
@@ -293,6 +295,7 @@ function QueueBar({ rpaId }: { rpaId: string }) {
         (data) => {
           const queueItemTitle = `${data.state}-${data.filingType}`
           return <AltBox
+            key={queueItemTitle}
             display={"flex"}
             flexDirection={"column"}
             justifyContent="flex-start"
