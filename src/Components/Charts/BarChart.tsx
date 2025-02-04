@@ -65,8 +65,8 @@ const CustomTooltip = ({ data }: { data: BarDatum }) => {
                 textUnderlineOffset: "10px",
                 marginBottom: "10px"
             }}>{data["rpa"]}</Typography>
-            <div>Successful: {data["success"] ?? 0}</div>
-            <div>Failed: {data["failed"] ?? 0}</div>
+            {data["success"] && <div>Successful: {data["success"] || 0}</div>}
+            {data["failed"] && <div>Failed: {data["failed"] || 0}</div>}
         </StyledToolTip>
     );
 }

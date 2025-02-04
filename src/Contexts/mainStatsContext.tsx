@@ -8,7 +8,7 @@ export interface MainStatsContextType {
   'mainStatsData': MainStatsDataType | null,
   'setMainStatsData': (statsData: MainStatsDataType) => void,
   'selectedState'?: string | null,
-  // 'setSelectedState'?: (value: (null | string | ((prevState: string) => string | null))) => void,
+  'selectedRpa'?: string | null,
   'handleStateSelection': (data: BarDatum) => void,
   'handleStateSelectMap'?: (state: string) => void,
 }

@@ -27,11 +27,23 @@ export default function HomeMain() {
     // }
   )
   const [selectedState, setSelectedState] = useState<string | null>(null);
+  const [selectedRpa, setselectedRpa] = useState<string | null>(null);
 
-  const handleStateSelection = (data: BarDatum) => setSelectedState(data.state as string)
+  const handleStateSelection = (data: BarDatum) => {
+    setSelectedState(data.state as string)
+    setselectedRpa((prevSelectedRpa: string | null): string | null => {
+      if (prevSelectedRpa === data.rpa) {
+        setSelectedState(null);
+        return null;
+      }
+      return data.rpa as string;
+    });
+  }
+
   function handleStateSelectMap(clickedState: string): void {
     setSelectedState((prevSelectedState: string | null): string | null => {
       if (prevSelectedState === clickedState) {
+        setselectedRpa(null);
         return null;
       }
       return clickedState;
@@ -66,6 +78,7 @@ export default function HomeMain() {
       mainStatsData: mainStatsData,
       setMainStatsData: setMainStatsData,
       selectedState: selectedState,
+      selectedRpa: selectedRpa,
       handleStateSelection: handleStateSelection,
       handleStateSelectMap: handleStateSelectMap,
     }}>
