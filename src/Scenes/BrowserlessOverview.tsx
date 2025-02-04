@@ -119,16 +119,16 @@ function BrowserlessOverviewCard(
                 >
                     <Typography variant="h5" align="left">Region: {data.region}</Typography>
                     <Typography
-                        sx={{
+                        sx={(theme) => ({
                             position: "relative",
                             "&::before": {
                                 position: "absolute",
                                 content: '""',
-                                inset: "3px 20px 3px 60px",
-                                backgroundColor: "rgba(255, 255, 255, 0.6)",
+                                inset: "10% 12% 10% 40%",
+                                backgroundColor: theme.palette.text.primary,
                                 backdropFilter: "blur(10px)",
                             }
-                        }}
+                        })}
                         variant="h5" align="left">IP: {data.ip}</Typography>
                 </Box>
             </Box>

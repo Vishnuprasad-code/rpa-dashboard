@@ -90,7 +90,7 @@ export function ResponsiveStackBar(
                 data={data}
                 keys={["success", "failed"]}
                 indexBy="rpa"
-                margin={{ top: data.length > 5 ? 50 : 150, right: 50, bottom: 50, left: 50 }}
+                margin={{ top: data.length > 5 ? 50 : 150, right: 30, bottom: 50, left: 30 }}
                 padding={data.length > 5 ? 0.5 : 0.7}
                 valueScale={{ type: "linear" }}
                 indexScale={{ type: "band", round: true }}

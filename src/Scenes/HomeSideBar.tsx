@@ -220,6 +220,7 @@ function ProfileBox() {
                 onClick={() => setSelectedTab("Home")}
                 variant="h2"
                 component={Link}
+                reloadDocument
                 to="/"
                 sx={(theme) => ({
                     display: "flex",

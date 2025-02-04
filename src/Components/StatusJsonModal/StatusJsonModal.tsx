@@ -115,10 +115,12 @@ export const KeyValueTable = ({ data }: { data: RpaListingType }) => {
                         <TableRow key={key}>
                             <TableCell>{key}</TableCell>
                             <TableCell>
-                                {value && value.toString().startsWith("http") ?
-                                    <a
-                                        href={value.toString()} target="_blank">{value.toString()}</a> :
-                                    value.toString()} </TableCell> {/* Ensure values are displayed as strings */}
+                                {value && (
+                                    value.toString().startsWith("http") ?
+                                        <a
+                                            href={value.toString()} target="_blank">{value.toString()}</a> :
+                                        value.toString()
+                                )} </TableCell> {/* Ensure values are displayed as strings */}
                         </TableRow>
                     ))}
                 </TableBody>

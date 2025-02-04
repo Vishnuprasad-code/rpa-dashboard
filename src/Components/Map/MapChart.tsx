@@ -111,10 +111,11 @@ export function USAMap() {
           <CustomSwiperCarousel
             slides={rpaListings[selectedState].map(({ label, slug }) => {
               return <NavAltBox sx={{ height: "100%" }}>
-                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >{label}{statsData[slug] && `: ${statsData[slug]}%`}</Button>
+                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >{label}{statsData.hasOwnProperty(slug) && `: ${statsData[slug]}%`}</Button>
               </NavAltBox>
             })}
-            slidesPerView={3}
+            slidesPerView={Math.min(rpaListings[selectedState].length, 3)}
+            loop={false}
           />
         }
       </Box>
@@ -222,7 +223,7 @@ function GradientStrip() {
 function chooseStateColor(state: string, selectedState: string | null, statsData: StatsDataType) {
   if (state == selectedState) return "#3ca7dc"
   if (selectedState && state !== selectedState) return "grey"
-  if (!statsData[state]) return "grey"
+  if (!statsData.hasOwnProperty(state)) return "grey"
   // if ((statsData[state] ?? 0) > 90) return "green"
   // if ((statsData[state] ?? 0) > 70) return "orange"
   // return "red"

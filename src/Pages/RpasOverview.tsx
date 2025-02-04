@@ -326,13 +326,13 @@ function QueueBar({ rpaId }: { rpaId: string }) {
                 textTransform: 'uppercase',
                 "@keyframes to-and-fro": {
                   "0%": {
-                    transform: "translateX(0)"
+                    transform: "translateX(1.5rem)"
                   },
                   "50%": {
-                    transform: "translateX(-100%)"
+                    transform: "translateX(calc(-50% - 1.5rem))"
                   },
                   "100%": {
-                    transform: "translateX(0)"
+                    transform: "translateX(1.5rem)"
                   }
                 },
                 ...(queueItemTitle.length > 12 && { animation: "to-and-fro 12s linear infinite" }),

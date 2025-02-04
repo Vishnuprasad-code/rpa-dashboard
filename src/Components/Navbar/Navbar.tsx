@@ -111,8 +111,10 @@ const SearchBar = () => {
 
   async function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleOpen();
     const data = new FormData(event.currentTarget);
+    if (!data.get('search')) return
+
+    handleOpen();
     setIsLoading(true);
     const resultObject = await fetchData(data.get('search') as string)
     setResult(resultObject)
