@@ -65,12 +65,12 @@ function BrowserlessOverviewCard(
 ) {
     return <Box
         sx={{
-            mx: 4,
-            // height: "100%",
+            mx: "1rem",
+            height: "100%",
             display: "flex",
             flexDirection: 'column',
             justifyContent: "space-between",
-            alignContent: "center"
+            alignContent: "space-between"
         }}
     >
         <Typography height={"20%"} variant="h4" m={"auto"} align="center">
@@ -83,8 +83,8 @@ function BrowserlessOverviewCard(
                 width: "100%",
                 height: "100%",
                 flexDirection: 'column',
-                rowGap: 4,
-                mt: 4,
+                justifyContent: "space-between",
+                alignItems: "space-between",
             }}
         >
             <Box
@@ -105,7 +105,7 @@ function BrowserlessOverviewCard(
                         justifyContent: "center",
                         alignItems: "center",
                     }}>
-                    <img style={{ display: "inline-block", width: "30px", height: "30px", marginRight: "5px" }} src={chromeIcon} alt="" />
+                    <img style={{ width: "30px", height: "30px", marginRight: "5px" }} src={chromeIcon} alt="" />
                     <Typography variant='h4'>{data.version}</Typography>
                 </Box>
                 <Box
@@ -117,7 +117,7 @@ function BrowserlessOverviewCard(
                         rowGap: 1,
                     }}
                 >
-                    <Typography variant="h5" align="left">Region: {data.region}</Typography>
+                    <Typography noWrap variant="h5" align="left">Region: {data.region}</Typography>
                     <Typography
                         sx={(theme) => ({
                             position: "relative",

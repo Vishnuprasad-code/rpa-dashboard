@@ -28,16 +28,15 @@ export async function fetchLatestMainStatsData(
   //   return mockStatsData
   // }
 
-  if (!startDateTime || !endDateTime) {
-    const timeZone = 'America/Chicago';
-    const losAngelesTime = dayjs().tz(timeZone).startOf('day');
-    startDateTime = losAngelesTime.unix();
-    // startDateTime = startDateTime - 86400
-    endDateTime = startDateTime + 86400
-
+  let url
+  if (startDateTime && endDateTime) {
+    url = `/api/graphs/filings_graph?fromDate=${startDateTime}&toDate=${endDateTime}&rpaId=${rpaSlug}&callType=prod`
   }
-  const response = await fetch(
-    `/api/graphs/filings_graph?fromDate=${startDateTime}&toDate=${endDateTime}&rpaId=${rpaSlug}&callType=prod`);
+  else {
+    url = `/api/graphs/filings_graph?callType=prod`
+  }
+
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error('Failed to fetch user places');

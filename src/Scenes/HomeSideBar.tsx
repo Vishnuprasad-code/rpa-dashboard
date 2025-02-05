@@ -271,6 +271,7 @@ function CompanyBox() {
             flexDirection={{ lg: "row", md: "row", sm: "column", xs: "column" }}
             justifyContent='center'
             alignItems="center"
+            pb="7px"
         // sx={{
         //     backgroundImage: "none",
         //     background: "linear-gradient(to bottom, white 50%, #33f28b 50%)",
@@ -278,10 +279,12 @@ function CompanyBox() {
         >
             <Box
                 sx={{
+                    display: "flex",
+                    justifyContent: 'center',
+                    alignItems: "center",
                     borderRadius: "50%",
                     width: "38px",
                     height: "38px",
-                    marginBottom: "-5px"
                 }}
             >
                 <img
@@ -303,9 +306,11 @@ function CompanyBox() {
                     backgroundColor: theme.palette.company.zb_main,
                     border: "1px solid grey",
                     borderRadius: "50%",
+                    display: "flex",
+                    justifyContent: 'center',
+                    alignItems: "center",
                     width: "38px",
-                    height: "34px",
-                    // marginBottom: "-5px"
+                    height: "38px",
                 })}
             >
                 <img
