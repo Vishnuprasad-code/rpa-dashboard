@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import CustomSwiperCarousel from "../Carousel/SwiperCarousel.tsx";
 import { NavAltBox } from "../StyledComponents/styledBox.tsx";
 import Button from "@mui/material/Button";
+import { StyledToolTip } from "../StyledComponents/styledToolTip.tsx";
 
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -30,19 +31,20 @@ interface StatsDataType {
 
 
 export function USAMap() {
-  const [hoveredState, setHoveredState] = useState<string | null>(null);
+  const [tooltip, setTooltip] = useState({ content: "", x: 0, y: 0 });
+
   const { selectedState, handleStateSelectMap, mainStatsData } = useContext(MainStatsContext);
   const { rpaListings } = useContext(DashboardContext)
 
   useEffect(() => {
-    if (!hoveredState) return
+    if (!tooltip.content) return
 
     const timeout = setTimeout(() => {
-      setHoveredState!(null);
+      setTooltip({ content: "", x: 0, y: 0 });
     }, 5000);
 
     return () => clearTimeout(timeout); // Cleanup on unmount
-  }, [hoveredState]);
+  }, [tooltip.content]);
 
   if (!mainStatsData) return <CustomSkeleton />
 
@@ -56,9 +58,14 @@ export function USAMap() {
     )
   }
 
-  function handleStateHover(hoveredState: string): void {
-    setHoveredState(hoveredState);
-  }
+  const handleMouseMove = (event: React.MouseEvent<SVGPathElement, MouseEvent>, hoveredState: string) => {
+    console.log(event)
+    setTooltip({
+      content: hoveredState,
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
 
   return (
     <Stack
@@ -66,27 +73,29 @@ export function USAMap() {
         height: "100%",
         width: "100%",
         borderRadius: '1rem',
-        position: "relative",
+        // position: "relative",
       }}>
+      {tooltip.content && <StyledToolTip
+        sx={{
+          position: "fixed",
+          // top: tooltip.y,
+          // left: tooltip.x,
+          top: `calc(${tooltip.y}px + 2.5%)`,
+          left: `calc(${tooltip.x}px + 2.5%)`,
+          px: "10px",
+          zIndex: 100,
+        }}>
+        <Typography variant="h4">{tooltip.content}</Typography>
+      </StyledToolTip>}
       <CustomZoomPinchComponent>
         <MapChart
-          onStateHover={handleStateHover}
+          onStateHover={handleMouseMove}
           selectedState={selectedState!}
           onStateSelect={handleStateSelectMap!}
           statsData={statsData}
         />
       </CustomZoomPinchComponent>
-      {!selectedState && !hoveredState && <GradientStrip />}
-      {!selectedState && hoveredState && <Box sx={{
-        width: "100%",
-        position: "absolute",
-        bottom: 0,
-        height: "3em",
-        padding: "10px",
-        // backgroundColor: "rgba(0, 0, 255, .1)",
-      }}>
-        <Typography variant="h4" align="left">{hoveredState}</Typography>
-      </Box>}
+      {!tooltip.content && <GradientStrip />}
       {selectedState && <Box sx={{
         // width: "100%",
         // position: "absolute",
@@ -111,7 +120,9 @@ export function USAMap() {
           <CustomSwiperCarousel
             slides={rpaListings[selectedState].map(({ label, slug }) => {
               return <NavAltBox sx={{ height: "100%" }}>
-                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >{label}{statsData.hasOwnProperty(slug) && `: ${statsData[slug]}%`}</Button>
+                <Button fullWidth component={Link} color="inherit" to={`rpas/${slug}`} >
+                  {label}{statsData.hasOwnProperty(slug) && `: ${statsData[slug]}%`}
+                </Button>
               </NavAltBox>
             })}
             slidesPerView={Math.min(rpaListings[selectedState].length, 3)}
@@ -129,7 +140,9 @@ export function USAMap() {
 
 interface MapChartPropsType {
   selectedState: string | null,
-  onStateHover: (hoveredState: string) => void,
+  onStateHover: (
+    event: React.MouseEvent<SVGPathElement, MouseEvent>, hoveredState: string
+  ) => void,
   onStateSelect: (selectedState: string) => void,
   statsData: StatsDataType
 }
@@ -153,7 +166,9 @@ const MapChart = (props: MapChartPropsType) => {
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                onMouseEnter={() => props.onStateHover(geo.properties.name)}
+                onMouseEnter={(event) => {
+                  props.onStateHover(event, geo.properties.name)
+                }}
                 onClick={() => props.onStateSelect(geo.properties.name)}
                 style={{
                   default: {
@@ -238,7 +253,7 @@ function getColor(percentage_value: number): string {
   // return `hsl(${hue}, 75%, 40%)`; // Adjust saturation and lightness as needed
 
   // percentage_value is a number between 0 and 1
-  const green = Math.round(percentage_value * 120 / 100); // Maximum green component (darker)
+  const green = Math.round(percentage_value * 100 / 100); // Maximum green component (darker)
   const red = Math.round((100 - percentage_value) * 100 / 100); // Maximum red component
   return `rgb(${red - 30}, ${green}, 0)`; // Blue is fixed at 0 for red/green shades
 }

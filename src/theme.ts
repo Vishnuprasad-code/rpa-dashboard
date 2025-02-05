@@ -149,15 +149,15 @@ export const themeSettings = (mode: any) => {
     components: {
       MuiCssBaseline: {
         styleOverrides: {
-          html: {
-            fontSize: "62.5%",
-            "@media (max-width: 900px)": {
-              fontSize: "50%",
-            },
-            "@media (max-width: 600px)": {
-              fontSize: "50%",
-            }
-          },
+          // html: {
+          //   fontSize: "62.5%",
+          //   "@media (max-width: 900px)": {
+          //     fontSize: "50%",
+          //   },
+          //   "@media (max-width: 600px)": {
+          //     fontSize: "50%",
+          //   }
+          // },
           body: {
             '*::-webkit-scrollbar': {
               width: '5px'
