@@ -176,7 +176,7 @@ const SearchBar = () => {
 
       })}
       >
-        {isLoading ? <CustomCircularProgress /> : <KeyValueTable data={result} />};
+        {isLoading ? <CustomCircularProgress /> : <KeyValueTable data={result} />}
       </Box >
     </Modal>
   </Box >

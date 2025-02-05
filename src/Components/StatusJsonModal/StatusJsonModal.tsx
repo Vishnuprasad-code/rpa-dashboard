@@ -62,7 +62,7 @@ export default function CustomStatusJsonModal(props: { filingType: string, proce
 
                     })}
                     >
-                        {<KeyValueTable data={result} />};
+                        {<KeyValueTable data={result} />}
                     </Box >
                 </Modal>
             </>

@@ -59,7 +59,6 @@ export function USAMap() {
   }
 
   const handleMouseMove = (event: React.MouseEvent<SVGPathElement, MouseEvent>, hoveredState: string) => {
-    console.log(event)
     setTooltip({
       content: hoveredState,
       x: event.clientX,
@@ -95,7 +94,7 @@ export function USAMap() {
           statsData={statsData}
         />
       </CustomZoomPinchComponent>
-      {!tooltip.content && <GradientStrip />}
+      {!tooltip.content && !selectedState && < GradientStrip />}
       {selectedState && <Box sx={{
         // width: "100%",
         // position: "absolute",
