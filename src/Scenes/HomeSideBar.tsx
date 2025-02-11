@@ -289,8 +289,8 @@ function CompanyBox() {
             >
                 <img
                     alt="sh"
-                    width="30px"
-                    height="30px"
+                    width="33px"
+                    height="33px"
                     src={shLogo}
                     style={{
                         cursor: "pointer",

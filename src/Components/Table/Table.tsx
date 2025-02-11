@@ -28,8 +28,10 @@ export const AnimatedMuiTable = ({ dataRows, isPaused, isFullTable }: {
 }) => {
   const scrollRef = useRef<HTMLTableSectionElement>(null);
   const currentPosRef = useRef(0); // Store the current scroll position
+
   const [isHovered, setIsHovered] = useState(false); // State to track if animation is paused
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>("all");
+
   const { rpaListings } = useContext(DashboardContext)
 
   function handleFilterChange(selectedStatusFilter: string) {
