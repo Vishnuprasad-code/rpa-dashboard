@@ -45,6 +45,6 @@ export default function RPAOverviewPie() {
     <Typography variant="h4" m={"auto"} align="center">
       Success - Failure Overview
     </Typography>
-    <CustomResponsivePie data={pieChartData} centeredText={centeredText} />
+    <CustomResponsivePie data={pieChartData} centeredText={centeredText} colors={["#33f08a", "#cc6b3c"]} />
   </AltBox>
 };

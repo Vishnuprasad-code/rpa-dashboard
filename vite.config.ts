@@ -6,8 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
+      '/api/': {
         target: 'http://0.0.0.0:8000',
+        // target: 'http://zb-dash.scrapehero.internal',
         changeOrigin: true,
         // No rewrite function, so /api/ is preserved
       },

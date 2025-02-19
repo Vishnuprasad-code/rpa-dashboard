@@ -102,7 +102,12 @@ export function APIOverviewCard(
             <Typography overflow={"visible"} noWrap height={"20%"} variant="h4" margin="auto" align="center">
                 {apiName}
             </Typography>
-            <CustomResponsivePie data={pieChartData} centeredText={centeredText} topMargin={5} bottomMargin={80} />
+            <CustomResponsivePie
+                data={pieChartData}
+                centeredText={centeredText}
+                topMargin={5}
+                bottomMargin={80}
+                colors={["#33f08a", "#cc6b3c"]} />
         </Box>
         <Box
             sx={{

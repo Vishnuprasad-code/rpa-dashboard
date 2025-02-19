@@ -45,8 +45,8 @@ const routes = [
     }
     ,
     {
-        "route": "APIs",
-        "path": "/apis",
+        "route": "MCS",
+        "path": "/mcs",
         "icon": <Avatar sx={
             {
                 bgcolor: "pink",

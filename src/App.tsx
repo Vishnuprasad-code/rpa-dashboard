@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid2';
 import { RouterProvider, createBrowserRouter, Outlet, useLoaderData } from 'react-router-dom';
 
 import { DashboardContext } from './Contexts/DashboardContext.tsx';
+import SolveCaptchaOverview from './Pages/SolveCaptchaOverview.tsx';
 import RpasOverview from "./Pages/RpasOverview.tsx"
 import HomeMain from './Pages/HomeMain.tsx';
 
@@ -14,6 +15,7 @@ import HomeNavBar from './Scenes/HomeNavBar.tsx';
 
 import { fetchRPAListingsData } from './Http/http.ts';
 import { RpaListingsType } from './Types/types.ts';
+
 
 
 const router = createBrowserRouter([
@@ -32,9 +34,9 @@ const router = createBrowserRouter([
     },
     children: [
       { index: true, element: <HomeMain /> },
-      { path: 'rpas/:rpaSlug', element: <RpasOverview /> },
-      { path: 'apis', element: <HelloWorld /> },
-      { path: 'docs', element: <HelloWorld /> },
+      { path: '/rpas/:rpaSlug', element: <RpasOverview /> },
+      { path: '/mcs', element: <SolveCaptchaOverview /> },
+      { path: '/docs', element: <HelloWorld /> },
     ],
   },
 ]);

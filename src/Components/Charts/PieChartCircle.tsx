@@ -39,6 +39,7 @@ const CustomTooltip = (props: any) => {
 };
 
 const CenteredText = (props: any) => {
+  if (!props.centeredText) return
   const theme = useTheme();
   return (<text
     x={props.centerX}
@@ -62,14 +63,13 @@ export function CustomResponsivePie(props: any) {
   return (
     <ResponsivePie
       data={props.data}
-      theme={{ legends: { text: { fontSize: 12 } } }}
       margin={{ top: props.topMargin ?? 20, right: 0, bottom: props.bottomMargin ?? 60, left: 0 }}
-      innerRadius={0.6}
+      innerRadius={props.innerRadius ?? 0.6}
       padAngle={0.7}
       cornerRadius={1}
       fit={false}
       activeOuterRadiusOffset={2}
-      colors={["#33f08a", "#cc6b3c"]}
+      colors={props.colors}
       layers={[
         "arcs",
         "arcLabels",
@@ -79,9 +79,10 @@ export function CustomResponsivePie(props: any) {
       borderWidth={2}
       borderColor="transparent"
       enableArcLinkLabels={false}
-      enableArcLabels={false}
-      arcLabelsSkipAngle={13}
-      arcLabelsTextColor="white"
+      enableArcLabels={props.enableArcLabels ?? false}
+      arcLabelsRadiusOffset={props.data.length == 1 ? 0 : 0.5}
+      arcLabelsSkipAngle={0}
+      arcLabelsTextColor="black"
       defs={[]}
       fill={[]}
       legends={[
@@ -109,6 +110,15 @@ export function CustomResponsivePie(props: any) {
           ],
         },
       ]}
+      theme={{
+        legends: { text: { fontSize: 12 } },
+        labels: {
+          text: {
+            fontSize: 20, // Set label font size
+            fontWeight: "bold", // Optional: Make labels bold
+          },
+        },
+      }}
       tooltip={({ datum }) => (
         <CustomTooltip
           name={datum.id}

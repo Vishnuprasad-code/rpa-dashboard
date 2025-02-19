@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 
 
 export const StyledToolTip = styled(Paper)(({ theme }) => ({
-  padding: 0,
+  padding: 2,
   margin: 3,
   fontSize: 15,
   display: "flex",

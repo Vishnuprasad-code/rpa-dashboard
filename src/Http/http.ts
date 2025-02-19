@@ -9,6 +9,10 @@ import { APIOverviewCardDataType } from '../Scenes/APIOverview.tsx'
 // import { CaptchaBalanceMockData } from "./CaptchaBalanceMockData.ts";
 // import { APIStatsMockData } from "./APIStatsMockData.ts";
 // import { BrowserlessStatsMockData } from './BrowserlessStatsMockData.ts';
+// import {
+//   CaptchaSolveMockDataHeatMap,
+//   CaptchaSolveMockDataOverall
+// } from './SolveCaptchaMockData.ts';
 
 
 import dayjs from 'dayjs';
@@ -76,6 +80,50 @@ export async function fetchCaptchaBalance(): Promise<CaptchaBalanceDataType[]> {
   // }
 
   const url = "/api/service_stats/captcha_balance"
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user places');
+  }
+  const resData = await response.json();
+  return resData
+}
+
+
+export async function fetchsolveCaptchaOverallData(
+  startDateTime: number,
+): Promise<any> {
+
+  // if (CaptchaSolveMockDataOverall) {
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  //   return CaptchaSolveMockDataOverall
+  // }
+
+  const url = `/api/graphs/solve_captcha_overall?fromDate=${startDateTime}`
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user places');
+  }
+  const resData = await response.json();
+  return resData
+}
+
+
+
+export async function fetchsolveCaptchaHeatMapData(
+  startDateTime: number,
+  interval: number,
+): Promise<any> {
+
+  // if (CaptchaSolveMockDataHeatMap) {
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  //   return CaptchaSolveMockDataHeatMap
+  // }
+
+  const url = `/api/graphs/solve_captcha_heatmap?fromDate=${startDateTime}&interval=${interval}`
+
   const response = await fetch(url);
 
   if (!response.ok) {

@@ -11,6 +11,6 @@ export default function CustomZoomPinchComponent(props: any) {
             <TransformComponent wrapperClass="zoom-component" contentClass="zoom-component">
                 {props.children}
             </TransformComponent>
-        </TransformWrapper>
+        </TransformWrapper >
     )
 };
